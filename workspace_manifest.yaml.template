@@ -1,0 +1,19 @@
+schema_version: "0.1"
+workspace:
+  name: "Chatty-Ch-System"
+  source_of_truth: "${WORKSPACE_ROOT}"
+  description: "Public engineering layer for portable character-skill generation, diagnosis, and maintenance."
+
+external_ecosystem:
+  frame_for_ai_workspace: "https://github.com/AnieerLhayK/Frame-for-AI-workspace"
+
+packages:
+  - id: character-system
+    path: packages/character-system
+    included_layers:
+      - engineering
+      - shared
+    excluded_layers:
+      - runtime characters
+      - private reports
+      - distribution bundles

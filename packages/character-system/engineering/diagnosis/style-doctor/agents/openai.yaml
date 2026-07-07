@@ -1,0 +1,4 @@
+interface:
+  display_name: "Style Doctor"
+  short_description: "Evaluate character drift and strong runtime exemplars"
+  default_prompt: "Evaluate this character output as drift_candidate, pass, strong_pass, or exemplar_candidate. Only handle character outputs or character positive exemplar candidates; route workspace governance, manifest, release, platform, script, CI, Git, or repository issues away from style-doctor. Diagnose failures or explain successful mechanisms, preserve provenance, and leave patches or exemplar promotion to character-maintainer."

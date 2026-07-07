@@ -1,0 +1,38 @@
+{
+  "character_id": "sample-character",
+  "display_name": "Sample Character",
+  "corpus_path": "corpus/sample-character",
+  "corpus_sources": [
+    {
+      "path": "corpus/sample-character",
+      "source_type": "work",
+      "role": "primary_style_evidence",
+      "include": true,
+      "generate_readme": false,
+      "explicit": false
+    }
+  ],
+  "output_path": "characters/sample-character",
+  "language": "zh-CN",
+  "privacy_level": "high",
+  "style_strength": "medium",
+  "target_tasks": [
+    "rewrite",
+    "continuation",
+    "imitation",
+    "critique",
+    "style_transfer",
+    "discussion"
+  ],
+  "forbidden_tasks": [
+    "impersonation",
+    "private_fact_inference",
+    "verbatim_reconstruction"
+  ],
+  "quote_policy": "short_only",
+  "max_quote_chars": 80,
+  "generate_reports": true,
+  "source_planning_enabled": false,
+  "generate_corpus_handoff": false,
+  "enabled": true
+}

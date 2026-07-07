@@ -1,0 +1,31 @@
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# Private or authorized source corpora must not be committed.
+corpus/
+
+# Private, local, or unfinished character configs.
+configs/*.local.json
+configs/*.draft.json
+configs/_private/
+configs/_drafts/
+
+# Generated character skills may contain corpus-derived style notes.
+characters/*
+!characters/.gitkeep
+
+# Local logs and temporary files
+*.log
+*.tmp
+*.bak
+tmp/
+temp/

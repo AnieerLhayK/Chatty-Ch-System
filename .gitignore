@@ -1,0 +1,26 @@
+# Local corpora and generated characters
+corpus/
+characters/
+packages/character-system/engineering/generation/character-generator/corpus/
+packages/character-system/engineering/generation/character-generator/characters/*
+!packages/character-system/engineering/generation/character-generator/characters/.gitkeep
+
+# Private configs and local plans
+*.local.json
+*.draft.json
+configs/_private/
+configs/_drafts/
+packages/character-system/engineering/generation/character-generator/configs/_private/
+packages/character-system/engineering/generation/character-generator/configs/_drafts/
+
+# Python/tooling caches
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+
+# Local environment
+.env
+.venv/
+venv/
