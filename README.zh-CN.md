@@ -1,5 +1,7 @@
 # Chatty Ch System
 
+[English](README.md)
+
 Chatty Ch System 是一个面向风格启发型聊天与写作机器人的角色技能系统公开工程层，用于构建、诊断和维护技能。它不包含任何已完成角色、私人语料、运行时记忆或个人材料。
 
 建议在 [Frame for AI Workspace](https://github.com/AnieerLhayK/Frame-for-AI-workspace) 中使用本仓库；该工作区已提供任务路由、共享策略、验证与迁移规则。若复制到其他受治理工作区，请保留包结构和共享协议。

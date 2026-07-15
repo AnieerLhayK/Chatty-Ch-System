@@ -1,5 +1,7 @@
 # Chatty Ch System
 
+[简体中文](README.zh-CN.md)
+
 Chatty Ch System is the public engineering layer of a character-skill system for
 building, diagnosing, and maintaining style-inspired chatting and writing bots.
 It intentionally ships no finished character, private corpus, runtime memory, or
