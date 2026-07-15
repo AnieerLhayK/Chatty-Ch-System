@@ -19,6 +19,11 @@ layout and shared protocols.
   style drift and runtime output failures.
 - `packages/character-system/engineering/maintenance/character-maintainer`:
   maintain generated skills across patches and version changes.
+- The companion [`qq-chat-raw-filter`](https://github.com/AnieerLhayK/qq-chat-raw-filter)
+  repository is maintained separately while its corpus-preparation tool is
+  being completed. It is intentionally excluded from this projection for now;
+  after completion it can be evaluated for inclusion through a separate
+  privacy, portability, and CI review.
 - `packages/character-system/shared`: schemas, templates, drift taxonomy,
   patch protocol, handoff format, and runtime-loop policy.
 - `shared`: portable root-level workspace policies needed to understand how the

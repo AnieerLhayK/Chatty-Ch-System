@@ -24,6 +24,7 @@ FORBIDDEN_PATHS = {
     "packages/character-system/reports",
     "packages/character-system/distribution",
     "packages/character-system/engineering/generation/character-generator/configs/writerA.json",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter",
 }
 
 FORBIDDEN_TEXT = [
