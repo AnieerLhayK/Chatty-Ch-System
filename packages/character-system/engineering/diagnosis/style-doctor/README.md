@@ -9,6 +9,21 @@ candidate for a character skill. It is not a workspace governance, release,
 manifest, platform exposure, script, CI, Git, or repository optimization
 diagnostic tool.
 
+Before it diagnoses, it must confirm from upstream conversation/runtime context
+that a character has actually been loaded. A character name, pasted path,
+generic style rules, or a character-like output is not sufficient evidence. If
+no load evidence is available, it must tell the user that no character is
+currently confirmed as loaded and stop normal diagnosis until the character is
+loaded.
+
+If the user explicitly insists on continuing, the doctor may provide a
+provisional diagnosis. It must mark the run as degraded and include a
+`character_context` block with `status: missing` or `unconfirmed`,
+`context_warning: true`, `user_override: true`, the available load evidence,
+and the impact on reliability in both chat output and any diagnosis or handoff
+packet. It must not infer the character identity or private facts to compensate
+for the missing context.
+
 Its `feedback_diagnosis` role and diagnosis-only authority stay the same on every exposure. Platform visibility does not grant source-patch authority.
 
 It can also review unusually strong outputs. Positive review expands what the
@@ -133,6 +148,10 @@ Each packet should also include:
 - `session_storage`: the session/thread/export path or identifier the
   maintainer can inspect later. If no durable session location is available,
   write `not_available` and explain why.
+- `character_context`: the load status, character id, load evidence, warning
+  flag, user override, and reliability impact. For a forced run without
+  confirmed load evidence, this block is mandatory and must remain visibly
+  marked as provisional.
 
 This is important because `style-doctor` is often invoked through weaker models.
 The maintainer should not have to trust the diagnosis blindly when the original

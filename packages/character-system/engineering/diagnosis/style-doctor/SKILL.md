@@ -43,6 +43,45 @@ tool and route the work to the appropriate workspace maintenance task or skill.
 Do not create diagnosis packets, handoff packets, candidate patches, or ledger
 entries for workspace governance or optimization issues.
 
+## Character Context Gate
+
+Before normal operation, verify from the upstream conversation or runtime
+context that a character has actually been loaded. Acceptable evidence includes
+an explicitly loaded character skill, runtime `skill_view` or active-character
+metadata, or a loading event that identifies the character id and source skill.
+
+The following are not load evidence by themselves:
+
+- A character name mentioned by the user.
+- A pasted character path or pasted style instructions.
+- The fact that the output resembles a character.
+- A generic request to evaluate a character without an active character context.
+
+If no load evidence is available, tell the user that no character is currently
+confirmed as loaded and stop normal character-specific diagnosis. Do not create
+diagnosis or handoff records in this state. Ask the user to load the character
+and retry.
+
+If the user explicitly insists on continuing without confirmed load evidence,
+allow only a provisional, degraded diagnosis. Never invent the character
+identity or fill missing character facts. Set the following block in every
+diagnosis or handoff packet, and show the same warning in the chat response:
+
+```yaml
+character_context:
+  status: missing  # or unconfirmed when a character is named but not verified as loaded
+  character_id:
+  load_evidence: no explicit character-load evidence found in upstream context
+  context_warning: true
+  user_override: true
+  impact: character-specific conclusions are provisional and may be invalid
+```
+
+Use `status: confirmed`, `context_warning: false`, and `user_override: false`
+only when the upstream load is explicit. The context block is required even
+when the packet is returned as chat text because durable file writing is not
+available.
+
 ## Role
 
 Act as a runtime style diagnosis tool for character skills.
@@ -132,9 +171,11 @@ claim that any candidate change was accepted or applied.
 ## Runtime Workflow
 
 1. Gather only the needed context:
-   - First verify that the reviewed material is a character output or positive
-     character exemplar candidate. If not, stop and route away from
-     `style-doctor`.
+   - First apply the Scope Gate and Character Context Gate. If the material is
+     not a character output or positive exemplar candidate, route away. If a
+     character load cannot be confirmed, stop unless the user explicitly
+     insists; on insistence, mark the run as provisional with the required
+     `character_context` warning block.
    - Current character skill files, especially `SKILL.md`, voice/style docs, prompt files, rubrics, task recipes, and anti-patterns.
    - The generated output under review.
    - The user's feedback, preserving exact phrases about failures or strengths.
@@ -191,6 +232,10 @@ claim that any candidate change was accepted or applied.
      `session_storage` should point to the platform session, transcript export,
      local saved conversation file, Codex/Claude/OpenCode thread id, or state
      `not_available` with a reason.
+   - Include `character_context` in both packets. It must record `status`,
+     `character_id`, `load_evidence`, `context_warning`, `user_override`, and
+     `impact`. Missing or unconfirmed load evidence is a blocking warning for
+     normal operation and must remain visible in any forced provisional packet.
    - When running on a weaker model, prefer saving a conservative session
      snapshot over claiming certainty. The maintainer must be able to inspect
      the original session context when the diagnosis seems questionable.
@@ -236,6 +281,13 @@ Use this shape unless the user asks for another format:
 ```markdown
 **Diagnosis**
 <2-5 bullets explaining the drift or AI smell.>
+
+**Character Context**
+- `status`: <confirmed / unconfirmed / missing>
+- `context_warning`: <true / false>
+- `user_override`: <true / false>
+- `load_evidence`: <what proves the character was loaded, or what is missing>
+- `impact`: <whether conclusions are provisional>
 
 **Likely Layer**
 - `layer`: <why this layer is implicated>
@@ -289,7 +341,11 @@ Load these resources only when useful:
 - Diagnose against the character's actual source files, not a generic literary ideal.
 - Preserve the character's specific roughness, silence, restraint, asymmetry, or awkwardness if those are part of the voice.
 - Avoid replacing one failure with another, such as fixing generic writing by adding fake poetic density.
-- When the available character context is incomplete, say what is missing and give a provisional diagnosis.
+- Require explicit upstream character-load evidence before normal operation.
+- When no load evidence is available, state that no character is currently
+  confirmed as loaded, stop, and request loading before diagnosing.
+- If the user explicitly insists, give only a provisional diagnosis and repeat
+  the `character_context` warning in chat and in every diagnosis/handoff packet.
 - Keep drift taxonomy aligned with `packages/character-system/shared/drift_taxonomy.md`; do not invent private drift categories that bypass shared vocabulary.
 - Leave `accepted`, `rejected`, and `deferred` decisions to `character-maintainer`.
 - When running on a weaker or less instruction-following model, prefer text-only diagnosis and handoff output over file writes.

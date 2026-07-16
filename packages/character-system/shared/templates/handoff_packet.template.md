@@ -10,6 +10,13 @@ to: character-maintainer
 character_id:
 session_snapshot:
 session_storage:
+character_context:
+  status: confirmed
+  character_id:
+  load_evidence:
+  context_warning: false
+  user_override: false
+  impact: none
 reason_for_handoff:
 recommended_files_to_inspect:
   - 

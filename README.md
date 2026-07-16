@@ -12,6 +12,10 @@ building, diagnosing, and maintaining style-inspired chatting and writing bots.
 It intentionally ships no finished character, private corpus, runtime memory, or
 personal material.
 
+The workspace package README remains the source-facing contract. This README is
+generated for the public projection; update the source package and run the
+registered publisher instead of editing a staging checkout by hand.
+
 This repository is best used inside
 [Frame for AI Workspace](https://github.com/AnieerLhayK/Frame-for-AI-workspace), where routing, shared policy,
 validation, and workspace migration rules are already in place. The system can

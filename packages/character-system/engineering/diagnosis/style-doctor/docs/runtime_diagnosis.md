@@ -10,18 +10,24 @@ resolution instead of `style-doctor`.
 ## Inputs
 
 - Active character skill context.
+- Explicit upstream evidence that the character is loaded. A character name,
+  pasted path, generic rules, or character-like output is not enough.
 - Current generated output.
 - User feedback.
 - Any task constraints that shaped the output.
 
 ## Method
 
-1. Preserve the user's wording.
-2. Identify the first sentence or move where the character breaks.
-3. Separate task success from voice success.
-4. Classify the failure: AI smell, drift, rhythm, emotion, imagery, or prompt failure.
-5. Map the failure to a likely layer.
-6. Suggest the smallest patch that would have prevented this exact failure.
+1. Apply the Scope Gate and Character Context Gate.
+2. If no character-load evidence is available, stop normal diagnosis and ask the
+   user to load a character. Continue only after an explicit user override,
+   marking the run provisional.
+3. Preserve the user's wording.
+4. Identify the first sentence or move where the character breaks.
+5. Separate task success from voice success.
+6. Classify the failure: AI smell, drift, rhythm, emotion, imagery, or prompt failure.
+7. Map the failure to a likely layer.
+8. Suggest the smallest patch that would have prevented this exact failure.
 
 For a successful output:
 
@@ -63,6 +69,9 @@ When a diagnosis is saved, it should be a Markdown packet in the default
 runtime-loop directories, not just text in the conversation. Saved packets must
 include a concise `session_snapshot` and a `session_storage` pointer when
 available. If the session cannot be referenced later, state that explicitly.
+They must also include `character_context`. For a forced run without confirmed
+load evidence, set `context_warning: true` and `user_override: true` so the
+maintainer can distinguish a context failure from a style failure.
 This lets `character-maintainer` re-check the evidence, especially when the
 diagnosis was produced by a weaker model.
 

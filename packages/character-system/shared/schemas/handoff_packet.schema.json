@@ -9,6 +9,7 @@
     "from",
     "to",
     "character_id",
+    "character_context",
     "reason_for_handoff",
     "recommended_files_to_inspect",
     "recommended_patch_type",
@@ -24,6 +25,26 @@
     "from": { "type": "string" },
     "to": { "type": "string" },
     "character_id": { "type": "string" },
+    "character_context": {
+      "type": "object",
+      "required": [
+        "status",
+        "character_id",
+        "load_evidence",
+        "context_warning",
+        "user_override",
+        "impact"
+      ],
+      "properties": {
+        "status": { "type": "string", "enum": ["confirmed", "unconfirmed", "missing"] },
+        "character_id": { "type": "string" },
+        "load_evidence": { "type": "string" },
+        "context_warning": { "type": "boolean" },
+        "user_override": { "type": "boolean" },
+        "impact": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
     "reason_for_handoff": { "type": "string" },
     "recommended_files_to_inspect": { "type": "array", "items": { "type": "string" } },
     "recommended_patch_type": { "type": "string" },

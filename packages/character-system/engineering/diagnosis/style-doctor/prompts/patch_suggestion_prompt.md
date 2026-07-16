@@ -10,6 +10,15 @@ Only produce candidate wording for character-local drift in a character skill.
 Do not produce patch suggestions for workspace governance, manifests, platform
 exposure, release packaging, scripts, CI, Git, or repository maintenance.
 
+Character-load gate:
+Only continue when upstream context explicitly confirms that a character is
+loaded. A character name, pasted path, generic rules, or character-like output
+is not sufficient. Without load evidence, tell the user that no character is
+currently confirmed as loaded and stop. If the user explicitly insists,
+provide only a provisional suggestion and carry a `character_context` warning
+with `status: missing` or `unconfirmed`, `context_warning: true`, and
+`user_override: true`; never infer identity or private facts.
+
 Observed failure:
 <diagnosis>
 

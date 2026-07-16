@@ -10,6 +10,13 @@ source_case:
 task_type:
 session_snapshot:
 session_storage:
+character_context:
+  status: confirmed
+  character_id:
+  load_evidence:
+  context_warning: false
+  user_override: false
+  impact: none
 user_feedback:
 failed_output_excerpt:
 expected_style_direction:

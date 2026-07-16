@@ -51,6 +51,15 @@ They should not remain only as chat transcript text. If a platform cannot save
 the files safely, the packet Markdown may be returned in conversation, but the
 response must say that no durable record was written.
 
+Before normal `style-doctor` operation, the upstream conversation or runtime
+context must provide explicit evidence that a character was loaded. A character
+name, pasted path, generic style rules, or character-like output is not load
+evidence. Without that evidence, the doctor must stop and ask the user to load
+the character. If the user explicitly insists, the run is provisional and the
+diagnosis and handoff must carry `character_context` with
+`status: missing` or `unconfirmed`, `context_warning: true`,
+`user_override: true`, the available evidence, and the reliability impact.
+
 ## ID Rules
 
 IDs are manually writable and script-friendly. Use the local date of record creation.
@@ -112,6 +121,7 @@ A diagnosis packet records what failed before any patch is applied. It should in
 - `created_at`
 - `source_character`
 - `source_skill`
+- `character_context`
 - `task_type`
 - `session_snapshot`
 - `session_storage`
@@ -135,6 +145,10 @@ thread id, transcript export, saved local conversation file, or state
 `not_available` with a reason. These fields are required because weaker models
 may produce incomplete or overconfident diagnoses.
 
+`character_context` must contain `status`, `character_id`, `load_evidence`,
+`context_warning`, `user_override`, and `impact`. A forced run without explicit
+load evidence must remain visibly marked as provisional.
+
 The template path is registered in `packages/character-system/shared/protocol_manifest.json` and checked by `scripts/validate_protocols.py`.
 
 ## Handoff Packet Requirements
@@ -146,6 +160,7 @@ A handoff packet is created when `style-doctor` believes maintainer review is ne
 - `from`
 - `to`
 - `character_id`
+- `character_context`
 - `session_snapshot`
 - `session_storage`
 - `reason_for_handoff`
@@ -156,6 +171,10 @@ A handoff packet is created when `style-doctor` believes maintainer review is ne
 - `deferred_questions`
 
 Store handoff packets under `packages/character-system/reports/runtime-loop/handoffs/` using `packages/character-system/shared/templates/handoff_packet.template.md`.
+
+The handoff must preserve the same `character_context` block as the linked
+diagnosis so `character-maintainer` can distinguish a style failure from a
+missing or unconfirmed upstream character load.
 
 The runtime-loop templates and ledgers are part of the shared protocol contract and should be revalidated after changes.
 

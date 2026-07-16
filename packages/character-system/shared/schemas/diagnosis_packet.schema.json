@@ -8,6 +8,7 @@
     "created_at",
     "source_character",
     "source_skill",
+    "character_context",
     "task_type",
     "user_feedback",
     "failed_output_excerpt",
@@ -27,6 +28,26 @@
     "created_at": { "type": "string" },
     "source_character": { "type": "string" },
     "source_skill": { "type": "string" },
+    "character_context": {
+      "type": "object",
+      "required": [
+        "status",
+        "character_id",
+        "load_evidence",
+        "context_warning",
+        "user_override",
+        "impact"
+      ],
+      "properties": {
+        "status": { "type": "string", "enum": ["confirmed", "unconfirmed", "missing"] },
+        "character_id": { "type": "string" },
+        "load_evidence": { "type": "string" },
+        "context_warning": { "type": "boolean" },
+        "user_override": { "type": "boolean" },
+        "impact": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
     "source_case": { "type": "string" },
     "task_type": { "type": "string" },
     "user_feedback": { "type": "string" },
