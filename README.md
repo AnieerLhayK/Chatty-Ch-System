@@ -1,5 +1,12 @@
 # Chatty Ch System
 
+## Related Public Projects
+
+- [Frame-for-AI-workspace](https://github.com/AnieerLhayK/Frame-for-AI-workspace):
+  the deployable governed-workspace framework.
+- [qq-chat-raw-filter](https://github.com/AnieerLhayK/qq-chat-raw-filter): the
+  separately maintained corpus-preparation tool.
+
 Chatty Ch System is the public engineering layer of a character-skill system for
 building, diagnosing, and maintaining style-inspired chatting and writing bots.
 It intentionally ships no finished character, private corpus, runtime memory, or
