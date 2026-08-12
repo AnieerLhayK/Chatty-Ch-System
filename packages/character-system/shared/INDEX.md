@@ -10,7 +10,9 @@ runtime use, diagnosis, maintenance, and generalization.
 - `runtime_loop_policy.md`: durable runtime correction workflow.
 - `future_drift_policy.md`: package drift prevention.
 - `versioning_policy.md`: character-system version records.
-- `protocol_manifest.json`: machine-readable package protocol registry.
+- `protocol_manifest.json`: machine-readable package protocol registry; core
+  skill dependencies are sourced from `workspace_manifest.yaml`, not copied
+  into individual skills.
 - `templates/`: runtime-loop record templates.
 - `schemas/`: lightweight runtime-loop and protocol schemas.
 

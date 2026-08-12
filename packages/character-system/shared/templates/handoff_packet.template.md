@@ -19,13 +19,13 @@ character_context:
   impact: none
 reason_for_handoff:
 recommended_files_to_inspect:
-  - 
+  -
 recommended_patch_type:
 risk_level:
 acceptance_criteria:
-  - 
+  -
 deferred_questions:
-  - 
+  -
 ```
 
 ## Notes

@@ -28,7 +28,7 @@ Use these forms instead:
 
 Scripts should read the manifest instead of duplicating link arrays or protocol lists.
 
-Manifest portability rules are defined in `shared/manifest_portability_policy.md`. The manifest may centralize local absolute platform roots, but workspace-internal source paths should remain workspace-relative wherever practical.
+Manifest portability rules are defined in `shared/workspace/manifest_portability_policy.md`. The manifest may centralize local absolute platform roots, but workspace-internal source paths should remain workspace-relative wherever practical.
 
 The manifest may also declare local external roots such as
 `output_roots.workspace`. Documentation should reference the manifest field
@@ -59,7 +59,7 @@ Discovery is limited to the current skill directory, at most 5 parent directorie
 
 Bounded discovery prevents accidental coupling to unrelated folders and avoids slow or dangerous full-drive scans.
 
-Use `scripts/bootstrap_workspace.py` for a bounded bootstrap check before assuming the workspace root.
+Use `scripts/workspace/bootstrap_workspace.py` for a bounded bootstrap check before assuming the workspace root.
 
 ## Required And Optional Must Be Separate
 
@@ -76,4 +76,4 @@ Reports may contain resolved absolute paths as observed output. Those paths do n
 External deliverables produced by workspace tasks resolve through
 `workspace_manifest.yaml -> output_roots.workspace`. They are not source,
 reports-as-snapshots, or temporary staging. See
-`shared/delivery_output_policy.md` for classification and layout.
+`shared/operations/delivery_output_policy.md` for classification and layout.

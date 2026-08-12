@@ -149,7 +149,7 @@ may produce incomplete or overconfident diagnoses.
 `context_warning`, `user_override`, and `impact`. A forced run without explicit
 load evidence must remain visibly marked as provisional.
 
-The template path is registered in `packages/character-system/shared/protocol_manifest.json` and checked by `scripts/validate_protocols.py`.
+The template path is registered in `packages/character-system/shared/protocol_manifest.json` and checked by `scripts/validation/validate_protocols.py`.
 
 ## Handoff Packet Requirements
 
@@ -253,11 +253,11 @@ Missing optional reports are not runtime-loop blockers. Treat them as degraded c
 
 This policy works with:
 
-- `shared/reporting_policy.md`: runtime-loop records are reports and audit artifacts. They are not stronger than manifest, shared protocols, or Git state.
+- `shared/operations/reporting_policy.md`: runtime-loop records are reports and audit artifacts. They are not stronger than manifest, shared protocols, or Git state.
 - `packages/character-system/shared/future_drift_policy.md`: runtime-loop ledgers provide durable evidence for future drift prevention.
 - `packages/character-system/shared/patch_protocol.md`: diagnosis and handoff records extend the existing doctor-to-maintainer patch payload.
 - `packages/character-system/shared/versioning_policy.md`: patch notes and validation notes satisfy version record expectations for meaningful changes.
-- `packages/character-system/shared/protocol_manifest.json`: registry used by `scripts/validate_protocols.py` to verify protocol, template, ledger, and core skill references.
+- `packages/character-system/shared/protocol_manifest.json`: registry used by `scripts/validation/validate_protocols.py` to verify protocol, template, ledger, and core skill references.
 
 If policies conflict, prefer the narrower source of truth for the action: manifest for paths, shared protocols for workflow rules, and character source files for character behavior.
 

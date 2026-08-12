@@ -49,7 +49,7 @@ If the model cannot verify the handoff, source files, and current Git state, def
 - Enter `source_patch` only when the user requests a patch and the exact diagnosis or maintenance scope, source files, relevant Git state, and validation method can be verified.
 - If any requirement is unavailable or ambiguous, remain in `text_only` or `record_write` and return a proposed patch instead of applying it.
 
-These modes follow `shared/workspace_policy.md` and do not permit generator edits or broader character rewrites.
+These modes follow `shared/workspace/workspace_policy.md` and do not permit generator edits or broader character rewrites.
 
 ## Expected Character Layout
 

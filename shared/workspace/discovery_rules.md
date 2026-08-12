@@ -42,7 +42,7 @@ Do not continue above the fifth parent. Do not search `D:\`, user profiles, or u
 The reference bootstrap implementation is:
 
 ```powershell
-python scripts\bootstrap_workspace.py --start .
+python -m scripts.workspace.bootstrap_workspace --start .
 ```
 
 ## Protocol Discovery

@@ -157,7 +157,7 @@ Treat all suggested edits as candidate patch text. A candidate patch is not appr
   direct patch as a shortcut, ask permission to bypass the runtime loop, or
   frame source maintenance as an available style-doctor action.
 
-These modes follow `shared/workspace_policy.md` and preserve the doctor/maintainer authority boundary.
+These modes follow `shared/workspace/workspace_policy.md` and preserve the doctor/maintainer authority boundary.
 
 ### Standalone Distribution Fallback
 

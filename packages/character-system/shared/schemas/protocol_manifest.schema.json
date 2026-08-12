@@ -28,14 +28,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "path", "required_shared_protocols"],
+        "required": ["id", "path"],
         "properties": {
           "id": { "type": "string" },
-          "path": { "type": "string" },
-          "required_shared_protocols": {
-            "type": "array",
-            "items": { "type": "string" }
-          }
+          "path": { "type": "string" }
         },
         "additionalProperties": false
       }

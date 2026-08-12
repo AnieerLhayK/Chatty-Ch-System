@@ -43,7 +43,7 @@ This keeps source layout portable even when the workspace root changes.
 Use:
 
 ```powershell
-python scripts\bootstrap_workspace.py
+python -m scripts.workspace.bootstrap_workspace
 ```
 
 ## Projection Paths Are Deployment Data
@@ -76,10 +76,10 @@ surfaces, not replacement protocol sources.
 Before migrating directories, run:
 
 ```powershell
-python scripts\bootstrap_workspace.py
-python scripts\validate_manifest.py
-python scripts\migration_dry_run.py --scenario root-rename --new-root <new-workspace-root>
-python scripts\validate_protocols.py
+python -m scripts.workspace.bootstrap_workspace
+python -m scripts.validation.validate_manifest
+python -m scripts.workspace.migration_dry_run --scenario root-rename --new-root <new-workspace-root>
+python -m scripts.validation.validate_protocols
 powershell -ExecutionPolicy Bypass -File scripts\check_links.ps1
 ```
 
@@ -91,6 +91,6 @@ intentionally move, update the manifest and rerun validation.
 
 Reports may contain old paths as snapshots. If reports conflict with the manifest, trust the manifest and regenerate reports.
 
-Source moves must also follow `shared/session_continuity_policy.md`. Session
+Source moves must also follow `shared/operations/session_continuity_policy.md`. Session
 stores stay outside the Git tree, and old working-directory values may remain as
 historical metadata when project identity is unchanged.

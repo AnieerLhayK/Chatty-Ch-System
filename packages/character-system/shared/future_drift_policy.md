@@ -19,8 +19,8 @@ Drift is most likely in:
 
 Use these checks:
 
-- Run `scripts/check_links.ps1` after projection or source path changes.
-- Run `scripts/validate_protocols.py` after shared protocol, runtime-loop template, ledger, or core skill `SHARED_PROTOCOLS.md` changes.
+- Run `scripts/validation/check_links.ps1` after projection or source path changes.
+- Run `scripts/validation/validate_protocols.py` after shared protocol, runtime-loop template, ledger, or core skill `SHARED_PROTOCOLS.md` changes.
 - Regenerate reports after manifest or shared policy changes.
 - Compare `style-doctor` drift terms against `packages/character-system/shared/drift_taxonomy.md`.
 - Ask `character-maintainer` to classify character changes as generalizable or character-specific.
@@ -80,7 +80,7 @@ authoritative.
 
 ## E. Manifest/Link Drift
 
-Projection state must be validated through `scripts/check_links.ps1`.
+Projection state must be validated through `scripts/validation/check_links.ps1`.
 
 `setup_links.ps1`, `check_links.ps1`, and `sync_report.ps1` should continue to read from `workspace_manifest.yaml`. Do not reintroduce duplicated link arrays.
 
@@ -91,4 +91,4 @@ Projection state must be validated through `scripts/check_links.ps1`.
 - `character-generator`: generation workflow and templates when the agent has the required Python and write capabilities, not mature-character maintenance.
 - `target-character`: character-specific runtime artifact and manually evolved style source with runtime-output-only authority.
 - shared policies: vocabulary, path, reporting, and governance source.
-- `scripts/validate_protocols.py`: shared protocol contract drift check and protocol validation report generator.
+- `scripts/validation/validate_protocols.py`: shared protocol contract drift check and protocol validation report generator.

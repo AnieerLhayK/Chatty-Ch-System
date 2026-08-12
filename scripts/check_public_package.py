@@ -16,7 +16,7 @@ REQUIRED_PATHS = {
     "packages/character-system/engineering/diagnosis/style-doctor/SKILL.md",
     "packages/character-system/engineering/maintenance/character-maintainer/SKILL.md",
     "packages/character-system/shared/protocol_manifest.json",
-    "shared/delivery_output_policy.md",
+    "shared/operations/delivery_output_policy.md",
 }
 
 FORBIDDEN_PATHS = {

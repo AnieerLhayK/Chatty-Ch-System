@@ -21,9 +21,9 @@ user_feedback:
 failed_output_excerpt:
 expected_style_direction:
 drift_types:
-  - 
+  -
 failed_layer:
-  - 
+  -
 evidence:
 severity:
 suggested_patch_scope:

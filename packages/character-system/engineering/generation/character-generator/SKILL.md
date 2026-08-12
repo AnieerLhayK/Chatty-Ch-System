@@ -26,9 +26,11 @@ This is a `production` role with `generator_write` authority. Platform exposure 
 Before changing generated character structure, consult:
 
 - `packages/character-system/shared/character_skill_spec.md`
-- `packages/character-system/shared/runtime_loop_policy.md`
 - `packages/character-system/shared/versioning_policy.md`
-- `shared/workspace_policy.md`
+- `shared/workspace/workspace_policy.md`
+
+Read runtime-loop, reporting, or future-drift material only when a
+maintainer-approved generalization decision makes it relevant.
 
 ## Responsibilities
 
@@ -63,7 +65,7 @@ If a runtime lesson is mentioned without a maintainer-approved generalization no
 - Enter `source_patch` only for an explicitly requested build or generator update after resolving the workspace source, inspecting relevant Git state, and confirming a validation path.
 - If those checks are unavailable, return the proposed scaffold or change as text and remain in `text_only`.
 
-These modes follow `shared/workspace_policy.md` and do not expand the generator's output boundary.
+These modes follow `shared/workspace/workspace_policy.md` and do not expand the generator's output boundary.
 
 ## Boundaries
 

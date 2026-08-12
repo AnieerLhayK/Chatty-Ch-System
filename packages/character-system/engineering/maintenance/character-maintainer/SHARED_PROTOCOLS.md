@@ -1,20 +1,10 @@
 # Shared Protocols
 
-This skill uses manifest-routed workspace and character-system protocols:
+Canonical dependencies are declared once in
+`workspace_manifest.yaml -> skills[character-maintainer].protocol_dependencies`
+and cross-checked by `packages/character-system/shared/protocol_manifest.json`.
+Resolve them from the manifest; do not copy shared content into this skill.
 
-- `packages/character-system/shared/character_skill_spec.md`
-- `packages/character-system/shared/drift_taxonomy.md`
-- `packages/character-system/shared/patch_protocol.md`
-- `packages/character-system/shared/handoff_format.md`
-- `packages/character-system/shared/runtime_loop_policy.md`
-- `packages/character-system/shared/versioning_policy.md`
-- `shared/workspace_policy.md`
-
-Resolve these paths through `workspace_manifest.yaml`. Do not copy shared protocol content into this skill. Update shared docs in the manifest-declared shared source when the protocol changes.
-
-Related governance policies:
-
-- `shared/reporting_policy.md`
-- `packages/character-system/shared/future_drift_policy.md`
-
-Runtime-loop work writes durable records under `packages/character-system/reports/runtime-loop/`. The `character-maintainer` authority contract covers maintainer decisions, patch notes, validation notes, patch-ledger updates, and the decision to create generator generalization notes.
+Runtime-loop templates and ledgers are loaded only for a formal runtime-loop
+handoff. Maintainer decisions, patches, validation notes, and generalization
+records remain exclusive to the maintainer boundary.

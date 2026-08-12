@@ -19,7 +19,7 @@ Before moving a directory that may have been used as an agent working directory:
 4. Record old-to-new path mappings in
    `PROJECT_CONTEXT/continuity/session_migrations.json`.
 5. Move source and rebuild platform projections.
-6. Run `python scripts/workspace_cli.py sessions audit`.
+6. Run `python -m scripts.workspace.workspace_cli sessions audit`.
 
 Do not rewrite vendor databases or transcript files merely to replace an old
 path. Historical working-directory fields may remain old when the tool still

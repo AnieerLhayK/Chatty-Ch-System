@@ -53,7 +53,7 @@ Character-specific version notes should stay near the character, usually under `
 Workspace-level setup changes belong in:
 
 ```text
-reports/workspace_setup_report.md
+reports/current/workspace_setup_report.md
 ```
 
 Workspace reports are snapshots. When a version note relies on report data, include the source commit or regenerate the report first.

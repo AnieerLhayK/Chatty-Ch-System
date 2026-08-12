@@ -10,7 +10,7 @@ maintainer_decision:
   rejected: false
   deferred: false
 files_changed:
-  - 
+  -
 change_summary:
 reason:
 expected_effect:
