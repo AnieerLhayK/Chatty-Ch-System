@@ -1,5 +1,5 @@
 {
-  "protocol_manifest_version": "1.1.0",
+  "protocol_manifest_version": "1.2.0",
   "shared_protocols": [
     {
       "id": "character_skill_spec",
@@ -124,22 +124,30 @@
       "required": true
     }
   ],
-  "core_skills": [
+  "skill_inventory": [
     {
       "id": "character-generator",
-      "path": "packages/character-system/engineering/generation/character-generator"
+      "path": "packages/character-system/engineering/generation/character-generator",
+      "status": "active",
+      "workspace_registered": true
     },
     {
       "id": "character-maintainer",
-      "path": "packages/character-system/engineering/maintenance/character-maintainer"
+      "path": "packages/character-system/engineering/maintenance/character-maintainer",
+      "status": "active",
+      "workspace_registered": true
     },
     {
       "id": "style-doctor",
-      "path": "packages/character-system/engineering/diagnosis/style-doctor"
+      "path": "packages/character-system/engineering/diagnosis/style-doctor",
+      "status": "active",
+      "workspace_registered": true
     },
     {
       "id": "target-character",
-      "path": "local-runtime-character-output/target-character"
+      "path": "local-runtime-character-output/target-character",
+      "status": "active",
+      "workspace_registered": true
     }
   ]
 }

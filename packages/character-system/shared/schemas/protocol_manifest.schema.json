@@ -8,7 +8,7 @@
     "shared_protocols",
     "runtime_loop_templates",
     "runtime_loop_ledgers",
-    "core_skills"
+    "skill_inventory"
   ],
   "properties": {
     "protocol_manifest_version": { "type": "string" },
@@ -35,6 +35,10 @@
         },
         "additionalProperties": false
       }
+    },
+    "skill_inventory": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/skillInventoryEntry" }
     }
   },
   "additionalProperties": false,
@@ -60,6 +64,17 @@
           "type": "array",
           "items": { "type": "string" }
         }
+      },
+      "additionalProperties": false
+    },
+    "skillInventoryEntry": {
+      "type": "object",
+      "required": ["id", "path", "status", "workspace_registered"],
+      "properties": {
+        "id": { "type": "string" },
+        "path": { "type": "string" },
+        "status": { "enum": ["active", "development", "retired"] },
+        "workspace_registered": { "type": "boolean" }
       },
       "additionalProperties": false
     }
