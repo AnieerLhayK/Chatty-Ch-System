@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "source_revision": "0d45c21504449138e555b303865bdd17611d8291",
+  "source_revision": "e2c56498ddc094d65a1c9df9743d9af2316c687a",
   "publisher": "scripts/publishing/sync_chatty_ch_system_repo.py",
   "generator": "scripts/publishing/publish_chatty_ch_system.py"
 }

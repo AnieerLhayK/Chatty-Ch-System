@@ -28,7 +28,7 @@ Use these checks:
 
 ## Preventing Drift
 
-- Keep `workspace_manifest.yaml` as the source for roots, projections, and registry data.
+- Keep `workspace_manifest.yaml` as the source for roots, catalog pointers, and projections; keep package-owned skill records in the package catalog.
 - Keep `packages/character-system/shared/protocol_manifest.json` as the registry for shared protocol contract checks.
 - Keep shared vocabulary in shared docs before copying terms into skill-specific docs.
 - Do not edit source through platform projection surfaces.

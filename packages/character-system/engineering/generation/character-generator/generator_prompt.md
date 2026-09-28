@@ -1,127 +1,44 @@
-# generator_prompt.md
+# Character Generator Prompt
 
-Use this prompt with an agent that can run Python, write the configured output directory, inspect Git state, and validate the generated package.
+Use `character-generator` to build a style-inspired writing skill from an authorized corpus or an existing config. It requires Python execution, Git inspection, write access to the configured output, and package validation.
 
-## Conversational Personal-Corpus Prompt
+## Conversational intake
 
-Use this first for normal personal-character builds:
+Do not make the user hand-write JSON. Collect the required information conversationally:
 
-```text
-Use character-generator.
+- Character id and display name.
+- Each corpus path, source type and role, whether to include it in extraction, and speaker/context rules for chat-like sources.
+- Confirmation that the user is authorized to use the sources and accepts style-inspired output, no impersonation, no private-fact inference, and no verbatim reconstruction.
+- Target tasks, typical situation, and language.
 
-I want to create a style-inspired character skill from authorized corpus
-sources. Use conversational intake and do not make me hand-write JSON.
+Ask for optional preferences only when useful: output path, privacy and style strength, quote policy, relationship posture, normalization, forbidden tasks, report path visibility, and successful-output examples. If a required path, authorization, privacy acceptance, or target is missing, stop and ask; do not infer it. Safe defaults are allowed only for optional fields, and gaps must be reported.
 
-Required information:
+Do not edit existing runtime characters or the `character-maintainer` and `style-doctor` skills as part of generation.
 
-1. Character identity
-- Character id, if already decided:
-- Display name / user-facing label:
+When source planning is active, write the ignored local intake/plan and preserve the corpus-reading handoff. Generate or update source README files only when requested.
 
-2. Authorized corpus sources
-- Source path(s):
-- Source type(s): work / chat / notes / profile / mixed / unknown
-- Source role(s): long-form style, friend-chat core, critique voice, background orientation, etc.
-- Include each source in style extraction: yes / no
-- Generate README for each source: yes / no
-- Speaker/context-note rules:
+## Existing config
 
-3. Authorization and privacy
-- I confirm I am authorized to use these sources: yes / no
-- I accept style-inspired output only, not identity impersonation: yes / no
-- I accept no private fact inference and no verbatim reconstruction: yes / no
+Read the named config and only its declarative generation fields: `character_id`, `display_name`, `corpus_path`, `corpus_sources`, `output_path`, `privacy_level`, `style_strength`, `target_tasks`, `forbidden_tasks`, `quote_policy`, and `max_quote_chars`. If it is missing or incomplete, stop and ask for the config or conversational intake. Do not invent paths, identity, authorization, privacy settings, or tasks.
 
-4. Target use
-- Target tasks or interaction type:
-- Typical user situation:
-- Desired language:
+Run from the generator package:
 
-Optional information:
-- Preferred output folder:
-- Privacy level:
-- Style strength:
-- Quote policy or max quote length:
-- Personal profile / background orientation:
-- Desired relationship posture:
-- Source normalization preferences:
-- Extra forbidden tasks or postures:
-- Whether reports should hide external local paths:
-
-Additional requirements:
-- The generated character should be especially good at:
-- It should avoid sounding like:
-- Examples of outputs I would consider successful:
-- Topics or boundaries that need extra care:
-- Anything else I want the build plan to preserve:
+```powershell
+python scripts/build_character.py --config configs/<character>.json
 ```
 
-The agent should collect required information conversationally, then write an
-ignored local intake or plan file and run:
+For conversational intake, use:
 
-```bash
+```powershell
 python scripts/build_character.py --intake configs/_private/<character>.intake.json
 ```
 
-If required information is missing, stop with a missing-info report. If only
-optional information is missing, continue with safe defaults and report the
-quality gaps at the end.
+## Rebuild safety
 
-## Standard Config Prompt
+Before rebuilding, verify the config's output path and inspect the target state. Do not overwrite a manually evolved character or a mature character such as `target-character`; route changes to an existing character through `character-maintainer`. Rebuild only a generator-owned output when the user requested that rebuild. Never commit private corpus material.
 
-请按照 character-generator workflow，读取 `configs/sample-character.json`，生成 sample-character 的风格启发型数字人 skill。
+## Report
 
-## What The Agent Should Do
+Confirm the output contains `SKILL.md`, `README.md`, `references/`, `prompts/`, `reports/`, `output_manifest.json`, and `reports/corpus_reading_handoff.md` when source planning is active. Summarize the build plan without private excerpts, generated files, validation, privacy/quality gaps, and whether maintainer follow-up is recommended. Do not commit unless explicitly asked.
 
-When receiving a request like the above, the agent should:
-
-1. Decide whether the request is conversational intake or explicit config mode.
-2. For conversational intake, check required fields before generating. Do not
-   guess authorization, corpus paths, privacy acceptance, or target tasks.
-3. For config mode, locate the requested config file, such as `configs/sample-character.json`.
-4. If the config is missing, stop and ask for a config or conversational intake. Do not guess values or continue generation.
-5. Read only the declarative fields needed from config:
-   - `character_id`
-   - `display_name`
-   - `corpus_path`
-   - `corpus_sources`
-   - `output_path`
-   - `privacy_level`
-   - `style_strength`
-   - `target_tasks`
-   - `forbidden_tasks`
-   - `quote_policy`
-   - `max_quote_chars`
-6. Run:
-
-```bash
-python scripts/build_character.py --config configs/sample-character.json
-```
-
-7. Confirm that the output folder exists:
-
-```text
-characters/sample-character/
-```
-
-8. Confirm the generated package includes:
-   - `SKILL.md`
-   - `README.md`
-   - `references/`
-   - `prompts/`
-   - `reports/`
-   - `reports/corpus_reading_handoff.md` when source planning is active
-   - `output_manifest.json`
-
-## Missing Config Behavior
-
-If the user explicitly asks for config mode for a character such as `bob`, but `configs/bob.json` does not exist, the invoking agent must stop and respond:
-
-```text
-请先创建 configs/bob.json，或者复制 configs/character_config.example.json 后填写完整配置。配置完成后再重新运行 workflow。
-```
-
-The agent must not infer corpus paths, display names, privacy settings, authorization, privacy acceptance, or task lists for missing configs or intake.
-
-## Boundary
-
-This workflow creates a style-inspired writing and bounded discussion skill. It must not create a real-person identity simulator, impersonation bot, private-fact inference tool, private chatbot, or corpus reconstruction tool.
+The output is a style-inspired, bounded writing and discussion skill. Never create an identity simulator, impersonation bot, private-fact inference tool, private chatbot, or corpus reconstruction tool.

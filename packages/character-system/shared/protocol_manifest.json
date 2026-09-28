@@ -5,79 +5,115 @@
       "id": "character_skill_spec",
       "path": "packages/character-system/shared/character_skill_spec.md",
       "required": true,
-      "used_by": ["character-generator", "character-maintainer"]
+      "used_by": [
+        "character-generator",
+        "character-maintainer"
+      ]
     },
     {
       "id": "drift_taxonomy",
       "path": "packages/character-system/shared/drift_taxonomy.md",
       "required": true,
-      "used_by": ["character-maintainer", "style-doctor"]
+      "used_by": [
+        "character-maintainer",
+        "style-doctor"
+      ]
     },
     {
       "id": "handoff_format",
       "path": "packages/character-system/shared/handoff_format.md",
       "required": true,
-      "used_by": ["character-maintainer", "style-doctor"]
+      "used_by": [
+        "character-maintainer",
+        "style-doctor"
+      ]
     },
     {
       "id": "patch_protocol",
       "path": "packages/character-system/shared/patch_protocol.md",
       "required": true,
-      "used_by": ["character-maintainer", "style-doctor"]
+      "used_by": [
+        "character-maintainer",
+        "style-doctor"
+      ]
     },
     {
       "id": "versioning_policy",
       "path": "packages/character-system/shared/versioning_policy.md",
       "required": true,
-      "used_by": ["character-generator", "character-maintainer"]
+      "used_by": [
+        "character-generator",
+        "character-maintainer"
+      ]
     },
     {
       "id": "workspace_policy",
       "path": "shared/workspace/workspace_policy.md",
       "required": true,
-      "used_by": ["character-generator", "character-maintainer", "style-doctor"]
+      "used_by": [
+        "character-generator",
+        "character-maintainer",
+        "style-doctor"
+      ]
     },
     {
       "id": "discovery_rules",
       "path": "shared/workspace/discovery_rules.md",
       "required": true,
-      "used_by": ["workspace"]
+      "used_by": [
+        "workspace"
+      ]
     },
     {
       "id": "failure_policy",
       "path": "shared/workspace/failure_policy.md",
       "required": true,
-      "used_by": ["workspace"]
+      "used_by": [
+        "workspace"
+      ]
     },
     {
       "id": "workspace_path_policy",
       "path": "shared/workspace/workspace_path_policy.md",
       "required": true,
-      "used_by": ["workspace"]
+      "used_by": [
+        "workspace"
+      ]
     },
     {
       "id": "reporting_policy",
       "path": "shared/operations/reporting_policy.md",
       "required": true,
-      "used_by": ["workspace"]
+      "used_by": [
+        "workspace"
+      ]
     },
     {
       "id": "future_drift_policy",
       "path": "packages/character-system/shared/future_drift_policy.md",
       "required": true,
-      "used_by": ["workspace"]
+      "used_by": [
+        "workspace"
+      ]
     },
     {
       "id": "runtime_loop_policy",
       "path": "packages/character-system/shared/runtime_loop_policy.md",
       "required": true,
-      "used_by": ["character-generator", "character-maintainer", "style-doctor", "target-character"]
+      "used_by": [
+        "character-generator",
+        "character-maintainer",
+        "style-doctor",
+        "target-character"
+      ]
     },
     {
       "id": "manifest_portability_policy",
       "path": "shared/workspace/manifest_portability_policy.md",
       "required": true,
-      "used_by": ["workspace"]
+      "used_by": [
+        "workspace"
+      ]
     }
   ],
   "runtime_loop_templates": [
@@ -122,32 +158,6 @@
       "id": "generalization_ledger",
       "path": "packages/character-system/reports/runtime-loop/ledgers/generalization_ledger.md",
       "required": true
-    }
-  ],
-  "skill_inventory": [
-    {
-      "id": "character-generator",
-      "path": "packages/character-system/engineering/generation/character-generator",
-      "status": "active",
-      "workspace_registered": true
-    },
-    {
-      "id": "character-maintainer",
-      "path": "packages/character-system/engineering/maintenance/character-maintainer",
-      "status": "active",
-      "workspace_registered": true
-    },
-    {
-      "id": "style-doctor",
-      "path": "packages/character-system/engineering/diagnosis/style-doctor",
-      "status": "active",
-      "workspace_registered": true
-    },
-    {
-      "id": "target-character",
-      "path": "local-runtime-character-output/target-character",
-      "status": "active",
-      "workspace_registered": true
     }
   ]
 }
