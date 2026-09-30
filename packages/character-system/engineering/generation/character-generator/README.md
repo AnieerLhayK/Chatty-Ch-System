@@ -168,14 +168,6 @@ The legacy config field `generate_opencode_skill` is accepted for backward compa
 
 The output folder is regenerated from config and corpus.
 
-## Future RAG Extension
-
-This project is designed so retrieval can be added internally without changing the public interface. Future versions can add embeddings, chunk indexes, and retrieval-time style examples under internal files while keeping the same user workflow:
-
-```bash
-python scripts/build_character.py --config configs/sample-character.json
-```
-
 ## Safety Position
 
 Generated skills must:

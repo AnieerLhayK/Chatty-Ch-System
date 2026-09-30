@@ -39,7 +39,7 @@ Each config or normalized intake plan declares:
 
 The config is a contract, not an implementation script. A user says "what to build" and "under what boundary"; the generator decides "how to build it".
 
-This allows internal modules to evolve without changing the user workflow. Future versions may change chunk size, extraction heuristics, templates, reports, or retrieval systems while preserving the same config shape.
+This allows internal modules to evolve without changing the user workflow. Future versions may change extraction heuristics, templates, and reports while preserving the same config shape.
 
 ## Internal Modules
 
