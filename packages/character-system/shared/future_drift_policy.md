@@ -8,7 +8,7 @@ Drift is most likely in:
 
 - `style-doctor` diagnosis vocabulary
 - `packages/character-system/shared/drift_taxonomy.md`
-- character-specific manual evolution
+- target character-specific manual evolution
 - generator templates and generated character layouts
 - workspace reports
 - platform projection paths
@@ -52,7 +52,7 @@ Do not invent runtime-only taxonomy terms that bypass shared vocabulary.
 
 `target-character` may continue to evolve manually. Mature characters can contain handcrafted choices, exceptions, and runtime lessons.
 
-Do not automatically generalize character-specific structure into `character-generator`.
+Do not automatically generalize target character-specific structure into `character-generator`.
 
 When target character evolves, `character-maintainer` should classify the lesson as:
 

@@ -37,7 +37,7 @@ Forbidden outputs:
 - Direct edits to `character-generator` or generator templates.
 - Treating `style-doctor` candidate wording, source diffs, or ledger edits as automatically accepted.
 - Patching from the newest diagnosis when the target record is ambiguous.
-- Promoting character-specific behavior into generator defaults without a separate generalization decision.
+- Promoting target character-specific behavior into generator defaults without a separate generalization decision.
 
 If the model cannot verify the handoff, source files, and current Git state, defer instead of patching.
 

@@ -1,73 +1,85 @@
-# Chatty Ch System
+# Chatty-Ch-System
 
-## Related Public Projects
+[简体中文](README.zh-CN.md)
 
-- [Frame-for-AI-workspace](https://github.com/AnieerLhayK/Frame-for-AI-workspace):
-  the deployable governed-workspace framework.
-- [qq-chat-raw-filter](https://github.com/AnieerLhayK/qq-chat-raw-filter): the
-  separately maintained corpus-preparation tool.
+Chatty Ch System groups corpus preparation, character-skill generation, diagnosis,
+and maintenance in one public engineering system. It includes the QQ raw material
+filter as an internal module. It ships no private corpus, personal lexicons,
+finished character, runtime memory, or private reports.
 
-Chatty Ch System is the public engineering layer of a character-skill system for
-building, diagnosing, and maintaining style-inspired chatting and writing bots.
-It intentionally ships no finished character, private corpus, runtime memory, or
-personal material.
+## Modules
 
-The workspace package README remains the source-facing contract. This README is
-generated for the public projection; update the source package and run the
-registered publisher instead of editing a staging checkout by hand.
+All modules live under `packages/character-system/engineering/`:
 
-This repository is best used inside
-[Frame for AI Workspace](https://github.com/AnieerLhayK/Frame-for-AI-workspace), where routing, shared policy,
-validation, and workspace migration rules are already in place. The system can
-also be copied into another governed workspace if you preserve the package
-layout and shared protocols.
+- `corpus-preparation/qq-raw-material-filter`: parse QCE v5 exports, score and bucket
+  material, audit lexicons, and prepare review samples.
+- `generation/character-generator`: build style-inspired skills from reviewed,
+  authorized material.
+- `diagnosis/style-doctor`: diagnose style drift and runtime output failures.
+- `maintenance/character-maintainer`: maintain skills and review patches.
 
-## What Is Included
+Package protocols live in `packages/character-system/shared/`. Portable workspace
+policies live in `shared/`. [Frame for AI Workspace](https://github.com/AnieerLhayK/Frame-for-AI-workspace)
+is the host framework; preserve package layout and protocols when using another host.
 
-- `packages/character-system/engineering/generation/character-generator`: build
-  a character skill from an authorized or public corpus.
-- `packages/character-system/engineering/diagnosis/style-doctor`: diagnose
-  style drift and runtime output failures.
-- `packages/character-system/engineering/maintenance/character-maintainer`:
-  maintain generated skills across patches and version changes.
-- The companion [`qq-chat-raw-filter`](https://github.com/AnieerLhayK/qq-chat-raw-filter)
-  repository is maintained separately while its corpus-preparation tool is
-  being completed. It is intentionally excluded from this projection for now;
-  after completion it can be evaluated for inclusion through a separate
-  privacy, portability, and CI review.
-- `packages/character-system/shared`: schemas, templates, drift taxonomy,
-  patch protocol, handoff format, and runtime-loop policy.
-- `shared`: portable root-level workspace policies needed to understand how the
-  package is meant to be moved and governed.
+## Filter installation and use
 
-## What Is Not Included
-
-- No runtime character folders.
-- No private or personal corpus.
-- No diagnosis, handoff, validation, or patch reports from a private workspace.
-- No distribution bundle such as a finished toolkit release.
-- No local absolute paths or machine-specific configuration.
-
-## Quick Check
+From the repository root:
 
 ```bash
-python scripts/check_public_package.py --dir .
-cd packages/character-system/engineering/generation/character-generator
-python -m pytest tests -q
+python -m pip install -e packages/character-system/engineering/corpus-preparation/qq-raw-material-filter
+qce-block-filter --help
 ```
 
-## Basic Use
+Set `AI_ROOT` to your own absolute data root. On PowerShell use
+`$env:AI_ROOT = 'C:/my-materials'`; on a POSIX shell use `export AI_ROOT=/my/materials`.
+Default inputs, outputs, lexicons and review decisions are resolved under
+`raw_material/qq/exports/character.<writer_name>/` within that root.
 
-1. Put authorized or public source material in an ignored local `corpus/`
-   directory.
-2. Copy `configs/character_config.example.json` to a private config path and
-   edit the character id, display name, corpus sources, target tasks, and
-   privacy settings.
-3. Run the generator from
-   `packages/character-system/engineering/generation/character-generator`.
-4. Inspect the generated skill and reports before exposing it to any runtime
-   platform.
+```bash
+cd packages/character-system/engineering/corpus-preparation/qq-raw-material-filter
+python qce_block_filter.py --writer-name sample --me-id 123456789
+```
 
-Generated character skills are style-inspired writing tools. They are not
-identity simulators, impersonation bots, private fact inference tools, or corpus
-reconstruction tools.
+Input and output overrides are available through `--input-dir` and `--output-dir`.
+Relative configured lexicon or review paths still require `AI_ROOT`. Python 3.11+
+is required. Raw exports stay read-only and processing stays local.
+
+## Handoff to generation
+
+Review the filter's JSONL buckets and anonymize selected material. Convert approved
+material to `.txt`, `.md` or `.docx` before configuring generator corpus sources.
+The generator does not directly ingest bucket JSONL. Material in `need_anonymize`
+is not an approved corpus; inspect it before any handoff.
+
+Run generator commands from `packages/character-system/engineering/generation/character-generator/`.
+Copy its example configuration to an ignored private configuration, supply reviewed
+corpus sources, and inspect generated skills and reports before runtime exposure.
+
+## Verification
+
+```bash
+python -m pip install pytest
+python scripts/check_public_package.py --dir .
+```
+
+The checker verifies public boundaries and runs each module's tests in its own
+working directory. CI additionally installs the filter and checks its CLI on Python
+3.11 and 3.12. Tests use synthetic inputs; optional live samples require an explicit
+`QCE_SAMPLE_DATA_DIR` and must never be committed.
+
+## Maintenance and provenance
+
+This repository is a generated projection of the authoritative workspace package.
+Maintain module sources and portable projection rules in `character-system`.
+The host owns local paths, registered remote identity, TASK authorization and the
+aggregate synchronizer. Never maintain a second filter publisher or edit a generated
+checkout as source. `PROJECTION_SOURCE.json` identifies the published source revision.
+
+The former [qq-chat-raw-filter](https://github.com/AnieerLhayK/qq-chat-raw-filter)
+repository is retired and retained for history. Its functionality is maintained here.
+
+Bilingual navigation and the privacy-focused filter overview adapt the unmerged
+[filter documentation PR #1](https://github.com/AnieerLhayK/qq-chat-raw-filter/pull/1)
+and [Chatty documentation PR #1](https://github.com/AnieerLhayK/Chatty-Ch-System/pull/1).
+The source package remains authoritative; those PRs are not automatically merged.

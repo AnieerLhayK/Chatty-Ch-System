@@ -18,13 +18,29 @@
     "deferred_questions"
   ],
   "properties": {
-    "handoff_id": { "type": "string", "pattern": "^HANDOFF-[0-9]{8}-[0-9]{3}$" },
-    "record_path": { "type": "string" },
-    "diagnosis_id": { "type": "string", "pattern": "^DIAG-[0-9]{8}-[0-9]{3}$" },
-    "diagnosis_record_path": { "type": "string" },
-    "from": { "type": "string" },
-    "to": { "type": "string" },
-    "character_id": { "type": "string" },
+    "handoff_id": {
+      "type": "string",
+      "pattern": "^HANDOFF-[0-9]{8}-[0-9]{3}$"
+    },
+    "record_path": {
+      "type": "string"
+    },
+    "diagnosis_id": {
+      "type": "string",
+      "pattern": "^DIAG-[0-9]{8}-[0-9]{3}$"
+    },
+    "diagnosis_record_path": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "character_id": {
+      "type": "string"
+    },
     "character_context": {
       "type": "object",
       "required": [
@@ -36,21 +52,59 @@
         "impact"
       ],
       "properties": {
-        "status": { "type": "string", "enum": ["confirmed", "unconfirmed", "missing"] },
-        "character_id": { "type": "string" },
-        "load_evidence": { "type": "string" },
-        "context_warning": { "type": "boolean" },
-        "user_override": { "type": "boolean" },
-        "impact": { "type": "string" }
+        "status": {
+          "type": "string",
+          "enum": [
+            "confirmed",
+            "unconfirmed",
+            "missing"
+          ]
+        },
+        "character_id": {
+          "type": "string"
+        },
+        "load_evidence": {
+          "type": "string"
+        },
+        "context_warning": {
+          "type": "boolean"
+        },
+        "user_override": {
+          "type": "boolean"
+        },
+        "impact": {
+          "type": "string"
+        }
       },
       "additionalProperties": false
     },
-    "reason_for_handoff": { "type": "string" },
-    "recommended_files_to_inspect": { "type": "array", "items": { "type": "string" } },
-    "recommended_patch_type": { "type": "string" },
-    "risk_level": { "type": "string" },
-    "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
-    "deferred_questions": { "type": "array", "items": { "type": "string" } }
+    "reason_for_handoff": {
+      "type": "string"
+    },
+    "recommended_files_to_inspect": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_patch_type": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string"
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deferred_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   },
   "additionalProperties": false
 }

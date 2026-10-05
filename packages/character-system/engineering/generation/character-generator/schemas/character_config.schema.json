@@ -36,7 +36,9 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["path"],
+        "required": [
+          "path"
+        ],
         "properties": {
           "source_id": {
             "type": "string",
@@ -48,7 +50,14 @@
           },
           "source_type": {
             "type": "string",
-            "enum": ["work", "chat", "profile", "notes", "mixed", "unknown"]
+            "enum": [
+              "work",
+              "chat",
+              "profile",
+              "notes",
+              "mixed",
+              "unknown"
+            ]
           },
           "role": {
             "type": "string",
@@ -106,15 +115,27 @@
     },
     "language": {
       "type": "string",
-      "enum": ["zh-CN", "en", "mixed"]
+      "enum": [
+        "zh-CN",
+        "en",
+        "mixed"
+      ]
     },
     "privacy_level": {
       "type": "string",
-      "enum": ["low", "medium", "high"]
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
     },
     "style_strength": {
       "type": "string",
-      "enum": ["light", "medium", "strong"]
+      "enum": [
+        "light",
+        "medium",
+        "strong"
+      ]
     },
     "target_tasks": {
       "type": "array",
@@ -122,7 +143,14 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "enum": ["rewrite", "continuation", "imitation", "critique", "style_transfer", "discussion"]
+        "enum": [
+          "rewrite",
+          "continuation",
+          "imitation",
+          "critique",
+          "style_transfer",
+          "discussion"
+        ]
       }
     },
     "forbidden_tasks": {
@@ -131,12 +159,19 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "enum": ["impersonation", "private_fact_inference", "verbatim_reconstruction"]
+        "enum": [
+          "impersonation",
+          "private_fact_inference",
+          "verbatim_reconstruction"
+        ]
       }
     },
     "quote_policy": {
       "type": "string",
-      "enum": ["none", "short_only"]
+      "enum": [
+        "none",
+        "short_only"
+      ]
     },
     "max_quote_chars": {
       "type": "integer",

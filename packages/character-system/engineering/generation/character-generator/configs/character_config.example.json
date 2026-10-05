@@ -1,6 +1,6 @@
 {
   "character_id": "sample-character",
-  "display_name": "Sample Character",
+  "display_name": "Writer A",
   "corpus_path": "corpus/sample-character",
   "corpus_sources": [
     {

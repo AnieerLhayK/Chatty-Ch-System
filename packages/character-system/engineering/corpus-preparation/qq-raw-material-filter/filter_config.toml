@@ -1,0 +1,214 @@
+[meta]
+config_version = "0.3"
+description = "QQ character skill raw material filter config — archive + audit + active lexicon mode"
+
+[identity]
+me_ids = []
+me_names = []
+
+[character]
+writer_name = "sample"
+
+[path]
+input_dir = "raw_material/qq/exports/character.{writer_name}/raw/qq-chat-exporter-live"
+output_dir = "raw_material/qq/exports/character.{writer_name}/normalized"
+
+[time]
+session_gap_minutes = 20
+turn_gap_seconds = 90
+my_block_continue_seconds = 120
+
+[interruption]
+light_interruption_chars = 20
+hard_interruption_chars = 90
+max_light_interruptions = 4
+
+[my_block]
+min_my_block_chars = 20
+good_my_block_chars = 100
+min_my_char_ratio = 0.60
+min_my_msg_count = 1
+short_fragment_chars = 3
+max_block_chars = 1000
+max_fragment_count = 90
+
+[message]
+min_isolated_message_chars = 6
+very_short_chars = 3
+max_single_message_chars = 500
+
+[score]
+candidate_min_style_score = 5
+candidate_min_chars_when_style_high = 45
+micro_style_min_style_score = 2
+need_anonymize_min_style_score = 3
+junk_reject_score = 5
+chaos_separate_score = 2
+debatable_min_style_score = 4
+debatable_max_per_run = 200
+
+[ratio]
+max_short_fragment_ratio = 0.60
+max_chaos_ratio_for_candidate = 0.20
+max_other_char_ratio_inside_my_block = 0.30
+
+[dedup]
+duplicate_keep_limit = 2
+near_duplicate_enable = false
+near_duplicate_threshold = 0.85
+
+[output]
+keep_rejected = true
+keep_original_fragments = true
+write_debug_sessions = true
+write_active_config_snapshot = true
+write_human_review_samples = true
+human_review_sample_size = 100
+
+[debatable]
+enable = true
+max_per_run = 200
+
+[review]
+decisions_path = "raw_material/qq/exports/character.{writer_name}/lexicons/review_decisions.jsonl"
+sample_seed = 20260710
+
+[tuning_advice]
+enable = true
+candidate_ratio_target_min = 0.05
+candidate_ratio_target_max = 0.12
+chaos_style_ratio_max = 0.10
+
+# ---------------------------------------------------------------------------
+# Lexicon Registry — TOML now registers paths instead of holding large lists
+# ---------------------------------------------------------------------------
+# All paths below are relative to AI_ROOT unless absolute.
+# Missing files are handled gracefully (empty lexicon, warning logged).
+# The phrase_bank.jsonl is the primary style/tone/interruption/store.
+#
+# v0.3: Archive + Active separation
+# - [lexicon] paths = ACTIVE lexicons used in matching (scorer, tagger, filters)
+# - [lexicon.archive] paths = ARCHIVED historical lexicons (read-only, audit only)
+# - [lexicon.audit] = frequency audit configuration
+
+[lexicon]
+phrase_bank_path = "raw_material/qq/exports/character.{writer_name}/lexicons/phrase_bank.jsonl"
+phrase_candidates_path = "raw_material/qq/exports/character.{writer_name}/lexicons/phrase_candidates.jsonl"
+phrase_stoplist_path = "raw_material/qq/exports/character.{writer_name}/lexicons/phrase_stoplist.txt"
+privacy_lexicon_path = "raw_material/qq/exports/character.{writer_name}/lexicons/privacy_lexicon.jsonl"
+chaos_lexicon_path = "raw_material/qq/exports/character.{writer_name}/lexicons/chaos_lexicon.jsonl"
+drop_sentence_words_path = "raw_material/qq/exports/character.{writer_name}/lexicons/drop_sentence_words.jsonl"
+mask_words_path = "raw_material/qq/exports/character.{writer_name}/lexicons/mask_words.jsonl"
+manual_keep_path = "raw_material/qq/exports/character.{writer_name}/lexicons/manual_keep.jsonl"
+manual_drop_path = "raw_material/qq/exports/character.{writer_name}/lexicons/manual_drop.jsonl"
+
+[lexicon.archive]
+phrase_bank_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/phrase_bank_archive.jsonl"
+phrase_candidates_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/phrase_candidates_archive.jsonl"
+phrase_stoplist_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/phrase_stoplist_archive.txt"
+privacy_lexicon_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/privacy_lexicon_archive.jsonl"
+chaos_lexicon_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/chaos_lexicon_archive.jsonl"
+drop_sentence_words_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/drop_sentence_words_archive.jsonl"
+mask_words_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/mask_words_archive.jsonl"
+manual_keep_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/manual_keep_archive.jsonl"
+manual_drop_path = "raw_material/qq/exports/character.{writer_name}/lexicons/archive/manual_drop_archive.jsonl"
+
+[lexicon.audit]
+enabled = true
+output_audit_file = true
+output_audit_report = true
+
+# ---------------------------------------------------------------------------
+# Phrase Mining — automatic n-gram discovery
+# ---------------------------------------------------------------------------
+
+[phrase_mining]
+enabled = true
+min_n = 2
+max_n = 4
+min_freq = 5
+min_pmi_2gram = 2.0
+min_pmi_3gram = 3.0
+min_pmi_4gram = 4.0
+min_entropy = 0.5
+top_k_each_length = 500
+scan_sources = ["my_text"]
+
+[phrase_mining.bucket_weight]
+candidates = 1.0
+micro_style = 1.2
+chaos_style = 0.5
+need_anonymize = 0.4
+rejected = -0.5
+
+[phrase_mining.keyness]
+enabled = true
+compare_candidates_against_rejected = true
+min_keyness = 1.5
+
+[phrase_mining.clustering]
+enabled = true
+min_surface_overlap = 0.5
+
+[phrase_mining.output]
+write_phrase_freq_by_length = true
+write_phrase_candidates = true
+write_phrase_report = true
+update_auto_phrase_candidates = false
+update_phrase_bank = false
+
+[phrase_mining.auto_promote]
+enabled = false
+min_style_keyness = 3.0
+min_pmi = 3.0
+min_entropy = 1.0
+min_freq = 10
+max_chaos_rate = 0.15
+max_privacy_rate = 0.15
+max_per_run = 30
+
+# ---------------------------------------------------------------------------
+# Inline filter lists — migrated to lexicons/ in v0.2
+# ---------------------------------------------------------------------------
+# drop_sentence_words → lexicons/drop_sentence_words.jsonl
+# mask_words          → lexicons/mask_words.jsonl
+# private_names / private_places are small enough to keep inline.
+
+[filter]
+drop_sentence_words = []
+mask_words = []
+private_names = []
+private_places = []
+
+# ---------------------------------------------------------------------------
+# Privacy mode — word lists migrated to privacy_lexicon.jsonl
+# inline lists below are DEPRECATED but kept as fallback
+# ---------------------------------------------------------------------------
+
+[privacy]
+mode = "balanced"
+
+# ---------------------------------------------------------------------------
+# Deprecated inline sections — kept for fallback compatibility
+# These are empty in v0.2; the actual word lists are in the lexicon files.
+# TODO: remove entirely in a future version.
+# ---------------------------------------------------------------------------
+
+[style_markers]
+analysis = []
+tone = []
+
+[light_interruption]
+phrases = []
+
+[style_tags]
+enable = true
+argument_markers = []
+analysis_markers = []
+
+[chaos]
+mild_words = []
+strong_words = []
+
+# Privacy word lists also empty — data moved to privacy_lexicon.jsonl
+# privacy.high_risk_words and medium_risk_words are read from there.

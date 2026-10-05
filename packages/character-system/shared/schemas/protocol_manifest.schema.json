@@ -11,70 +11,127 @@
     "skill_inventory"
   ],
   "properties": {
-    "protocol_manifest_version": { "type": "string" },
+    "protocol_manifest_version": {
+      "type": "string"
+    },
     "shared_protocols": {
       "type": "array",
-      "items": { "$ref": "#/$defs/pathRegistryEntryWithUsers" }
+      "items": {
+        "$ref": "#/$defs/pathRegistryEntryWithUsers"
+      }
     },
     "runtime_loop_templates": {
       "type": "array",
-      "items": { "$ref": "#/$defs/pathRegistryEntry" }
+      "items": {
+        "$ref": "#/$defs/pathRegistryEntry"
+      }
     },
     "runtime_loop_ledgers": {
       "type": "array",
-      "items": { "$ref": "#/$defs/pathRegistryEntry" }
+      "items": {
+        "$ref": "#/$defs/pathRegistryEntry"
+      }
     },
     "core_skills": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "path"],
+        "required": [
+          "id",
+          "path"
+        ],
         "properties": {
-          "id": { "type": "string" },
-          "path": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
         },
         "additionalProperties": false
       }
     },
     "skill_inventory": {
       "type": "array",
-      "items": { "$ref": "#/$defs/skillInventoryEntry" }
+      "items": {
+        "$ref": "#/$defs/skillInventoryEntry"
+      }
     }
   },
   "additionalProperties": false,
   "$defs": {
     "pathRegistryEntry": {
       "type": "object",
-      "required": ["id", "path", "required"],
+      "required": [
+        "id",
+        "path",
+        "required"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "path": { "type": "string" },
-        "required": { "type": "boolean" }
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "pathRegistryEntryWithUsers": {
       "type": "object",
-      "required": ["id", "path", "required", "used_by"],
+      "required": [
+        "id",
+        "path",
+        "required",
+        "used_by"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "path": { "type": "string" },
-        "required": { "type": "boolean" },
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
         "used_by": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         }
       },
       "additionalProperties": false
     },
     "skillInventoryEntry": {
       "type": "object",
-      "required": ["id", "path", "status", "workspace_registered"],
+      "required": [
+        "id",
+        "path",
+        "status",
+        "workspace_registered"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "path": { "type": "string" },
-        "status": { "enum": ["active", "development", "retired"] },
-        "workspace_registered": { "type": "boolean" }
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "development",
+            "retired"
+          ]
+        },
+        "workspace_registered": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     }

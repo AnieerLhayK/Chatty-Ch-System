@@ -1,100 +1,122 @@
-#!/usr/bin/env python3
-"""Validate that this public package contains no private character artifacts."""
-
+"""Validate the unified public system, using its owner-local content contract."""
 from __future__ import annotations
 
 import argparse
+import json
 import re
+import stat
+import subprocess
 import sys
 from pathlib import Path
 
-
-REQUIRED_PATHS = {
-    "README.md",
-    ".github/workflows/ci.yml",
-    "packages/character-system/engineering/generation/character-generator/SKILL.md",
-    "packages/character-system/engineering/diagnosis/style-doctor/SKILL.md",
-    "packages/character-system/engineering/maintenance/character-maintainer/SKILL.md",
-    "packages/character-system/shared/protocol_manifest.json",
-    "shared/operations/delivery_output_policy.md",
-}
-
-FORBIDDEN_PATHS = {
-    "packages/character-system/runtime",
-    "packages/character-system/reports",
-    "packages/character-system/distribution",
-    "packages/character-system/engineering/generation/character-generator/configs/writerA.json",
-    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter",
-}
-
-FORBIDDEN_TEXT = [
-    re.compile(r"D:[\\/]+AI", re.IGNORECASE),
-    re.compile(r"C:[\\/]+Users[\\/]+Z1377", re.IGNORECASE),
-    re.compile(r"packages/character-system/runtime/characters", re.IGNORECASE),
-    re.compile(r"zyc-toolkit", re.IGNORECASE),
-    re.compile(r"\bZYC\b"),
-    re.compile(r"\bzyc\b"),
-]
-
-SKIP_TEXT_SCAN = {
-    "scripts/check_public_package.py",
-}
-
+HERE = Path(__file__).resolve().parent
+CONTRACT = json.loads((HERE / "public_contract.json").read_text(encoding="utf-8"))
+REQUIRED_PATHS = set(CONTRACT["required_paths"])
+FORBIDDEN_PATHS = set(CONTRACT["forbidden_paths"])
+FORBIDDEN_PATTERNS = [re.compile(pattern, re.IGNORECASE) for pattern in CONTRACT["forbidden_text"]]
 TEXT_SUFFIXES = {".json", ".md", ".py", ".txt", ".yaml", ".yml", ".toml", ".gitignore"}
 
 
-def is_text(path: Path) -> bool:
-    return path.name == ".gitignore" or path.suffix.lower() in TEXT_SUFFIXES
+def linked(path: Path) -> bool:
+    return path.is_symlink() or bool(getattr(path.lstat(), "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT)
 
 
 def check_required(root: Path) -> list[str]:
-    return [f"Missing required path: {rel}" for rel in sorted(REQUIRED_PATHS) if not (root / rel).is_file()]
+    return [f"Missing required path: {relative}" for relative in sorted(REQUIRED_PATHS)
+            if not (root / relative).is_file()]
 
 
 def check_forbidden_paths(root: Path) -> list[str]:
+    if any(linked(entry) for entry in (*reversed(root.parents), root)):
+        return [f"Forbidden linked root: {root}"]
     issues = []
-    for rel in sorted(FORBIDDEN_PATHS):
-        if (root / rel).exists():
-            issues.append(f"Forbidden path exists: {rel}")
-    return issues
+    allowed_roots = set(CONTRACT["allowed_top_level"])
+    for entry in root.iterdir():
+        if entry.name != ".git" and entry.name not in allowed_roots:
+            issues.append(f"Unexpected top-level path: {entry.name}")
+    pending = [root]
+    while pending:
+        for path in pending.pop().iterdir():
+            relative = path.relative_to(root).as_posix()
+            if relative == ".git":
+                continue
+            parts = path.relative_to(root).parts
+            forbidden = (
+                linked(path)
+                or any(part in CONTRACT["forbidden_parts"] or part.endswith(".egg-info") for part in parts)
+                or any(relative == prefix or relative.startswith(prefix + "/") for prefix in FORBIDDEN_PATHS)
+                or any(part.endswith((".local.json", ".local.toml", ".draft.json", ".pyc")) for part in parts)
+                or ("debug" in parts and path.name != ".gitkeep" and not path.is_dir())
+                or path.suffix.lower() in CONTRACT["forbidden_suffixes"]
+            )
+            allowed_paths = CONTRACT["allowed_files"] + CONTRACT["included_roots"]
+            allowed = any(relative == item or relative.startswith(item + "/")
+                          or (path.is_dir() and item.startswith(relative + "/")) for item in allowed_paths)
+            forbidden = forbidden or not allowed
+            if forbidden:
+                issues.append(f"Forbidden path exists: {relative}")
+            elif path.is_dir():
+                pending.append(path)
+    return sorted(issues)
 
 
-def check_text(root: Path) -> list[str]:
-    issues = []
-    for path in root.rglob("*"):
-        if not path.is_file() or ".git" in path.parts or not is_text(path):
-            continue
-        rel = path.relative_to(root).as_posix()
-        if rel in SKIP_TEXT_SCAN:
-            continue
-        text = path.read_text(encoding="utf-8", errors="replace")
-        for pattern in FORBIDDEN_TEXT:
-            match = pattern.search(text)
-            if match:
-                line = text[: match.start()].count("\n") + 1
-                issues.append(f"{rel}:{line}: forbidden text matched {pattern.pattern!r}")
-    return issues
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", default=".", help="Repository root to validate.")
-    args = parser.parse_args()
-    root = Path(args.dir).resolve()
-
-    issues = []
-    issues.extend(check_required(root))
-    issues.extend(check_forbidden_paths(root))
-    issues.extend(check_text(root))
-
+def check_forbidden_text(root: Path) -> list[str]:
+    issues = check_forbidden_paths(root)
     if issues:
-        print("FAILED: public package boundary check found issues:")
-        for issue in issues:
-            print(f"  - {issue}")
-        return 1
-    print("PASSED: public package boundary check.")
-    return 0
+        return issues
+    for prefix in CONTRACT["text_scan_roots"]:
+        directory = root / prefix
+        if not directory.exists():
+            continue
+        paths = [directory] if directory.is_file() else directory.rglob("*")
+        for path in paths:
+            if path.is_symlink() or not path.is_file():
+                continue
+            relative = path.relative_to(root).as_posix()
+            if relative in CONTRACT["text_scan_exemptions"]:
+                continue
+            if path.name != ".gitignore" and path.suffix.lower() not in TEXT_SUFFIXES:
+                continue
+            text = path.read_text(encoding="utf-8", errors="replace")
+            for pattern in FORBIDDEN_PATTERNS:
+                if pattern.search(text):
+                    issues.append(f"{relative}: forbidden text {pattern.pattern!r}")
+            if path.suffix == ".py" and re.search(r'Path\([\"\']\$\{', text):
+                issues.append(f"{relative}: executable path placeholder")
+    return issues
+
+
+def run_tests(root: Path) -> list[str]:
+    issues = []
+    for relative in CONTRACT["test_roots"]:
+        result = subprocess.run([sys.executable, "-m", "pytest", "tests", "-q", "-p", "no:cacheprovider"],
+                                cwd=root / relative, capture_output=True, text=True, timeout=180)
+        if result.returncode:
+            issues.append(f"Tests failed in {relative}: {(result.stdout + result.stderr)[-1200:]}")
+    return issues
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dir", default=".")
+    parser.add_argument("--skip-tests", action="store_true")
+    args = parser.parse_args(argv)
+    root = Path(args.dir).absolute()
+    if not root.is_dir():
+        parser.error("--dir must name an existing directory")
+    issues = check_forbidden_paths(root)
+    if not issues:
+        issues.extend(check_required(root))
+    # Do not traverse a tree after a boundary violation.
+    if not issues:
+        issues.extend(check_forbidden_text(root))
+    if not args.skip_tests and not issues:
+        issues.extend(run_tests(root))
+    for issue in issues:
+        print(issue)
+    print("FAILED" if issues else "PASSED: unified character-system public boundary and checks")
+    return int(bool(issues))
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

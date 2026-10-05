@@ -1,0 +1,262 @@
+"""
+scorer.py — Score MyBlock objects on four dimensions: style, privacy, junk, chaos.
+
+Each scorer returns a float score (higher = more of that dimension).
+Used by bucket.py for classification decisions.
+
+Performance note: regex patterns are compiled once per config dict via
+_config_patterns() and passed to each scorer to avoid re-compilation
+on every block.
+"""
+
+from __future__ import annotations
+
+import re
+import logging
+from typing import Any, Dict, List, Pattern, Tuple
+
+from qq_raw_filter.block_builder import MyBlock
+
+logger = logging.getLogger(__name__)
+
+# -- Static patterns (config-independent) --
+_EMAIL_PATTERN = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
+_URL_PATTERN = re.compile(r"https?://[^\s()<>\"']+|(?:www\.)[^\s()<>\"']+", re.IGNORECASE)
+_PHONE_PATTERN = re.compile(r"1[3-9]\d{9}")
+_ID_CARD_PATTERN = re.compile(r"[1-9]\d{5}(?:19|20)\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{3}[\dXx]")
+_QQ_PATTERN = re.compile(r"\b[1-9]\d{4,10}\b")
+_PUNCT_ONLY = re.compile(r"^[^\w\s一-鿿]+$")
+
+_NOT_X_BUT_Y = re.compile(r"不是[^。]*而是")
+_FIRST_THEN = re.compile(r"先[^。]*再[^。]*")
+_ANALYSIS_KEY = re.compile(r"主要是|关键是|本质上|说白了")
+_I_FEEL = re.compile(r"我感觉|我个人|我认为|我觉得")
+
+
+def _compile_words(words: List[str]) -> List[Pattern]:
+    """Compile word list to case-insensitive regex patterns."""
+    return [re.compile(re.escape(w), re.IGNORECASE) for w in words]
+
+
+# ---------------------------------------------------------------------------
+# Config-dependent pattern cache
+# ---------------------------------------------------------------------------
+# _pattern_cache: dict of config section key -> tuple of (config_version_token, [Pattern])
+# Recompiles only when the word list changes between calls.
+_pattern_cache: Dict[str, Tuple[int, List[Pattern]]] = {}
+
+
+def _cached_word_patterns(words: List[str], cache_key: str) -> List[Pattern]:
+    """Return compiled patterns for *words*, cached under *cache_key*.
+
+    Compiles once per unique word-list identity.  Since the config dict is
+    stable during a pipeline run, re-computation across thousands of blocks
+    is avoided.
+    """
+    # Use id() and length as a cheap version token — good enough since the
+    # config doesn't mutate within one run.
+    token = id(words)
+    cached = _pattern_cache.get(cache_key)
+    if cached is not None and cached[0] == token:
+        return cached[1]
+    compiled = _compile_words(words)
+    _pattern_cache[cache_key] = (token, compiled)
+    return compiled
+
+
+def _get_style_words(config: Dict[str, Any]) -> Tuple[List[str], List[str]]:
+    """Get analysis and tone word lists from lexicon (preferred) or inline TOML."""
+    lex = config.get("_lexicon")
+    if lex:
+        return lex.get("analysis_markers", []), lex.get("tone_markers", [])
+    return (
+        config.get("style_markers", {}).get("analysis", []),
+        config.get("style_markers", {}).get("tone", []),
+    )
+
+
+def score_style(block: MyBlock, config: Dict[str, Any]) -> float:
+    """Score the block for expression/analysis style. 0-10."""
+    text = block.my_text
+    if not text:
+        return 0
+
+    score = 0.0
+    metrics = block.metrics
+    good_chars = config.get("my_block", {}).get("good_my_block_chars", 120)
+    min_chars = config.get("my_block", {}).get("min_my_block_chars", 50)
+
+    char_count = metrics.get("my_char_count", 0)
+    if char_count >= good_chars:
+        score += 2.0
+    elif char_count >= min_chars:
+        score += 1.0
+
+    if metrics.get("my_turn_count", 0) >= 3:
+        score += 1.0
+    if metrics.get("my_turn_count", 0) >= 5:
+        score += 0.5
+
+    analysis_words, tone_words = _get_style_words(config)
+    analysis_hits = sum(1 for w in analysis_words if w in text)
+    score += min(analysis_hits * 2.0, 6.0)
+
+    tone_hits = sum(1 for w in tone_words if w in text)
+    score += min(tone_hits * 1.0, 3.0)
+
+    if _NOT_X_BUT_Y.search(text):
+        score += 2.0
+    if _FIRST_THEN.search(text):
+        score += 1.5
+    if _ANALYSIS_KEY.search(text):
+        score += 1.5
+    if _I_FEEL.search(text):
+        score += 1.0
+
+    sentences = [s for s in re.split(r"[。！？\n]", text) if s.strip()]
+    if len(sentences) >= 3:
+        score += 1.0
+
+    total_frags = sum(len(t.fragments) for t in block.my_turns)
+    if total_frags >= 5 and char_count >= 100:
+        score += 1.5
+
+    return round(min(score, 15.0), 1)
+
+
+def _get_privacy_words(config: Dict[str, Any]) -> Tuple[List[str], List[str]]:
+    """Get high/medium risk word lists from lexicon (preferred) or inline TOML."""
+    lex = config.get("_lexicon")
+    if lex:
+        return lex.get("high_risk_words", []), lex.get("medium_risk_words", [])
+    privacy_cfg = config.get("privacy", {})
+    return privacy_cfg.get("high_risk_words", []), privacy_cfg.get("medium_risk_words", [])
+
+
+def score_privacy(block: MyBlock, config: Dict[str, Any]) -> float:
+    """Score privacy risk. 0-10. Higher = more risk."""
+    text = block.my_text
+    if not text:
+        return 0
+
+    score = 0.0
+
+    high_risk_words, medium_risk_words = _get_privacy_words(config)
+    high_risk = _cached_word_patterns(high_risk_words, "privacy_high")
+    for pat in high_risk:
+        if pat.search(text):
+            score += 3.0
+
+    medium_risk = _cached_word_patterns(medium_risk_words, "privacy_medium")
+    for pat in medium_risk:
+        if pat.search(text):
+            score += 1.5
+
+    if _EMAIL_PATTERN.search(text):
+        score += 4.0
+    if _PHONE_PATTERN.search(text):
+        score += 4.0
+    if _ID_CARD_PATTERN.search(text):
+        score += 5.0
+    if _URL_PATTERN.search(text):
+        score += 2.0
+    if _QQ_PATTERN.search(text):
+        for m in _QQ_PATTERN.findall(text):
+            if len(m) >= 8:
+                score += 2.0
+
+    return round(min(score, 15.0), 1)
+
+
+def _get_li_words(config: Dict[str, Any]) -> List[str]:
+    """Get light interruption words from lexicon (preferred) or inline TOML."""
+    lex = config.get("_lexicon")
+    if lex:
+        return lex.get("light_interruption", [])
+    return config.get("light_interruption", {}).get("phrases", [])
+
+
+def _get_chaos_words(config: Dict[str, Any]) -> Tuple[List[str], List[str]]:
+    """Get mild/strong chaos words from lexicon (preferred) or inline TOML."""
+    lex = config.get("_lexicon")
+    if lex:
+        return lex.get("mild_words", []), lex.get("strong_words", [])
+    chaos_cfg = config.get("chaos", {})
+    return chaos_cfg.get("mild_words", []), chaos_cfg.get("strong_words", [])
+
+
+def score_junk(block: MyBlock, config: Dict[str, Any]) -> float:
+    """Score junk/noise level. 0-10."""
+    text = block.my_text
+    if not text:
+        return 0
+
+    score = 0.0
+    metrics = block.metrics
+
+    if block.my_turns:
+        non_text_count = sum(1 for t in block.my_turns
+                             if t.msg_type not in ("text", "reply"))
+        total_frags = sum(len(t.fragments) for t in block.my_turns)
+        if total_frags > 0 and non_text_count / total_frags > 0.5:
+            score += 3.0
+
+    if _PUNCT_ONLY.match(text):
+        score += 5.0
+
+    short_ratio = metrics.get("short_fragment_ratio", 0)
+    max_sf = config.get("ratio", {}).get("max_short_fragment_ratio", 0.70)
+    if short_ratio > max_sf:
+        score += 3.0
+
+    if len(text) >= 10:
+        unique_ratio = len(set(text)) / len(text)
+        if unique_ratio < 0.2:
+            score += 4.0
+
+    max_block = config.get("my_block", {}).get("max_block_chars", 1200)
+    if metrics.get("total_char_count", 0) > max_block:
+        score += 3.0
+
+    li_words = _get_li_words(config)
+    li_hits = sum(text.count(p) for p in li_words)
+    if li_hits >= 3:
+        score += min(li_hits * 0.5, 3.0)
+
+    return round(min(score, 10.0), 1)
+
+
+def score_chaos(block: MyBlock, config: Dict[str, Any]) -> float:
+    """Score chaos/abusive level. 0-10."""
+    text = block.my_text
+    if not text:
+        return 0
+
+    score = 0.0
+
+    mild_words, strong_words = _get_chaos_words(config)
+    mild = _cached_word_patterns(mild_words, "chaos_mild")
+    mild_hits = sum(1 for pat in mild if pat.search(text))
+    score += min(mild_hits * 1.0, 3.0)
+
+    strong = _cached_word_patterns(strong_words, "chaos_strong")
+    strong_hits = sum(1 for pat in strong if pat.search(text))
+    score += min(strong_hits * 2.0, 6.0)
+
+    lines = text.split("\n")
+    if len(lines) >= 5:
+        unique_lines = len(set(lines))
+        if unique_lines / len(lines) < 0.5:
+            score += 2.0
+
+    return round(min(score, 10.0), 1)
+
+
+def score_all(block: MyBlock, config: Dict[str, Any]) -> Dict[str, float]:
+    """Compute all four scores for a block."""
+    return {
+        "style_score": score_style(block, config),
+        "privacy_score": score_privacy(block, config),
+        "junk_score": score_junk(block, config),
+        "chaos_score": score_chaos(block, config),
+    }

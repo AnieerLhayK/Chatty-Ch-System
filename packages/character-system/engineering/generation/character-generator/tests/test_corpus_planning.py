@@ -14,9 +14,9 @@ from ingest_corpus import ingest_corpus
 
 def base_config(*sources):
     return {
-        "character_id": "sample-character",
-        "display_name": "Sample Character",
-        "output_path": "characters/sample-character",
+        "character_id": "writerA",
+        "display_name": "Writer A",
+        "output_path": "characters/writerA",
         "language": "zh-CN",
         "privacy_level": "high",
         "style_strength": "medium",
@@ -234,8 +234,8 @@ class CorpusPlanningTest(unittest.TestCase):
     def test_external_source_paths_are_disambiguated_in_handoff(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            source_a = root / "wechat_selected_chats" / "character.sample-style"
-            source_b = root / "work" / "character.sample-style"
+            source_a = root / "wechat_selected_chats" / "character.zf"
+            source_b = root / "work" / "character.zf"
             source_a.mkdir(parents=True)
             source_b.mkdir(parents=True)
             output = root / "character"
@@ -254,8 +254,8 @@ class CorpusPlanningTest(unittest.TestCase):
             )
 
             text = path.read_text(encoding="utf-8")
-            self.assertIn("wechat_selected_chats/character.sample-style", text)
-            self.assertIn("work/character.sample-style", text)
+            self.assertIn("wechat_selected_chats/character.zf", text)
+            self.assertIn("work/character.zf", text)
 
 
 if __name__ == "__main__":

@@ -218,7 +218,7 @@ A generalization note is appropriate when:
 Do not generalize when:
 
 - the evidence is a single weak or ambiguous runtime output;
-- the lesson depends on character-specific voice, corpus structure, imagery, rhythm, or manual evolution;
+- the lesson depends on target character-specific voice, corpus structure, imagery, rhythm, or manual evolution;
 - the patch protects a local exception rather than a reusable rule;
 - the change would modify generator templates before maintainer review;
 - the patch would flatten mature character differences into one default style;

@@ -35,11 +35,21 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["path", "sha256", "bytes"],
+        "required": [
+          "path",
+          "sha256",
+          "bytes"
+        ],
         "properties": {
-          "path": {"type": "string"},
-          "sha256": {"type": "string"},
-          "bytes": {"type": "integer"}
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "bytes": {
+            "type": "integer"
+          }
         }
       }
     }

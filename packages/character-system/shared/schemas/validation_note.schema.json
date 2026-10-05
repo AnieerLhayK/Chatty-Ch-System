@@ -16,16 +16,38 @@
     "next_action"
   ],
   "properties": {
-    "validation_id": { "type": "string", "pattern": "^VAL-[0-9]{8}-[0-9]{3}$" },
-    "linked_patch_id": { "type": "string", "pattern": "^PATCH-[0-9]{8}-[0-9]{3}$" },
-    "before_summary": { "type": "string" },
-    "after_summary": { "type": "string" },
-    "test_prompt": { "type": "string" },
-    "observed_improvement": { "type": "string" },
-    "remaining_issue": { "type": "string" },
-    "pass_or_fail": { "type": "string" },
-    "reviewer": { "type": "string" },
-    "next_action": { "type": "string" }
+    "validation_id": {
+      "type": "string",
+      "pattern": "^VAL-[0-9]{8}-[0-9]{3}$"
+    },
+    "linked_patch_id": {
+      "type": "string",
+      "pattern": "^PATCH-[0-9]{8}-[0-9]{3}$"
+    },
+    "before_summary": {
+      "type": "string"
+    },
+    "after_summary": {
+      "type": "string"
+    },
+    "test_prompt": {
+      "type": "string"
+    },
+    "observed_improvement": {
+      "type": "string"
+    },
+    "remaining_issue": {
+      "type": "string"
+    },
+    "pass_or_fail": {
+      "type": "string"
+    },
+    "reviewer": {
+      "type": "string"
+    },
+    "next_action": {
+      "type": "string"
+    }
   },
   "additionalProperties": false
 }

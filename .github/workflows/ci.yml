@@ -1,23 +1,45 @@
 name: CI
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 jobs:
-  validate:
+  boundary:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-      - name: Install test dependency
-        run: python -m pip install --upgrade pytest
-      - name: Check public package boundaries
-        run: python scripts/check_public_package.py --dir .
-      - name: Run generator tests
+          python-version: '3.11'
+      - run: python scripts/check_public_package.py --dir . --skip-tests
+  generator:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
         working-directory: packages/character-system/engineering/generation/character-generator
-        run: python -m pytest tests -q
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pytest
+      - run: python -m pytest tests -q
+  filter:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    defaults:
+      run:
+        working-directory: packages/character-system/engineering/corpus-preparation/qq-raw-material-filter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -e . pytest
+      - run: python -m pytest tests -q
+      - run: |
+          qce-block-filter --help
+          python qce_block_filter.py --help

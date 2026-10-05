@@ -12,10 +12,10 @@ from intake_plan import normalize_intake_to_config
 
 def valid_config():
     return {
-        "character_id": "sample-character",
-        "display_name": "Sample Character",
-        "corpus_path": "corpus/sample-character",
-        "output_path": "characters/sample-character",
+        "character_id": "writerA",
+        "display_name": "Writer A",
+        "corpus_path": "corpus/writerA",
+        "output_path": "characters/writerA",
         "language": "zh-CN",
         "privacy_level": "high",
         "style_strength": "medium",
@@ -61,7 +61,7 @@ class ConfigValidationTest(unittest.TestCase):
         del config["corpus_path"]
         config["corpus_sources"] = [
             {
-                "path": "corpus/sample-character",
+                "path": "corpus/writerA",
                 "source_type": "work",
                 "role": "long_form_style",
                 "include": True,
@@ -77,27 +77,27 @@ class ConfigValidationTest(unittest.TestCase):
 
     def test_missing_required_intake_stops_before_config(self):
         with self.assertRaisesRegex(ValueError, "Generation stopped"):
-            normalize_intake_to_config({"display_name": "Sample Character"})
+            normalize_intake_to_config({"display_name": "Writer A"})
 
     def test_optional_intake_gaps_allow_safe_defaults(self):
         config, optional_missing = normalize_intake_to_config(
             {
-                "display_name": "Sample Character",
-                "corpus_sources": [{"path": "corpus/sample-character"}],
+                "display_name": "Writer A",
+                "corpus_sources": [{"path": "corpus/writerA"}],
                 "authorization_confirmed": True,
                 "privacy_boundary_accepted": True,
                 "target_tasks": ["discussion"],
             }
         )
-        self.assertEqual(config["character_id"], "Sample-Character")
+        self.assertEqual(config["character_id"], "Writer-A")
         self.assertEqual(config["privacy_level"], "high")
         self.assertIn("personal profile", optional_missing[0])
 
     def test_conversational_target_type_maps_to_supported_task(self):
         config, _optional_missing = normalize_intake_to_config(
             {
-                "display_name": "Sample Character",
-                "corpus_sources": [{"path": "corpus/sample-character"}],
+                "display_name": "Writer A",
+                "corpus_sources": [{"path": "corpus/writerA"}],
                 "authorization_confirmed": True,
                 "privacy_boundary_accepted": True,
                 "target_interaction_type": "friend chat and writing collaborator",

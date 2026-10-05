@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "repository": "AnieerLhayK/Chatty-Ch-System",
+  "branch": "main",
+  "allowed_top_level": [
+    "README.md",
+    "README.zh-CN.md",
+    ".github",
+    ".gitignore",
+    "PROJECTION_SOURCE.json",
+    "packages",
+    "scripts",
+    "shared",
+    "workspace_manifest.yaml.template"
+  ],
+  "required_paths": [
+    "README.md",
+    "README.zh-CN.md",
+    ".github/workflows/ci.yml",
+    "PROJECTION_SOURCE.json",
+    "scripts/check_public_package.py",
+    "scripts/public_contract.json",
+    "workspace_manifest.yaml.template",
+    "packages/character-system/engineering/generation/character-generator/SKILL.md",
+    "packages/character-system/engineering/generation/character-generator/scripts/build_character.py",
+    "packages/character-system/engineering/diagnosis/style-doctor/SKILL.md",
+    "packages/character-system/engineering/maintenance/character-maintainer/SKILL.md",
+    "packages/character-system/shared/protocol_manifest.json",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/pyproject.toml",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/filter_config.toml",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/qce_block_filter.py",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/qq_raw_filter/host_paths.py",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/tests/test_public_smoke.py"
+  ],
+  "forbidden_paths": [
+    "packages/character-system/runtime",
+    "packages/character-system/reports",
+    "packages/character-system/distribution",
+    "packages/character-system/engineering/generation/character-generator/configs/writerA.json",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/.github",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/scripts/check_public_package.py"
+  ],
+  "forbidden_parts": [
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "corpus",
+    "output",
+    "_private",
+    "_drafts",
+    "build",
+    "dist",
+    "lexicons",
+    "raw_material"
+  ],
+  "root_shared_files": [
+    "shared/operations/delivery_output_policy.md",
+    "shared/workspace/discovery_rules.md",
+    "shared/workspace/failure_policy.md",
+    "shared/workspace/manifest_portability_policy.md",
+    "shared/operations/session_continuity_policy.md",
+    "shared/workspace/workspace_path_policy.md"
+  ],
+  "forbidden_text": [
+    "D:[\\\\/]+AI",
+    "C:[\\\\/]+Users",
+    "packages/character-system/runtime/characters",
+    "zyc-toolkit",
+    "\\bZYC\\b",
+    "\\bzyc\\b"
+  ],
+  "text_scan_roots": [
+    "README.md",
+    "README.zh-CN.md",
+    ".github",
+    ".gitignore",
+    "PROJECTION_SOURCE.json",
+    "packages",
+    "scripts",
+    "shared",
+    "workspace_manifest.yaml.template"
+  ],
+  "text_scan_exemptions": [
+    "scripts/check_public_package.py",
+    "scripts/public_contract.json"
+  ],
+  "test_roots": [
+    "packages/character-system/engineering/generation/character-generator",
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter"
+  ],
+  "included_roots": [
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter",
+    "packages/character-system/engineering/generation/character-generator",
+    "packages/character-system/engineering/diagnosis/style-doctor",
+    "packages/character-system/engineering/maintenance/character-maintainer",
+    "packages/character-system/shared"
+  ],
+  "allowed_files": [
+    "README.md",
+    "README.zh-CN.md",
+    ".github/workflows/ci.yml",
+    "PROJECTION_SOURCE.json",
+    "scripts/check_public_package.py",
+    "scripts/public_contract.json",
+    "workspace_manifest.yaml.template",
+    "shared/operations/delivery_output_policy.md",
+    "shared/workspace/discovery_rules.md",
+    "shared/workspace/failure_policy.md",
+    "shared/workspace/manifest_portability_policy.md",
+    "shared/operations/session_continuity_policy.md",
+    "shared/workspace/workspace_path_policy.md",
+    ".gitignore"
+  ],
+  "forbidden_suffixes": [
+    ".jsonl",
+    ".zip",
+    ".pdf",
+    ".docx",
+    ".sqlite",
+    ".db",
+    ".log"
+  ]
+}

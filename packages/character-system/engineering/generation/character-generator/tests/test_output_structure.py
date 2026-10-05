@@ -14,8 +14,8 @@ from validate_pack import validate_pack
 
 def config(max_quote_chars=80):
     return {
-        "character_id": "sample-character",
-        "display_name": "Sample Character",
+        "character_id": "writerA",
+        "display_name": "Writer A",
         "max_quote_chars": max_quote_chars,
     }
 
@@ -58,8 +58,8 @@ class OutputStructureTest(unittest.TestCase):
 
     def test_interaction_scaffold_renders_from_existing_config(self):
         generator_config = {
-            "character_id": "sample-character",
-            "display_name": "Sample Character",
+            "character_id": "writerA",
+            "display_name": "Writer A",
             "privacy_level": "high",
             "style_strength": "medium",
             "quote_policy": "short_only",
