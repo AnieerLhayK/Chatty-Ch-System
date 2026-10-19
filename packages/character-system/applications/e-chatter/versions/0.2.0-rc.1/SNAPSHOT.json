@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "version": "0.2.0-rc.1",
+  "source_revision": "d080727f9fb99d12f12f5336e3536ee42d4b8ab7",
+  "source_package": "packages/ai-workbench",
+  "platform": "windows11-x64",
+  "files": {
+    ".gitignore": "bca1588ef1674eb90f2b840ecc6ba9224ddb782cfb75926057304fb992cdb3f9",
+    "AGENTS.md": "25c997522001829a1f4f4193e2c9ba1170dfefb5681bbea5d099afde58f06c64",
+    "LICENSE": "c660b5d4c6573cb172fe4eb342da788ba65fe7262e7f9a3a84f0a5a9b11ef034",
+    "pyproject.toml": "35da02b945ac81917dd1765a8ada088418968d21af92de92bb7da739863d6a2e",
+    "README.md": "ce57e70d8bf8f2cc78e2ff797dbbeef7f9ebc8f37246f83a950f00b2d34e7e50",
+    "README.zh-CN.md": "78a630a191e3c8209c8097b59f42e0197f9d9916e5f6d7de125715f1813a98f8",
+    "docs/e-chatter.md": "64868e4ca1d51c2dc6b6c306072d0853c821d023a2eae9671271379419f5e125",
+    "docs/release-verification.md": "d487b725e028420323ff7f2676b26e7ec3e25ae6c708967e4f3c9e6181a201e2",
+    "scripts/build_e_chatter.py": "b20458c57e938e47d11981280f822886a484f041a07f2b1f6bd9aaf84a9f1d34",
+    "scripts/launch_e_chatter.py": "42cab1329b9bcb480c130bfe79b28beefe295f5921b73639acbfb0605f9a177e",
+    "tests/conftest.py": "3c6c573460662550d9a00cb78d02a7888c61126c8a278aaf948850f93be5529a",
+    "tests/test_e_chatter.py": "78100f60e8d7ae7f2aade6481571f519e87ba98d599ad15a970a80c83e700c65",
+    "tests/test_e_chatter_harness.py": "ede3ddb21502082cd5c8fe0ea7483c66081e249ba7b1133fd0ff58d856ba6806",
+    "tests/test_e_chatter_providers.py": "033cebfff5bce7d4eff09df8e229d332de3be09cf08f27e6658a9f02dd1795a9",
+    "tests/test_e_chatter_qt.py": "44886e0668d372977573d56b7ccc5277f1725981980b0f943c246b14a3dff1e9",
+    "src/ai_workbench/codex_isolation.py": "d24eb9ecdfcf60828d7a01126fbda7afd3340a7382c09061ccd14bd85c7ab3f1",
+    "src/ai_workbench/__init__.py": "1d1a0d5b561a61d8a3b3ae13cf5228f3917b0e29132af6b3ca05f9702db9bff8",
+    "src/ai_workbench/e_chatter/.gitignore": "69cbbc9d4e75844f6866875ae597e13d36846c0715617f3be18dd6c874a6ffa3",
+    "src/ai_workbench/e_chatter/app.py": "0fb14398ad5f1587b00b073d11ac00fb784bb34675efa46a9450e20107aaf7dd",
+    "src/ai_workbench/e_chatter/builder.py": "d60e78b4cd65849312534f55a68668b3dbebeb798be5e98b41daccd208ca6e94",
+    "src/ai_workbench/e_chatter/codex.py": "ad94212f856eb90728a8f0e2d42ebb71398b2356bb75744078c933c54ad57c46",
+    "src/ai_workbench/e_chatter/deepseek.py": "9e5c11e154bc0124a7278d6b209293802ea140af55d09a3b3a091f08d2c930bf",
+    "src/ai_workbench/e_chatter/files.py": "6d2524628c82e9564549a236d6c9c33417dd0bca0d6155fcb2aa0b992e6223e5",
+    "src/ai_workbench/e_chatter/harness_archive.py": "7d6b3830b78ec14c78c72fce0286d27ef3489df370633b4273f8846ef7ba2786",
+    "src/ai_workbench/e_chatter/migration.py": "b5a1bab51fb0958947baef138a0ec10c5e0051fe9a7a774c1c1f064653d5e75b",
+    "src/ai_workbench/e_chatter/providers.py": "91f901763c7086e58778883d903819bee9fbd9d8a4b13b6f38530bdd11d88cd6",
+    "src/ai_workbench/e_chatter/service.py": "b75bd8b382fce771665eed8957ab9b92e2147f2197e2c2f8454d4d5c9a219014",
+    "src/ai_workbench/e_chatter/store.py": "3e94cc736ea6548cd213a93242ffd1f0a3f83a684c5b63baac8d93d2e6e4a571",
+    "src/ai_workbench/e_chatter/__init__.py": "525246de957e42647f7941ef6404397d877fd46cd094ee0f658756586fddca3f",
+    "src/ai_workbench/e_chatter/__main__.py": "a67c172046323b0efcafe92cb83abc266d5dd4bc931d9312cde1b7bed50643db",
+    "src/ai_workbench/e_chatter/resources/engineering-source.json": "3e8dc97297a49ab6608d5ceb5d5531aa961975052913f1f2649c5035d1b3f205",
+    "src/ai_workbench/e_chatter/resources/harness-bridge.mjs": "376f5256dc5706166144eb8c4f208ff00b05f1b49a0a7dbaf6c078e264852e67",
+    "src/ai_workbench/e_chatter/resources/policy.md": "4ef2bc84cf08aa7375b3a506c0adb053dbde35912ce831fafae79b430534c7c3",
+    "src/ai_workbench/e_chatter/web/index.html": "a813c70fd23070767ba1504d6958bacb3bb85706624fdf8b5526ceb7f8edd5c1",
+    "src/ai_workbench/e_chatter/web/assets/demo-B7nmzRhG.js": "5ebbe3af0e05f2008da9887bc136ece6326e8876aad7a432631e1f7b389edc01",
+    "src/ai_workbench/e_chatter/web/assets/index-bDjMHoG-.js": "3dfe582b0af95f70faf0699c9ffb78b1f88bf9d5728f1a7374ee27acf557d851",
+    "src/ai_workbench/e_chatter/web/assets/index-BOPoV6q2.css": "ae8e9c258f489e5cd29990b28866759c533b8addb19f1c17a450ed20f05f7d73",
+    "src/ai_workbench/e_chatter/resources/skills/doctor/SKILL.md": "52c8882e82e9ca374e2f77c0ef3f8d3254a5218320aba870fc65f274c4062444",
+    "src/ai_workbench/e_chatter/resources/skills/generator/SKILL.md": "296964c9065b460bccd7270e816dfe15df4b790af541ea75159d3819905e2c42",
+    "src/ai_workbench/e_chatter/resources/skills/maintainer/SKILL.md": "345729c9c0c928f4a55033cd20298632626f2a19c66bef0f2dd369e5dcdce260",
+    "src/ai_workbench/e_chatter/resources/generator/schemas/character_config.schema.json": "e440f4a187e312dadb695fd27928991214d3cd436de8dc166da5bd9dfb2e4e69",
+    "src/ai_workbench/e_chatter/resources/generator/schemas/output_manifest.schema.json": "39f07bdbb82b7bed925d2fd3385ea115589266781212130a87b040584486f284",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/anonymize_corpus.py": "a9ac9274df8022a89d9f3d85596701d0e832ecb7fef5c095282bf07a9080be64",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/build_character.py": "cda35071c604256343276e4765eabe91562bfcffa7bec9fa320ec1339827981b",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/chunk_corpus.py": "529f92167bfea205017c2fbaeb8184ed3a24441a1498316c2dfabccf2f886079",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/corpus_stats.py": "07b2a8924f69b529fd8b11b3e954edfe9e992a95ff85bb5ab8455b1f116da7b6",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/extract_style.py": "e299c01716699b2d8d3f1d6906a902a09871a0a49756b22652cbb89cb21825d6",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/ingest_corpus.py": "e4845de8c334df3af1934f27afba42f932ded78fc4c45598b5fb0e6681eaf8bc",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/intake_plan.py": "87e302a0e2628d45feb78eee01890fe19f71679f98256de1276e39d6268cbe2e",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/validate_pack.py": "38f9f3afd03b2b5db812a7fd01689a66af8619023b4530e0988bc177242ff088",
+    "src/ai_workbench/e_chatter/resources/generator/scripts/write_manifest.py": "30c3153ff010ae06105215f62eb65e6c1d2498534e1339d3a40d5127547f83b2",
+    "src/ai_workbench/e_chatter/resources/generator/templates/anti_patterns.template.md": "4e3ecd04a9514833258b32743cb58644da7d6650d06792a5d5a63c35e78ffc68",
+    "src/ai_workbench/e_chatter/resources/generator/templates/character_README.template.md": "e421c97bb88d853490261eac15dc5e8734deb446c65506aaa6320173cad31ef5",
+    "src/ai_workbench/e_chatter/resources/generator/templates/character_SKILL.template.md": "f5027fcb7e3e5d590314addf76695128fb084f0031b71fa28ed9e7b5ddc283f6",
+    "src/ai_workbench/e_chatter/resources/generator/templates/corpus_notes.template.md": "6a90c7526b1a963a723f6ae4055ad12395162ad09784f2be9096ff0649b13a0c",
+    "src/ai_workbench/e_chatter/resources/generator/templates/evaluation_rubric.template.md": "4739adf15e9e8aaf9d37bd780e89dcca162c0e21bb40c087035522f1299ac7ee",
+    "src/ai_workbench/e_chatter/resources/generator/templates/example_fragments.template.md": "656bd65f7e92528b92390b4e3603b9bfef95c861b2f22534c7a8baa01e441773",
+    "src/ai_workbench/e_chatter/resources/generator/templates/imagery_and_themes.template.md": "3d37811e73a7284632bb317a434f489557380772130b7784e765b98e919df5e6",
+    "src/ai_workbench/e_chatter/resources/generator/templates/prompt_continuation.template.md": "439d008127661b3bae7a003a7f492c817c8e5318c35c2917d85ce2541ebcb2f1",
+    "src/ai_workbench/e_chatter/resources/generator/templates/prompt_critique.template.md": "ea5980d9da8acfbd48fd3b9a6757dbe48ae2ff76364387c0ad186fbf7bda8504",
+    "src/ai_workbench/e_chatter/resources/generator/templates/prompt_discussion.template.md": "608f3d0fa95e85158aa3528d0a3406e4537a4994706fa3cb65ec453b1d288443",
+    "src/ai_workbench/e_chatter/resources/generator/templates/prompt_imitation.template.md": "9e8d62540643c66a4cf6a0a64432d3678bb3bb57319d4d043c05c0d369f9d10a",
+    "src/ai_workbench/e_chatter/resources/generator/templates/prompt_rewrite.template.md": "98a1719d06f3e9282d89e034625a2416a18bc4c7146b6635a858c91310977dd0",
+    "src/ai_workbench/e_chatter/resources/generator/templates/prompt_style_transfer.template.md": "6b5b1d71ba59ff5faca9c85e54ddc0ab09be33bfa891bb51dd1875f153bfc2d7",
+    "src/ai_workbench/e_chatter/resources/generator/templates/sentence_and_rhythm.template.md": "9b9aac5e9922db7177ccc0ecadfa11047c819a083e70faf30195d19621e4a634",
+    "src/ai_workbench/e_chatter/resources/generator/templates/style_profile.template.md": "66cb005c9b7ccab9ebc72c4d5a4b3836ca7598abd64e74e2eb4e5f5677555b8f",
+    "src/ai_workbench/e_chatter/resources/generator/templates/task_recipes.template.md": "60b49d601e8a46d66030b781be99c1612223e59d50e9d13c4d20203d391314a2",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_cases_README.template.md": "fe357e3784cd76c270b2e307e0bc542726b3116e0e4b03c96cd5d36da0489004",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_continuation.template.md": "56417a60191a47ba5fdd1ecbdc2ad397b381aab1bc6c2592ea598b13bbda7d22",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_critique_too_ai.template.md": "ff7f6e36612516f0d20fe6b78fb88153127e135aacfc6f6e818f4d04a9e19fc9",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_discussion.template.md": "8aeff8f54bb29dd00c7e2a4c8b60f22010fe111a8b9de35ae94d7e1af8e25ef8",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_privacy_boundary.template.md": "758effa3b91779942e6b2c2cb84840f05f8568227b5e2e2b6c02bbe8e3c89044",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_rewrite_basic.template.md": "3e7ae2967f92d66ee4d0d49178c4de0a5bc590b951a080ec96ab12bcec2f66bc",
+    "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_style_strength.template.md": "6b9e507e5ba9ebc34030e6a189047d331c145138726e50b94280069c9f713a59",
+    "src/ai_workbench/e_chatter/resources/generator/templates/vocabulary_bank.template.md": "f202e257a81b11ad44dfd7726cc94fecfb593aee1a382ad84703705ec15c49a6",
+    "src/ai_workbench/e_chatter/resources/generator/templates/voice_card.template.md": "6523609044dd57e3da0ba42b347e660dda4236a96082bc61e39cc18f7710a944",
+    "src/ai_workbench/e_chatter/resources/generator/templates/writing_patterns.template.md": "e8c077c46a96632507dbfc6cb72555ff16258990e2807ccae9c565b516a86599",
+    "frontend/e-chatter/index.html": "280805c13db4384c5b12c550de127b0e1c99b2bb72433d9ed451f09d7362b527",
+    "frontend/e-chatter/package-lock.json": "fb40b7dfa4b3b4d3d41ddc577bb5bb96285b2779559a5a945f74fd11c9b421d2",
+    "frontend/e-chatter/package.json": "cb6f4fca076c3b7ff8ebed8fbf9a201698748418c36444a4be62bdd2c21221e1",
+    "frontend/e-chatter/tsconfig.json": "d63291b2818a3117cd0425e427c671e2ff8bb3b08d9c2e53b86a6df8649aaacd",
+    "frontend/e-chatter/vite.config.ts": "b4b09056b58b95422e0ba19cd8efe446ba55151da6bdbbffdd12aee24563e28c",
+    "frontend/e-chatter/src/App.tsx": "a3597298da41d5fd46c94e4e682fa07404edaf68825323a78973ee920dadcc79",
+    "frontend/e-chatter/src/bridge.ts": "d92490b3c774ef4f50ba711502ff1f43a22aa8a0e8f0b595859d14306f19352f",
+    "frontend/e-chatter/src/Chat.tsx": "dc581278b9693902fdead4a9ba8c76618701914766d42c1f5304b6c6b8a1a926",
+    "frontend/e-chatter/src/controller.ts": "c1dd3a400e8097e9e8980e3068d1b3ec66654db8d712149fb34451319a38825a",
+    "frontend/e-chatter/src/demo.test.ts": "b9ce7fac009ecdfe68ba50a7889f4e5737331521b343c62f58061bdf0582a60a",
+    "frontend/e-chatter/src/demo.ts": "a74d3525284b1ef69e2b5fb9e94d4b2646b7cfd18648fa044385f7b2cdb9c1e4",
+    "frontend/e-chatter/src/Dialog.tsx": "00ed560f72062726acd597bfc5ea02174521d125b3344bc5d3f3f7231eabcba1",
+    "frontend/e-chatter/src/main.tsx": "56f8e63392d67bb8bbc56202de637d4c4967a2a64681ad35a3a6ddfb08e71776",
+    "frontend/e-chatter/src/Models.tsx": "0201f1c3c383d5b3a550b8caed8351948bc9ca8fcfceb966f237272973f75cf1",
+    "frontend/e-chatter/src/Registry.tsx": "e919aee01a326152420a07e2400ae2a84bb14432a343356ba6983bcc033f5df1",
+    "frontend/e-chatter/src/Review.tsx": "4fa9e807b84a8283807b15037c0c2f8df8ed138602675fc47c68fd5ccd8f071f",
+    "frontend/e-chatter/src/Settings.tsx": "38a00f8447a0341f0a1d24524c4b8caeb1093edf504e29d54e7a432074241c60",
+    "frontend/e-chatter/src/Sidebar.tsx": "d5f3948a7ba37b4ba79da12a91c9d77804df7e77853826ea2e6e2cda8e6dbf6b",
+    "frontend/e-chatter/src/style.css": "cdeee495e35a217ec84f1dc495e3d43ec381bba3461ba3468c015d2dba41b5ec",
+    "frontend/e-chatter/src/types.ts": "4f2ccf3177800951680a40d08fb9e885ffecb1c9bd9d33db67f1e02c18d2304a",
+    "docs/e-chatter-licenses/GPL-3.0-only.txt": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "docs/e-chatter-licenses/LGPL-3.0-only.txt": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+    "docs/e-chatter-licenses/NOTICE.txt": "b336054dc8bf8f4be5840abcb0432b981929619ff6db087bf9cde9bf1b82c379",
+    "docs/e-chatter-licenses/Qt-GPL-exception-1.0.txt": "fad799fdc248a52b9c0fa17823b6d4bc9907a19d6e8c78b8a071c9b551ea9c60"
+  },
+  "artifact": {
+    "filename": "e-Chatter-windows-x64.zip",
+    "relative_path": "0.2.0-rc.1/e-Chatter-windows-x64.zip",
+    "sha256": "f75ec44722158c3bcb093d7b74b1a8a7b5a9c8344bbd319e12d71146b30935d3",
+    "bytes": 178570908
+  },
+  "acceptance": {
+    "passed": [
+      "codex_real",
+      "deepseek_account_real"
+    ],
+    "missing": [
+      "deepseek_key_real",
+      "clean_windows11"
+    ],
+    "status": "candidate"
+  },
+  "checks": {
+    "independent_install": "passed",
+    "frontend": "passed",
+    "controlled_tests": "passed",
+    "native": "passed",
+    "frozen_modules_and_resources": "passed",
+    "restricted_path_demo": "passed"
+  },
+  "dependencies": {
+    "required": [
+      "PySide6==6.9.2",
+      "PyYAML>=6.0.3,<7"
+    ],
+    "resolved": {
+      "python": "3.13.9",
+      "PySide6": "6.9.2 ",
+      "PyYAML": "6.0.3",
+      "PyInstaller": "6.22.3"
+    },
+    "frontend_lock_sha256": "fb40b7dfa4b3b4d3d41ddc577bb5bb96285b2779559a5a945f74fd11c9b421d2"
+  },
+  "resource_provenance": {
+    "schema": 1,
+    "source_package": "character-system",
+    "source_revision": "414a934c4074c98297e0aca441156da9e789b477",
+    "policy": "Read-only snapshot; ai-workbench owns its adapters. No runtime characters, private configs, corpus or reports are copied.",
+    "files": [
+      {
+        "source": "engineering/generation/character-generator/scripts/anonymize_corpus.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/anonymize_corpus.py",
+        "sha256": "a9ac9274df8022a89d9f3d85596701d0e832ecb7fef5c095282bf07a9080be64"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/build_character.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/build_character.py",
+        "sha256": "cda35071c604256343276e4765eabe91562bfcffa7bec9fa320ec1339827981b"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/chunk_corpus.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/chunk_corpus.py",
+        "sha256": "529f92167bfea205017c2fbaeb8184ed3a24441a1498316c2dfabccf2f886079"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/corpus_stats.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/corpus_stats.py",
+        "sha256": "07b2a8924f69b529fd8b11b3e954edfe9e992a95ff85bb5ab8455b1f116da7b6"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/extract_style.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/extract_style.py",
+        "sha256": "e299c01716699b2d8d3f1d6906a902a09871a0a49756b22652cbb89cb21825d6"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/ingest_corpus.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/ingest_corpus.py",
+        "sha256": "e4845de8c334df3af1934f27afba42f932ded78fc4c45598b5fb0e6681eaf8bc"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/intake_plan.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/intake_plan.py",
+        "sha256": "87e302a0e2628d45feb78eee01890fe19f71679f98256de1276e39d6268cbe2e"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/validate_pack.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/validate_pack.py",
+        "sha256": "38f9f3afd03b2b5db812a7fd01689a66af8619023b4530e0988bc177242ff088"
+      },
+      {
+        "source": "engineering/generation/character-generator/scripts/write_manifest.py",
+        "target": "src/ai_workbench/e_chatter/resources/generator/scripts/write_manifest.py",
+        "sha256": "30c3153ff010ae06105215f62eb65e6c1d2498534e1339d3a40d5127547f83b2"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/anti_patterns.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/anti_patterns.template.md",
+        "sha256": "4e3ecd04a9514833258b32743cb58644da7d6650d06792a5d5a63c35e78ffc68"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/character_README.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/character_README.template.md",
+        "sha256": "e421c97bb88d853490261eac15dc5e8734deb446c65506aaa6320173cad31ef5"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/character_SKILL.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/character_SKILL.template.md",
+        "sha256": "f5027fcb7e3e5d590314addf76695128fb084f0031b71fa28ed9e7b5ddc283f6"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/corpus_notes.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/corpus_notes.template.md",
+        "sha256": "6a90c7526b1a963a723f6ae4055ad12395162ad09784f2be9096ff0649b13a0c"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/evaluation_rubric.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/evaluation_rubric.template.md",
+        "sha256": "4739adf15e9e8aaf9d37bd780e89dcca162c0e21bb40c087035522f1299ac7ee"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/example_fragments.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/example_fragments.template.md",
+        "sha256": "656bd65f7e92528b92390b4e3603b9bfef95c861b2f22534c7a8baa01e441773"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/imagery_and_themes.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/imagery_and_themes.template.md",
+        "sha256": "3d37811e73a7284632bb317a434f489557380772130b7784e765b98e919df5e6"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/prompt_continuation.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/prompt_continuation.template.md",
+        "sha256": "439d008127661b3bae7a003a7f492c817c8e5318c35c2917d85ce2541ebcb2f1"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/prompt_critique.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/prompt_critique.template.md",
+        "sha256": "ea5980d9da8acfbd48fd3b9a6757dbe48ae2ff76364387c0ad186fbf7bda8504"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/prompt_discussion.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/prompt_discussion.template.md",
+        "sha256": "608f3d0fa95e85158aa3528d0a3406e4537a4994706fa3cb65ec453b1d288443"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/prompt_imitation.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/prompt_imitation.template.md",
+        "sha256": "9e8d62540643c66a4cf6a0a64432d3678bb3bb57319d4d043c05c0d369f9d10a"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/prompt_rewrite.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/prompt_rewrite.template.md",
+        "sha256": "98a1719d06f3e9282d89e034625a2416a18bc4c7146b6635a858c91310977dd0"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/prompt_style_transfer.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/prompt_style_transfer.template.md",
+        "sha256": "6b5b1d71ba59ff5faca9c85e54ddc0ab09be33bfa891bb51dd1875f153bfc2d7"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/sentence_and_rhythm.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/sentence_and_rhythm.template.md",
+        "sha256": "9b9aac5e9922db7177ccc0ecadfa11047c819a083e70faf30195d19621e4a634"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/style_profile.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/style_profile.template.md",
+        "sha256": "66cb005c9b7ccab9ebc72c4d5a4b3836ca7598abd64e74e2eb4e5f5677555b8f"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/task_recipes.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/task_recipes.template.md",
+        "sha256": "60b49d601e8a46d66030b781be99c1612223e59d50e9d13c4d20203d391314a2"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_case_continuation.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_continuation.template.md",
+        "sha256": "56417a60191a47ba5fdd1ecbdc2ad397b381aab1bc6c2592ea598b13bbda7d22"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_case_critique_too_ai.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_critique_too_ai.template.md",
+        "sha256": "ff7f6e36612516f0d20fe6b78fb88153127e135aacfc6f6e818f4d04a9e19fc9"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_case_discussion.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_discussion.template.md",
+        "sha256": "8aeff8f54bb29dd00c7e2a4c8b60f22010fe111a8b9de35ae94d7e1af8e25ef8"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_case_privacy_boundary.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_privacy_boundary.template.md",
+        "sha256": "758effa3b91779942e6b2c2cb84840f05f8568227b5e2e2b6c02bbe8e3c89044"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_case_rewrite_basic.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_rewrite_basic.template.md",
+        "sha256": "3e7ae2967f92d66ee4d0d49178c4de0a5bc590b951a080ec96ab12bcec2f66bc"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_case_style_strength.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_case_style_strength.template.md",
+        "sha256": "6b9e507e5ba9ebc34030e6a189047d331c145138726e50b94280069c9f713a59"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/validation_cases_README.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/validation_cases_README.template.md",
+        "sha256": "fe357e3784cd76c270b2e307e0bc542726b3116e0e4b03c96cd5d36da0489004"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/vocabulary_bank.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/vocabulary_bank.template.md",
+        "sha256": "f202e257a81b11ad44dfd7726cc94fecfb593aee1a382ad84703705ec15c49a6"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/voice_card.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/voice_card.template.md",
+        "sha256": "6523609044dd57e3da0ba42b347e660dda4236a96082bc61e39cc18f7710a944"
+      },
+      {
+        "source": "engineering/generation/character-generator/templates/writing_patterns.template.md",
+        "target": "src/ai_workbench/e_chatter/resources/generator/templates/writing_patterns.template.md",
+        "sha256": "e8c077c46a96632507dbfc6cb72555ff16258990e2807ccae9c565b516a86599"
+      },
+      {
+        "source": "engineering/generation/character-generator/schemas/character_config.schema.json",
+        "target": "src/ai_workbench/e_chatter/resources/generator/schemas/character_config.schema.json",
+        "sha256": "e440f4a187e312dadb695fd27928991214d3cd436de8dc166da5bd9dfb2e4e69"
+      },
+      {
+        "source": "engineering/generation/character-generator/schemas/output_manifest.schema.json",
+        "target": "src/ai_workbench/e_chatter/resources/generator/schemas/output_manifest.schema.json",
+        "sha256": "39f07bdbb82b7bed925d2fd3385ea115589266781212130a87b040584486f284"
+      },
+      {
+        "source": "engineering/generation/character-generator/SKILL.md",
+        "adaptation": "resources/skills/generator/SKILL.md",
+        "sha256": "7090484e7f69fd5e804aaf20f783cbb40ea5caa070772471495c65949bed0a1d"
+      },
+      {
+        "source": "engineering/maintenance/character-maintainer/SKILL.md",
+        "adaptation": "resources/skills/maintainer/SKILL.md",
+        "sha256": "ce0cb43ddeda128cc2c2b28f0b7e1cebd65b9ce88186011056bee65d5105110d"
+      },
+      {
+        "source": "engineering/diagnosis/style-doctor/SKILL.md",
+        "adaptation": "resources/skills/doctor/SKILL.md",
+        "sha256": "34b5836894e11a7cb03d2b1169dbdeacb4825c6e751f07e76267e7bc170787e3"
+      }
+    ]
+  }
+}

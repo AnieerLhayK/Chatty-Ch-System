@@ -83,3 +83,22 @@ Bilingual navigation and the privacy-focused filter overview adapt the unmerged
 [filter documentation PR #1](https://github.com/AnieerLhayK/qq-chat-raw-filter/pull/1)
 and [Chatty documentation PR #1](https://github.com/AnieerLhayK/Chatty-Ch-System/pull/1).
 The source package remains authoritative; those PRs are not automatically merged.
+
+## e-Chatter Windows candidate
+
+Download [e-Chatter 0.2.0-rc.1](https://github.com/AnieerLhayK/Chatty-Ch-System/releases/tag/e-chatter-v0.2.0-rc.1).
+Extract the complete ZIP and launch `e-Chatter.exe` on Windows 11 x64. Python and
+Node are bundled or unnecessary at runtime. Install and sign in to your own
+supported Codex or DeepSeek Harness separately; see Agent settings for supported
+versions. No personal characters, account credentials or conversations are bundled.
+
+This is a **Pre-release**. Real DeepSeek API Key and clean Windows 11 acceptance
+remain unverified. It does not replace the v0.1.0 stable release.
+Verify the ZIP with the release's `SHA256SUMS`; `release.json` records its source
+revision and acceptance limitations.
+
+Standalone source and build instructions:
+[`applications/e-chatter/versions/0.2.0-rc.1`](packages/character-system/applications/e-chatter/versions/0.2.0-rc.1/README.md).
+Use Python 3.13 and Node 22 for development. The snapshot is immutable: fixes
+return to ai-workbench and are promoted as a new version. Both products distribute
+the same accepted ZIP, rather than claiming separate builds are identical.

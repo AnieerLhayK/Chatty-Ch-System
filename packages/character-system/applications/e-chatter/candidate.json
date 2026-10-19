@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0-rc.1",
+  "status": "candidate",
+  "source_revision": "d080727f9fb99d12f12f5336e3536ee42d4b8ab7",
+  "snapshot": "versions/0.2.0-rc.1",
+  "artifact": {
+    "filename": "e-Chatter-windows-x64.zip",
+    "relative_path": "0.2.0-rc.1/e-Chatter-windows-x64.zip",
+    "sha256": "f75ec44722158c3bcb093d7b74b1a8a7b5a9c8344bbd319e12d71146b30935d3",
+    "bytes": 178570908
+  }
+}

@@ -30,7 +30,12 @@
     "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/filter_config.toml",
     "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/qce_block_filter.py",
     "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/qq_raw_filter/host_paths.py",
-    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/tests/test_public_smoke.py"
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/tests/test_public_smoke.py",
+    "packages/character-system/applications/e-chatter/README.md",
+    "packages/character-system/applications/e-chatter/README.zh-CN.md",
+    "packages/character-system/applications/e-chatter/candidate.json",
+    "packages/character-system/applications/e-chatter/.gitattributes",
+    "packages/character-system/applications/e-chatter/versions/0.2.0-rc.1/SNAPSHOT.json"
   ],
   "forbidden_paths": [
     "packages/character-system/runtime",
@@ -38,7 +43,8 @@
     "packages/character-system/distribution",
     "packages/character-system/engineering/generation/character-generator/configs/writerA.json",
     "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/.github",
-    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/scripts/check_public_package.py"
+    "packages/character-system/engineering/corpus-preparation/qq-raw-material-filter/scripts/check_public_package.py",
+    "packages/character-system/engineering/generation/character-generator/characters"
   ],
   "forbidden_parts": [
     ".git",
@@ -111,7 +117,11 @@
     "shared/workspace/manifest_portability_policy.md",
     "shared/operations/session_continuity_policy.md",
     "shared/workspace/workspace_path_policy.md",
-    ".gitignore"
+    ".gitignore",
+    "packages/character-system/applications/e-chatter/README.md",
+    "packages/character-system/applications/e-chatter/README.zh-CN.md",
+    "packages/character-system/applications/e-chatter/candidate.json",
+    "packages/character-system/applications/e-chatter/.gitattributes"
   ],
   "forbidden_suffixes": [
     ".jsonl",
@@ -121,5 +131,20 @@
     ".sqlite",
     ".db",
     ".log"
+  ],
+  "immutable_snapshots": [
+    {
+      "root": "packages/character-system/applications/e-chatter/versions/0.2.0-rc.1",
+      "version": "0.2.0-rc.1",
+      "manifest": "SNAPSHOT.json",
+      "manifest_sha256": "76ec78041e09d299133ee112db6ab985bc87a06a9e8d084db7221856e9598171",
+      "candidate": "packages/character-system/applications/e-chatter/candidate.json"
+    }
+  ],
+  "application_files": [
+    "packages/character-system/applications/e-chatter/README.md",
+    "packages/character-system/applications/e-chatter/README.zh-CN.md",
+    "packages/character-system/applications/e-chatter/candidate.json",
+    "packages/character-system/applications/e-chatter/.gitattributes"
   ]
 }

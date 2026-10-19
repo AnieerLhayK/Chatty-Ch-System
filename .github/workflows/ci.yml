@@ -43,3 +43,51 @@ jobs:
       - run: |
           qce-block-filter --help
           python qce_block_filter.py --help
+
+  e-chatter-windows:
+    runs-on: windows-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate immutable source and copy outside checkout
+        shell: pwsh
+        run: |
+          python scripts/check_public_package.py --dir . --skip-tests
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          $app = Join-Path $env:RUNNER_TEMP 'e-chatter'
+          Copy-Item packages/character-system/applications/e-chatter/versions/0.2.0-rc.1 $app -Recurse
+          "E_CHATTER_SOURCE=$app" >> $env:GITHUB_ENV
+      - name: Install standalone application
+        shell: pwsh
+        run: |
+          Set-Location $env:E_CHATTER_SOURCE
+          python -m pip install '.[dev]'
+      - name: Frontend tests and build
+        shell: pwsh
+        run: |
+          Set-Location "$env:E_CHATTER_SOURCE/frontend/e-chatter"
+          npm ci
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          npm test
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          npm run build
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Controlled application tests
+        shell: pwsh
+        run: |
+          Set-Location $env:E_CHATTER_SOURCE
+          python -B -m pytest tests -q -p no:cacheprovider --basetemp "$env:RUNNER_TEMP/app-tests"
+      - name: Native Qt WebChannel
+        shell: pwsh
+        env:
+          E_CHATTER_RUN_NATIVE: '1'
+        run: |
+          Set-Location $env:E_CHATTER_SOURCE
+          python -B -m pytest tests/test_e_chatter_qt.py -q -p no:cacheprovider --basetemp "$env:RUNNER_TEMP/native-tests"

@@ -76,3 +76,17 @@ CI 另在 Python 3.11、3.12 上安装 filter 并检查 CLI。
 [filter 文档 PR #1](https://github.com/AnieerLhayK/qq-chat-raw-filter/pull/1) 及
 [Chatty 文档 PR #1](https://github.com/AnieerLhayK/Chatty-Ch-System/pull/1)。
 本地 package 是权威源，不自动合并这些 PR。
+
+## e-Chatter Windows 候选版
+
+下载 [e-Chatter 0.2.0-rc.1](https://github.com/AnieerLhayK/Chatty-Ch-System/releases/tag/e-chatter-v0.2.0-rc.1)。
+完整解压 ZIP，在 Windows 11 x64 上启动 `e-Chatter.exe`，运行时无需安装 Python 或 Node。
+所选 Codex 或 DeepSeek Harness 须另行安装并登录；受支持版本见应用设置。
+发行包不携带个人角色、登录凭据或会话。
+
+本次为 **Pre-release**：真实 DeepSeek API Key 和干净 Windows 11 验收尚未完成，
+不替代 v0.1.0 稳定版。使用附件 `SHA256SUMS` 校验 ZIP；`release.json` 记录源码及验收限制。
+
+[独立源码与构建说明](packages/character-system/applications/e-chatter/versions/0.2.0-rc.1/README.zh-CN.md)：
+开发使用 Python 3.13、Node 22。快照不可直接修改，修复返回 ai-workbench 后晋升新版本。
+两端分发同一份验收 ZIP，不分别重建后宣称相同。
