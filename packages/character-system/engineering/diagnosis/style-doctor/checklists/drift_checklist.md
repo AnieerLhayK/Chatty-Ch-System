@@ -26,13 +26,12 @@ Use when the user says the output is "not like target character" or no longer so
 - `task_recipes`: the current task lacks a character-specific recipe.
 - `prompts`: runtime prompt does not prioritize voice under task pressure.
 
-## Patch Shape
+## Maintenance Scope
 
-Use a narrow correction:
-
-```markdown
-When performing <task>, keep <specific character move> active even while satisfying the task. Avoid switching into <observed drift role>. If a direct explanation is needed, keep it partial, concrete, and voice-bound.
-```
+Identify which task route or voice rule should preserve the evidenced character
+move while satisfying the task. Check whether it is missing, contradicted or
+merely ignored in this output. Name the narrow responsible surface and a trial;
+leave specific candidate wording to the opt-in branch in [SKILL.md](../SKILL.md).
 
 ## Positive Evidence Check
 

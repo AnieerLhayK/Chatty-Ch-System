@@ -2,6 +2,10 @@
 
 ## Public Command
 
+Use these commands only after the source, output-ownership and execution-mode
+checks in [SKILL.md](../SKILL.md). The builder does not replace the agent's
+responsibility to protect manually evolved output, including in `--all` mode.
+
 Conversational intake:
 
 ```bash

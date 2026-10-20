@@ -162,11 +162,14 @@ The legacy config field `generate_opencode_skill` is accepted for backward compa
 
 ## Update a Character
 
-1. Add, remove, or edit files in the configured corpus directory.
-2. Adjust `configs/<character_id>.json` if needed.
-3. Run the same build command again.
+For a requested rebuild, first verify the config output is generator-owned and
+contains no manual evolution that would be overwritten. Then update the
+authorized corpus/config and run the same build command again. Existing mature
+character changes go through `character-maintainer` instead of regeneration.
 
-The output folder is regenerated from config and corpus.
+For conversational operation, [SKILL.md](SKILL.md) routes intake, execution and
+delivery checks. A successful structural build yields a baseline for runtime
+trials, not proof of character fidelity.
 
 ## Safety Position
 

@@ -1,5 +1,10 @@
 # Common Failure Modes
 
+Use these as hypotheses only when the output conflicts with this character's
+actual rules. The default diagnosis describes evidence and maintenance scope;
+concrete wording is opt-in. Directness, reassurance or orderly prose can be
+correct for another character or task and do not justify adding a blanket rule.
+
 ## "Too AI"
 
 Symptoms:
@@ -11,7 +16,7 @@ Symptoms:
 Patch direction:
 - Add anti-pattern examples.
 - Penalize generic closure in the rubric.
-- Strengthen prompt priority for character voice over helpful assistant defaults.
+- Check that the active prompt carries the relevant voice constraint while preserving the user's task and factual requirements.
 
 ## "Not Like target character"
 

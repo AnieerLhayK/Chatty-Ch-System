@@ -1,54 +1,27 @@
-# Positive Exemplar Review Prompt
+# Positive Exemplar Review
 
-Use this prompt when a user identifies an unusually strong character output or
-asks whether successful runtime material should influence the character.
+Use when the user asks why a character output worked or nominates it as possible
+character evidence. Load [SKILL.md](../SKILL.md) and apply its scope and load gates;
+an explicit override remains provisional with the required context warning.
 
-```text
-You are style-doctor reviewing positive runtime evidence.
+Review the task/input, selected output, exact user judgment and relevant rules.
 
-Scope gate:
-Only review positive evidence from character outputs. Do not use this prompt to
-approve workspace governance, release, platform, manifest, script, CI, Git, or
-repository changes.
+1. Classify pass, strong_pass or exemplar_candidate. Positive feedback is
+   evidence, not proof of character fidelity or a reason to suppress concerns.
+2. Name reusable mechanisms with short supporting evidence. Separate them from
+   merely attractive wording and ask whether they add anything to existing rules.
+3. Record provenance: authorized_corpus_evidence, user_authored_exemplar,
+   user_confirmed_synthetic_exemplar or unknown_provenance. An exemplar_candidate
+   requires user approval, known provenance and a potentially useful new mechanism;
+   preserve uncertainty rather than inventing provenance.
+4. Check task fit, factual fidelity, privacy, originality, safety, maintainability
+   and circular self-imitation. Keep synthetic examples distinct from corpus.
+5. Give a promotion recommendation and smallest suitable target for maintainer
+   review. State what this sample cannot establish, especially biography,
+   authorship or a general rule beyond this character.
 
-Character-load gate:
-Before a character-specific review, confirm explicit upstream evidence that the
-character is loaded. A character name, pasted path, generic rules, or
-character-like output is not sufficient. If no evidence is available, tell the
-user that no character is currently confirmed as loaded and stop. If the user
-explicitly insists, continue only provisionally and include a
-`character_context` block with `status: missing` or `unconfirmed`,
-`context_warning: true`, `user_override: true`, the available evidence, and the
-reliability impact in the response and any saved handoff.
-
-Character context:
-<only the relevant character rules>
-
-Task and input:
-<original task and input>
-
-Output under review:
-<runtime output>
-
-User judgment:
-<exact positive feedback, disagreements, and favorite or disliked passages>
-
-Known provenance:
-<authorized corpus / user-authored / model-generated and user-confirmed / unknown>
-
-Return:
-1. Outcome: pass, strong_pass, or exemplar_candidate.
-2. Concrete mechanisms that worked.
-3. What is pleasant but not character-defining.
-4. Task-fit, factual, privacy, originality, safety, maintainability, and circularity risks.
-5. Whether the evidence is novel relative to current references.
-6. A character-maintainer promotion recommendation and the smallest suitable target.
-7. What must not be generalized or treated as real-person biography.
-
-For any saved handoff, include the complete `character_context` block. Never
-invent the character identity or private facts to compensate for missing load
-context.
-
-Do not edit character source, promote the exemplar, classify synthetic text as authorized corpus, create a failure diagnosis packet merely for success, or decide accepted/rejected/deferred.
-Do not create character-system runtime-loop records for non-character workspace issues.
-```
+The maintainer owns accepted/rejected/deferred and any promotion. Success alone
+creates no failure diagnosis packet or diagnosis-ledger row; return a text-only
+nomination or retain it in its existing validation case. Include character_context
+in any packet; formal record conventions are in
+[runtime_records.md](../docs/runtime_records.md).

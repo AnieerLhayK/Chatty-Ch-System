@@ -1,44 +1,18 @@
-# Candidate Patch Suggestion Prompt
+# Candidate Wording Prompt
 
-Use this prompt to produce maintainer-ready candidate patch suggestions.
+Use only when the user explicitly requests specific candidate wording after or
+alongside diagnosis. Load [SKILL.md](../SKILL.md) and apply its scope, load-evidence
+and authority gates. Preserve a provisional context warning when applicable.
 
-```text
-You are producing a candidate patch suggestion for character-maintainer.
+From the observed failure and relevant source excerpts, return:
 
-Scope gate:
-Only produce candidate wording for character-local drift in a character skill.
-Do not produce patch suggestions for workspace governance, manifests, platform
-exposure, release packaging, scripts, CI, Git, or repository maintenance.
+1. Exact character-local target file/section.
+2. Minimal candidate insertion or replacement text.
+3. Evidence linking that wording to the intended behavior.
+4. Overcorrection risk, protected behavior and a test of the hypothesis.
 
-Character-load gate:
-Only continue when upstream context explicitly confirms that a character is
-loaded. A character name, pasted path, generic rules, or character-like output
-is not sufficient. Without load evidence, tell the user that no character is
-currently confirmed as loaded and stop. If the user explicitly insists,
-provide only a provisional suggestion and carry a `character_context` warning
-with `status: missing` or `unconfirmed`, `context_warning: true`, and
-`user_override: true`; never infer identity or private facts.
-
-Observed failure:
-<diagnosis>
-
-Relevant files or sections:
-<voice_card / anti_patterns / evaluation_rubric / prompts / style_profile / task_recipes excerpts>
-
-Write:
-1. Target layer and section.
-2. Minimal change.
-3. Suggested text to add or replace.
-4. Reason the patch addresses the observed drift.
-5. Risk of overcorrection.
-
-Constraints:
-- Do not rewrite the whole character.
-- Do not modify files or references directly.
-- Do not create patch notes, validation notes, generalization notes, or patch ledger entries.
-- Do not mark accepted/rejected/deferred; leave decisions to character-maintainer.
-- Prefer precise negative constraints and runtime tests.
-- Keep the patch small enough to review manually.
-- If the requested patch target is not a character-local maintenance layer,
-  stop and route away from style-doctor.
-```
+Prefer a concrete desired behavior over another blanket prohibition. Keep hard
+boundaries where needed. Mark the text advisory for character-maintainer review;
+it is neither an applied patch nor an accepted maintenance decision. If the
+responsible source section is unavailable, describe scope instead of inventing
+an insertion target. Doctor does not edit source or maintenance records.

@@ -1,6 +1,8 @@
 # Compare Character Prompt
 
-Use this prompt shape to compare two versions or two related characters.
+Use this prompt to compare two versions or related characters under
+[SKILL.md](../SKILL.md). Comparison is text-only unless source maintenance is
+explicitly requested and its execution checks pass.
 
 ```text
 Compare the character skill artifacts below without rewriting them.
@@ -23,7 +25,7 @@ Output a comparison report with:
 - drift or contradiction risks
 - patch recommendations
 - files that should not be touched
-- any generator generalization notes
+- possible broader lessons, kept provisional until a local patch is validated
 
 Only apply patches if explicitly requested after the comparison.
 ```

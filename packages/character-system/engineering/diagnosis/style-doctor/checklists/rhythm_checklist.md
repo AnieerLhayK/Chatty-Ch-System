@@ -27,10 +27,10 @@ Use for "sentences too full", "rhythm is off", stiff syntax, or collapsed cadenc
 - `prompts`: runtime instruction allows over-complete prose.
 - `task_recipes`: task encourages explanation-heavy output without a compression rule.
 
-## Patch Shape
+## Maintenance Scope
 
-Add an operational rhythm rule:
-
-```markdown
-Rhythm rule: prefer uneven sentence pressure over balanced polish. Let some thoughts stop early. Cut explanatory tails when the emotion is already legible.
-```
+Compare cadence with the actual character rules and working examples. Identify
+the observed mismatch and whether a relevant constraint is missing or ignored.
+Recommend only the smallest responsible surface and a rhythm comparison trial;
+do not prescribe compression or unevenness for every character. Specific
+candidate wording is opt-in under [SKILL.md](../SKILL.md).

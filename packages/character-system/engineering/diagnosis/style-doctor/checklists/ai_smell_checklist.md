@@ -29,10 +29,11 @@ Use when the output feels like ordinary AI instead of the target character.
 - `prompts`: asks for style but not for runtime constraints.
 - `voice_card`: lacks specific diction, stance, or refusal patterns.
 
-## Patch Shape
+## Maintenance Scope
 
-Add a small anti-pattern entry:
-
-```markdown
-Avoid polished AI closure: do not end by summarizing the emotional lesson or offering generic reassurance. Prefer a character-specific unfinished turn, concrete observation, or restrained pivot.
-```
+Check whether the active rules already constrain the observed generic move.
+If they do, test for a generation miss before attributing a source defect.
+When evidence supports maintenance, identify the responsible prompt, anti-pattern
+or rubric and the behavior it should enforce. Preserve reassurance or closure
+when the character and task call for it. Specific candidate wording is opt-in
+under [SKILL.md](../SKILL.md).

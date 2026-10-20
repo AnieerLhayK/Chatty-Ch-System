@@ -34,6 +34,10 @@ Then edit `character_id`, `display_name`, `corpus_path`, and `output_path`.
 
 ## 3. Build
 
+Follow [the skill contract](../SKILL.md) before execution: verify the explicit
+output target is new or generator-owned. A manually evolved character uses
+character-maintainer rather than being overwritten by this command.
+
 ```bash
 python scripts/build_character.py --config configs/sample-character.json
 ```

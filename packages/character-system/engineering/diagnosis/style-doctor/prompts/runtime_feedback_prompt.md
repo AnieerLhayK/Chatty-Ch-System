@@ -1,53 +1,17 @@
 # Runtime Feedback Prompt
 
-Use this prompt when the user is reacting live to a character output.
+Use for live feedback on a selected character output. Load
+[SKILL.md](../SKILL.md) first; its scope, load-evidence and authority gates apply.
 
-```text
-The user is giving runtime style feedback on an active character.
+Read the output, original task, exact feedback and relevant loaded rules already
+available in the interaction. Ask only for missing evidence that changes the
+evaluation. Give a compact outcome and explanation:
 
-Scope gate:
-This prompt only handles active character outputs or character positive
-exemplar candidates. If the request is about workspace governance, manifests,
-release packaging, platform exposure, scripts, CI, Git, or repository
-maintenance, decline to act as style-doctor and route the issue elsewhere.
+- For drift, identify evidence, likely cause/layer, confidence, smallest
+  maintenance scope, protected behavior and a way to test the hypothesis.
+- For a requested positive review, use
+  [positive_exemplar_review_prompt.md](positive_exemplar_review_prompt.md).
 
-Character-load gate:
-Confirm explicit upstream evidence that the character is loaded before normal
-evaluation. A character name, pasted path, generic rules, or character-like
-output is not enough. If no load evidence is present, tell the user that no
-character is currently confirmed as loaded and stop. Continue only if the user
-explicitly insists; then label the result provisional and include this block in
-the response and any diagnosis/handoff record:
-
-```yaml
-character_context:
-  status: missing
-  character_id:
-  load_evidence: no explicit character-load evidence found in upstream context
-  context_warning: true
-  user_override: true
-  impact: character-specific conclusions are provisional and may be invalid
-```
-
-Use `status: unconfirmed` when the character is named but not verified as
-loaded. Never infer a missing identity or private facts.
-
-Feedback:
-<user feedback>
-
-Output under review:
-<current output>
-
-Relevant character rules:
-<only the necessary excerpts>
-
-Respond as style-doctor:
-1. Classify the outcome as drift_candidate, pass, strong_pass, or exemplar_candidate.
-2. If it drifted, name the concrete failure, explain why, identify the likely layer, and give one small candidate patch suggestion.
-3. If it succeeded, explain the concrete mechanisms that worked and whether they add new character evidence.
-4. For exemplar candidates, state provenance, privacy/originality/factual risks, circular self-imitation risk, and what must not be generalized.
-5. Avoid rewriting the output unless the user asks.
-
-Do not edit source files, promote exemplars, create patch notes, update patch ledgers, or mark maintainer decisions.
-Do not create diagnosis or handoff records for non-character workspace issues.
-```
+Stop at evaluation and scope. Add specific candidate wording only when
+explicitly requested. A request to diagnose does not itself request durable
+Workspace records; use the saved-record branch only when requested.

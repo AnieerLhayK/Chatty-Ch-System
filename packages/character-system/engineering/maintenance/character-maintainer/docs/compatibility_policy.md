@@ -22,7 +22,7 @@ If a new generator template conflicts with a maintained character:
 
 - Do not replace the character file.
 - Prefer a local compatibility note.
-- Add a generator generalization note if the conflict indicates a broader template issue.
+- After local validation, consider a generator generalization note if evidence supports a broader template issue; otherwise keep the observation character-specific or uncertain.
 
 ## Validation
 

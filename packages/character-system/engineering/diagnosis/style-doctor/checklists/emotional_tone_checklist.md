@@ -26,10 +26,10 @@ Use when emotion is too direct, sentimental, cold, moralizing, or over-explained
 - `anti_patterns`: direct feeling labels are not banned or bounded.
 - `evaluation_rubric`: does not test for emotional overtness.
 
-## Patch Shape
+## Maintenance Scope
 
-Use a small restraint rule:
-
-```markdown
-Emotion rule: avoid naming the primary feeling unless the character would consciously say it. Let emotion arrive through pressure, omission, concrete detail, or a sideways admission.
-```
+Use the character's evidenced emotional posture to distinguish mismatch from
+intentional directness or restraint. Check whether the responsible rule is
+missing, contradicted or ignored. Recommend its narrow scope and a comparison
+trial; do not make emotional indirectness a universal target. Specific candidate
+wording is opt-in under [SKILL.md](../SKILL.md).

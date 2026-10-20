@@ -1,6 +1,6 @@
 # Character Generator Prompt
 
-Use `character-generator` to build a style-inspired writing skill from an authorized corpus or an existing config. It requires Python execution, Git inspection, write access to the configured output, and package validation.
+Load [SKILL.md](SKILL.md) to build a style-inspired writing skill from an authorized corpus or an existing config. Execution requires Python, verified relevant Git state, output authority and package validation; text-only intake can identify missing inputs or describe a proposed build without execution.
 
 ## Conversational intake
 
@@ -15,7 +15,7 @@ Ask for optional preferences only when useful: output path, privacy and style st
 
 Do not edit existing runtime characters or the `character-maintainer` and `style-doctor` skills as part of generation.
 
-When source planning is active, write the ignored local intake/plan and preserve the corpus-reading handoff. Generate or update source README files only when requested.
+For an authorized build, save intake/plan files in the host's approved staging location or an established ignored local config location. Preserve the corpus-reading handoff when source planning is active. Generate or update source README files only when requested.
 
 ## Existing config
 
@@ -39,6 +39,6 @@ Before rebuilding, verify the config's output path and inspect the target state.
 
 ## Report
 
-Confirm the output contains `SKILL.md`, `README.md`, `references/`, `prompts/`, `reports/`, `output_manifest.json`, and `reports/corpus_reading_handoff.md` when source planning is active. Summarize the build plan without private excerpts, generated files, validation, privacy/quality gaps, and whether maintainer follow-up is recommended. Do not commit unless explicitly asked.
+Check the existing builder's output contract, including its referenced resources, validation cases and manifest. Confirm `reports/corpus_reading_handoff.md` when source planning is active. Report generated files, executed validation and privacy/quality gaps without private excerpts. Identify any runtime trials still needed; structural validation alone does not establish style fidelity. Git delivery follows the host's existing authority and policy.
 
 The output is a style-inspired, bounded writing and discussion skill. Never create an identity simulator, impersonation bot, private-fact inference tool, private chatbot, or corpus reconstruction tool.

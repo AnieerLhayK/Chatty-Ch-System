@@ -1,84 +1,75 @@
-# Runtime Evaluation And Diagnosis
+# Diagnosis Detail
 
-Runtime evaluation starts from the actual output and user response, not from an abstract idea of the character. Most evaluations diagnose failure; unusually strong outputs may instead become positive evidence candidates.
+Use [SKILL.md](../SKILL.md) for scope, load gates and the evaluation sequence.
+This reference supplies layer mapping, context fields and optional fuller output
+formats. Load only the section needed for the current evaluation.
 
-Runtime evaluation is only for character skill outputs. Workspace governance,
-manifest, release, platform exposure, migration, script, CI, Git, or repository
-maintenance issues are out of scope and should be routed to workspace task
-resolution instead of `style-doctor`.
+## Layer Selection
 
-## Inputs
+Locate the first observable move where the output diverges from the loaded
+rules. Separate task success, voice success and context uncertainty. Attribute
+the failure only as far as the supplied evidence supports.
 
-- Active character skill context.
-- Explicit upstream evidence that the character is loaded. A character name,
-  pasted path, generic rules, or character-like output is not enough.
-- Current generated output.
-- User feedback.
-- Any task constraints that shaped the output.
+| Surface | Evidence to inspect |
+| --- | --- |
+| SKILL.md / prompts / task_recipes | Routing, active instructions and task-specific behavior |
+| voice_card | Relational posture, stance and voice identity |
+| style_profile / writing_patterns | Diction, rhythm, image function and paragraph movement |
+| anti_patterns | An observed recurring habit the existing rules fail to constrain |
+| evaluation_rubric | A demonstrated failure the existing evaluation misses |
 
-## Method
+Use the character's actual paths, including dedicated rhythm/imagery files when
+present. These are hypotheses, not a mandatory patch order. One output can be a
+generation miss without proving a source defect. A character's intentional
+roughness, silence or directness is not drift by itself.
 
-1. Apply the Scope Gate and Character Context Gate.
-2. If no character-load evidence is available, stop normal diagnosis and ask the
-   user to load a character. Continue only after an explicit user override,
-   marking the run provisional.
-3. Preserve the user's wording.
-4. Identify the first sentence or move where the character breaks.
-5. Separate task success from voice success.
-6. Classify the failure: AI smell, drift, rhythm, emotion, imagery, or prompt failure.
-7. Map the failure to a likely layer.
-8. Suggest the smallest patch that would have prevented this exact failure.
+## Character Context Block
 
-For a successful output:
+Include all six fields below in every diagnosis/handoff packet, including packet
+text returned without writing. For normal evaluation use confirmed, false, false
+and the actual character id, load evidence and reliability impact.
 
-1. Classify it as `pass`, `strong_pass`, or `exemplar_candidate`.
-2. Identify concrete mechanisms rather than praising the passage generally.
-3. Verify provenance, factual fidelity, privacy, originality, safety, and maintainability.
-4. Check whether it merely repeats existing guidance or adds useful evidence.
-5. Send any promotion recommendation to `character-maintainer`.
+On an explicit user override without load confirmation, show this block in the
+chat response and every packet. Use unconfirmed when a character is named but
+not verified; otherwise use missing. Keep an unknown character_id empty.
 
-## Authority Boundary
+```yaml
+character_context:
+  status: missing
+  character_id:
+  load_evidence: no explicit character-load evidence found in upstream context
+  context_warning: true
+  user_override: true
+  impact: character-specific conclusions are provisional and may be invalid
+```
 
-Runtime diagnosis stops before maintenance. It may produce diagnosis and handoff records, but it should not edit character files, write patch notes, update the patch ledger, or decide accepted/rejected/deferred.
+A provisional evaluation may identify textual mechanisms and uncertainty; it
+cannot establish the named character's runtime behavior. Withhold a character
+pass/drift or exemplar verdict rather than forcing one of the confirmed-context
+classifications. Do not infer private facts or a missing identity to complete
+the block.
 
-Suggested patch text is candidate material for `character-maintainer`, not an applied patch.
+## Optional Fuller Response
 
-Positive evaluation also stops before maintenance. The doctor may nominate an
-exemplar but cannot insert it into references, authorize it as corpus, or make
-the maintainer's promotion decision.
+Default to a compact answer that includes the outcome, concrete evidence,
+likely cause/layer and confidence, maintenance scope, protected behavior and a
+hypothesis-testing check. Expand only when the task warrants it:
 
-## Layer Map
+```markdown
+**Outcome And Context**
+<drift_candidate / pass / strong_pass / exemplar_candidate; source/load evidence>
 
-`voice_card` defines who is speaking and the basic relational posture.
+**Evidence And Cause**
+<minimum excerpt, rule mismatch, likely layer, confidence and alternatives>
 
-`style_profile` defines how the voice moves: rhythm, syntax, image density, emotional indirectness, and texture.
+**Maintenance Scope**
+<smallest responsible section and the intended behavior change>
 
-`anti_patterns` defines what must not happen, ideally with concrete bad examples.
+**Preserve And Check**
+<working behavior to protect; a prompt or comparison that tests the hypothesis>
+```
 
-`evaluation_rubric` defines how outputs are judged and what failures should be caught before delivery.
-
-`prompts` define runtime instruction priority and failure handling.
-
-`task_recipes` define how the character behaves in specific tasks.
-
-## Good Diagnosis
-
-A good diagnosis is narrow, evidenced, and maintainable. It explains why the output failed, not just that it failed.
-
-When a diagnosis is saved, it should be a Markdown packet in the default
-runtime-loop directories, not just text in the conversation. Saved packets must
-include a concise `session_snapshot` and a `session_storage` pointer when
-available. If the session cannot be referenced later, state that explicitly.
-They must also include `character_context`. For a forced run without confirmed
-load evidence, set `context_warning: true` and `user_override: true` so the
-maintainer can distinguish a context failure from a style failure.
-This lets `character-maintainer` re-check the evidence, especially when the
-diagnosis was produced by a weaker model.
-
-## Bad Diagnosis
-
-A bad diagnosis says only "make it more target character", recommends more poetic language, or rewrites the whole character without locating the failed layer.
-
-A bad positive review says only "this is beautiful", copies the whole passage
-into references, ignores provenance, or treats one model-generated success as
-proof of authentic character biography.
+Specific replacement text uses the opt-in
+[candidate wording prompt](../prompts/patch_suggestion_prompt.md). A handoff can
+use scope and intended behavior without pre-writing the maintainer's patch.
+Durable Workspace records follow [runtime_records.md](runtime_records.md).

@@ -1,21 +1,15 @@
 # Offline Maintenance Prompt
 
-Use this prompt shape for a full maintenance pass over an existing character.
+Load [SKILL.md](../SKILL.md) and establish its target, mode and authority checks.
+An explicit offline maintenance request does not require a Doctor packet.
 
-```text
-Maintain characters/<character_id> as an existing character skill.
+Inspect the relevant character entry, references, prompts and recent manual
+maintenance decisions. Use the
+[cross-file checklist](../checklists/crossfile_consistency_checklist.md) for a
+substantial audit. Identify concrete contradictions or obsolete instructions,
+then select the smallest responsible surfaces and preserve working examples.
 
-Do not rewrite the character. Diagnose first, then make only necessary patch-level edits.
-
-Read the available SKILL.md, references/, prompts/, and reports/. Check cross-file alignment among voice_card, style_profile, writing_patterns, anti_patterns, evaluation_rubric, task_recipes, and prompts.
-
-Find style drift, prompt inconsistency, weak anti-patterns, rubric failures, generic writing tendencies, compatibility issues, and stale evolution notes.
-
-Output:
-- concise diagnosis
-- targeted patches
-- report or changelog entry
-- generator generalization note only if the lesson should affect future generated characters
-
-Never edit character-generator or generator templates.
-```
+Deliver a focused proposal or authorized patch and an established maintenance
+note describing evidence, changes, expected effect, regression checks and gaps.
+Report actual checks separately from unrun output trials. If requested scope or
+precedence is ambiguous, return the specific uncertainty rather than rewriting.

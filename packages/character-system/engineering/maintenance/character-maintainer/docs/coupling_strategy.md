@@ -23,7 +23,10 @@ The maintainer must not:
 
 ## Practical rule
 
-If the problem is inside one character, patch the character. If the lesson may help future generated characters, write a generalization note. If a generator template seems wrong, document the issue and proposed template-level change instead of editing it.
+If the problem is inside one character, patch that character. After local
+validation, classify a broader lesson and write a generalization note only when
+evidence supports its wider use. If a generator template seems wrong, document
+the finding and uncertainty instead of editing generator assets.
 
 ## Cross-system contract
 
