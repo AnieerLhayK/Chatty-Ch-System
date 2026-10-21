@@ -79,14 +79,18 @@ CI 另在 Python 3.11、3.12 上安装 filter 并检查 CLI。
 
 ## e-Chatter Windows 候选版
 
-下载 [e-Chatter 0.2.0-rc.1](https://github.com/AnieerLhayK/Chatty-Ch-System/releases/tag/e-chatter-v0.2.0-rc.1)。
+下载 [e-Chatter 0.2.0-rc.2](https://github.com/AnieerLhayK/Chatty-Ch-System/releases/tag/e-chatter-v0.2.0-rc.2)。
 完整解压 ZIP，在 Windows 11 x64 上启动 `e-Chatter.exe`，运行时无需安装 Python 或 Node。
 所选 Codex 或 DeepSeek Harness 须另行安装并登录；受支持版本见应用设置。
 发行包不携带个人角色、登录凭据或会话。
 
-本次为 **Pre-release**：真实 DeepSeek API Key 和干净 Windows 11 验收尚未完成，
-不替代 v0.1.0 稳定版。使用附件 `SHA256SUMS` 校验 ZIP；`release.json` 记录源码及验收限制。
+此候选包包含修订后的 Generator、Doctor、Maintainer 指令：必要输入更明确，Doctor
+默认交付诊断，证据充分时可直接维护。应用界面和候选审查流程保持一致。
 
-[独立源码与构建说明](packages/character-system/applications/e-chatter/versions/0.2.0-rc.1/README.zh-CN.md)：
+本次为 **Pre-release**：此构建尚未重新完成真实 Codex、DeepSeek 账户／Key 和干净
+Windows 11 验收，不替代 v0.1.0 稳定版；旧 rc.1 Release 仍可下载。
+使用附件 `SHA256SUMS` 校验 ZIP；`release.json` 记录源码及验收限制。
+
+[独立源码与构建说明](packages/character-system/applications/e-chatter/versions/0.2.0-rc.2/README.zh-CN.md)：
 开发使用 Python 3.13、Node 22。快照不可直接修改，修复返回 ai-workbench 后晋升新版本。
 两端分发同一份验收 ZIP，不分别重建后宣称相同。

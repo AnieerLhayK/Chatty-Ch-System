@@ -10,6 +10,7 @@ candidate.json 选择最新本地候选版；全部稳定验收通过后才建�
 进入所选版本的 README 查看独立使用和构建说明。用户解压 ZIP 即可启动，无需
 Python／Node，自行安装并登录受支持的 Agent。发行包不包含个人角色。
 
-公开投影仅包含明确批准的 0.2.0-rc.1 候选快照。下载入口为 Chatty-Ch-System
-的 `e-chatter-v0.2.0-rc.1` Pre-release；干净 Windows 11 和真实 API Key 尚未验收，
-此候选版不替代稳定版。
+公开投影仅包含明确批准的 0.2.0-rc.2 候选快照。下载入口为 Chatty-Ch-System
+的 `e-chatter-v0.2.0-rc.2` Pre-release；此构建尚未重新完成真实 Codex、DeepSeek
+账户／Key 和干净 Windows 11 验收，不替代稳定版。此包包含修订后的 Generator、
+Doctor、Maintainer 指令；应用界面和候选审查流程保持一致。

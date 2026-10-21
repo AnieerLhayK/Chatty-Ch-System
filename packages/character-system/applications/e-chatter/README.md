@@ -14,7 +14,9 @@ Open the selected version's README for standalone use and build instructions.
 Users extract the Windows ZIP and launch without Python/Node; install and log in
 to their own supported Agent separately. There are no bundled personal roles.
 
-The public projection explicitly includes only candidate 0.2.0-rc.1 and its
+The public projection explicitly includes only candidate 0.2.0-rc.2 and its
 immutable source snapshot. Download it from the Chatty-Ch-System Pre-release
-`e-chatter-v0.2.0-rc.1`. Clean Windows 11 and real API Key acceptance remain
-unverified; this candidate does not replace a stable release.
+`e-chatter-v0.2.0-rc.2`. Real Codex, DeepSeek account/Key and clean Windows 11
+acceptance have not been repeated for this exact build; this candidate does not
+replace a stable release. The bundle includes the revised Generator, Doctor and
+Maintainer instructions; the application interface and proposal review stay the same.

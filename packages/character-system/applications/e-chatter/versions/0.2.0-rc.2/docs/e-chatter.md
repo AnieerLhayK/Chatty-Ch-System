@@ -65,6 +65,11 @@ engineering tasks; finish or cancel to return to role chat. Doctor diagnoses the
 latest character response, or a response selected from its message action.
 Diagnostics record the exact character version and can supply a maintenance
 handoff. Saving an adjusted version does not establish that its behavior improved.
+Doctor normally returns evidence, likely cause, maintenance scope and a trial;
+specific replacement wording is opt-in. Maintainer can also start from a direct
+maintenance request without a Doctor packet, using the supplied character
+version and relevant evidence. Missing material evidence produces a focused
+request or deferral rather than a speculative change.
 For an explicitly provisional evaluation without a confirmed character response,
 type `@doctor --provisional <text>`. Its saved record is permanently marked as
 unconfirmed and cannot establish a character version's runtime behavior.
@@ -131,3 +136,6 @@ copies only define their own workflows. `engineering-source.json` records upstre
 provenance; no character-system installation is required. The generator child is
 a fixed packaged entry point, and all its corpus inputs/templates/output are
 redirected into that task's staging directory before execution.
+Each provider loads the application policy and the selected role's SKILL.md only.
+Keep these three adapters self-contained; Workspace record procedures and
+filesystem references belong to the upstream skills, not the runtime prompt.

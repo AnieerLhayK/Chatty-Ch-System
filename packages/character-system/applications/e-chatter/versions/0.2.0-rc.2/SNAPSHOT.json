@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "version": "0.2.0-rc.1",
-  "source_revision": "d080727f9fb99d12f12f5336e3536ee42d4b8ab7",
+  "version": "0.2.0-rc.2",
+  "source_revision": "519c243ea23f9b3160a9460c5f043cf5a96eb891",
   "source_package": "packages/ai-workbench",
   "platform": "windows11-x64",
   "files": {
     ".gitignore": "bca1588ef1674eb90f2b840ecc6ba9224ddb782cfb75926057304fb992cdb3f9",
     "AGENTS.md": "25c997522001829a1f4f4193e2c9ba1170dfefb5681bbea5d099afde58f06c64",
     "LICENSE": "c660b5d4c6573cb172fe4eb342da788ba65fe7262e7f9a3a84f0a5a9b11ef034",
-    "pyproject.toml": "35da02b945ac81917dd1765a8ada088418968d21af92de92bb7da739863d6a2e",
+    "pyproject.toml": "1c633deff174a407fb68f2b03999abfa6cc0e841e4b781cca9f26470c67e55e4",
     "README.md": "ce57e70d8bf8f2cc78e2ff797dbbeef7f9ebc8f37246f83a950f00b2d34e7e50",
     "README.zh-CN.md": "78a630a191e3c8209c8097b59f42e0197f9d9916e5f6d7de125715f1813a98f8",
-    "docs/e-chatter.md": "64868e4ca1d51c2dc6b6c306072d0853c821d023a2eae9671271379419f5e125",
+    "docs/e-chatter.md": "ac4e3fd9b0acb71ae8ce9f53afd583051b59e2343643125e23d4fef661e346a2",
     "docs/release-verification.md": "d487b725e028420323ff7f2676b26e7ec3e25ae6c708967e4f3c9e6181a201e2",
     "scripts/build_e_chatter.py": "b20458c57e938e47d11981280f822886a484f041a07f2b1f6bd9aaf84a9f1d34",
     "scripts/launch_e_chatter.py": "42cab1329b9bcb480c130bfe79b28beefe295f5921b73639acbfb0605f9a177e",
@@ -33,18 +33,18 @@
     "src/ai_workbench/e_chatter/providers.py": "91f901763c7086e58778883d903819bee9fbd9d8a4b13b6f38530bdd11d88cd6",
     "src/ai_workbench/e_chatter/service.py": "b75bd8b382fce771665eed8957ab9b92e2147f2197e2c2f8454d4d5c9a219014",
     "src/ai_workbench/e_chatter/store.py": "3e94cc736ea6548cd213a93242ffd1f0a3f83a684c5b63baac8d93d2e6e4a571",
-    "src/ai_workbench/e_chatter/__init__.py": "525246de957e42647f7941ef6404397d877fd46cd094ee0f658756586fddca3f",
+    "src/ai_workbench/e_chatter/__init__.py": "f7481a9ce15ed06a8f8fc88ca2d8f1c7c5a40681b81f34c280cc3e989a8b1f75",
     "src/ai_workbench/e_chatter/__main__.py": "a67c172046323b0efcafe92cb83abc266d5dd4bc931d9312cde1b7bed50643db",
-    "src/ai_workbench/e_chatter/resources/engineering-source.json": "3e8dc97297a49ab6608d5ceb5d5531aa961975052913f1f2649c5035d1b3f205",
+    "src/ai_workbench/e_chatter/resources/engineering-source.json": "f6a3991d1749f06cc233ab5254f6b2c18e35beff2af9a52b8f7222da0b944f38",
     "src/ai_workbench/e_chatter/resources/harness-bridge.mjs": "376f5256dc5706166144eb8c4f208ff00b05f1b49a0a7dbaf6c078e264852e67",
     "src/ai_workbench/e_chatter/resources/policy.md": "4ef2bc84cf08aa7375b3a506c0adb053dbde35912ce831fafae79b430534c7c3",
     "src/ai_workbench/e_chatter/web/index.html": "a813c70fd23070767ba1504d6958bacb3bb85706624fdf8b5526ceb7f8edd5c1",
     "src/ai_workbench/e_chatter/web/assets/demo-B7nmzRhG.js": "5ebbe3af0e05f2008da9887bc136ece6326e8876aad7a432631e1f7b389edc01",
     "src/ai_workbench/e_chatter/web/assets/index-bDjMHoG-.js": "3dfe582b0af95f70faf0699c9ffb78b1f88bf9d5728f1a7374ee27acf557d851",
     "src/ai_workbench/e_chatter/web/assets/index-BOPoV6q2.css": "ae8e9c258f489e5cd29990b28866759c533b8addb19f1c17a450ed20f05f7d73",
-    "src/ai_workbench/e_chatter/resources/skills/doctor/SKILL.md": "52c8882e82e9ca374e2f77c0ef3f8d3254a5218320aba870fc65f274c4062444",
-    "src/ai_workbench/e_chatter/resources/skills/generator/SKILL.md": "296964c9065b460bccd7270e816dfe15df4b790af541ea75159d3819905e2c42",
-    "src/ai_workbench/e_chatter/resources/skills/maintainer/SKILL.md": "345729c9c0c928f4a55033cd20298632626f2a19c66bef0f2dd369e5dcdce260",
+    "src/ai_workbench/e_chatter/resources/skills/doctor/SKILL.md": "66b220b8c675d467047f9b55401671ba6b991979f61dc2909762e4cca8f1cb7b",
+    "src/ai_workbench/e_chatter/resources/skills/generator/SKILL.md": "242fc1cf64e8bebd19c0f5f022d31a88a4b884466ab73c1bfdbb71cdb0464017",
+    "src/ai_workbench/e_chatter/resources/skills/maintainer/SKILL.md": "5619fb81db6862420022117492d2c03e17b9e720c16d2f50f9ec54ddea714aab",
     "src/ai_workbench/e_chatter/resources/generator/schemas/character_config.schema.json": "e440f4a187e312dadb695fd27928991214d3cd436de8dc166da5bd9dfb2e4e69",
     "src/ai_workbench/e_chatter/resources/generator/schemas/output_manifest.schema.json": "39f07bdbb82b7bed925d2fd3385ea115589266781212130a87b040584486f284",
     "src/ai_workbench/e_chatter/resources/generator/scripts/anonymize_corpus.py": "a9ac9274df8022a89d9f3d85596701d0e832ecb7fef5c095282bf07a9080be64",
@@ -83,8 +83,8 @@
     "src/ai_workbench/e_chatter/resources/generator/templates/voice_card.template.md": "6523609044dd57e3da0ba42b347e660dda4236a96082bc61e39cc18f7710a944",
     "src/ai_workbench/e_chatter/resources/generator/templates/writing_patterns.template.md": "e8c077c46a96632507dbfc6cb72555ff16258990e2807ccae9c565b516a86599",
     "frontend/e-chatter/index.html": "280805c13db4384c5b12c550de127b0e1c99b2bb72433d9ed451f09d7362b527",
-    "frontend/e-chatter/package-lock.json": "fb40b7dfa4b3b4d3d41ddc577bb5bb96285b2779559a5a945f74fd11c9b421d2",
-    "frontend/e-chatter/package.json": "cb6f4fca076c3b7ff8ebed8fbf9a201698748418c36444a4be62bdd2c21221e1",
+    "frontend/e-chatter/package-lock.json": "f225364e43d1e6fef945019e1aa8e95bddace12c478ae0389e57ae832c04dc4c",
+    "frontend/e-chatter/package.json": "fa332b7e07e6d436d34e56609c0145febba1b621739f5e5b973c464c46e7a9b6",
     "frontend/e-chatter/tsconfig.json": "d63291b2818a3117cd0425e427c671e2ff8bb3b08d9c2e53b86a6df8649aaacd",
     "frontend/e-chatter/vite.config.ts": "b4b09056b58b95422e0ba19cd8efe446ba55151da6bdbbffdd12aee24563e28c",
     "frontend/e-chatter/src/App.tsx": "a3597298da41d5fd46c94e4e682fa07404edaf68825323a78973ee920dadcc79",
@@ -109,16 +109,15 @@
   },
   "artifact": {
     "filename": "e-Chatter-windows-x64.zip",
-    "relative_path": "0.2.0-rc.1/e-Chatter-windows-x64.zip",
-    "sha256": "f75ec44722158c3bcb093d7b74b1a8a7b5a9c8344bbd319e12d71146b30935d3",
-    "bytes": 178570908
+    "relative_path": "0.2.0-rc.2/e-Chatter-windows-x64.zip",
+    "sha256": "3ed233ca330e826c0f8fe3918189385dc28d3ada8bf35843cf23bbb74df4a4bd",
+    "bytes": 178572712
   },
   "acceptance": {
-    "passed": [
-      "codex_real",
-      "deepseek_account_real"
-    ],
+    "passed": [],
     "missing": [
+      "codex_real",
+      "deepseek_account_real",
       "deepseek_key_real",
       "clean_windows11"
     ],
@@ -143,12 +142,12 @@
       "PyYAML": "6.0.3",
       "PyInstaller": "6.22.3"
     },
-    "frontend_lock_sha256": "fb40b7dfa4b3b4d3d41ddc577bb5bb96285b2779559a5a945f74fd11c9b421d2"
+    "frontend_lock_sha256": "f225364e43d1e6fef945019e1aa8e95bddace12c478ae0389e57ae832c04dc4c"
   },
   "resource_provenance": {
     "schema": 1,
     "source_package": "character-system",
-    "source_revision": "414a934c4074c98297e0aca441156da9e789b477",
+    "source_revision": "e6da224f94f14db0090c763bf0a94b63de8c03b0",
     "policy": "Read-only snapshot; ai-workbench owns its adapters. No runtime characters, private configs, corpus or reports are copied.",
     "files": [
       {
@@ -339,17 +338,17 @@
       {
         "source": "engineering/generation/character-generator/SKILL.md",
         "adaptation": "resources/skills/generator/SKILL.md",
-        "sha256": "7090484e7f69fd5e804aaf20f783cbb40ea5caa070772471495c65949bed0a1d"
+        "sha256": "cb5f4b3e0a3850048e97aa8d8830abe3faf0edc0f74f3c856a92c73f86e36c8b"
       },
       {
         "source": "engineering/maintenance/character-maintainer/SKILL.md",
         "adaptation": "resources/skills/maintainer/SKILL.md",
-        "sha256": "ce0cb43ddeda128cc2c2b28f0b7e1cebd65b9ce88186011056bee65d5105110d"
+        "sha256": "a40ff3aa68f45891bc137e313dc3fd4249c9126e8762ae7a74713e7fec2414e1"
       },
       {
         "source": "engineering/diagnosis/style-doctor/SKILL.md",
         "adaptation": "resources/skills/doctor/SKILL.md",
-        "sha256": "34b5836894e11a7cb03d2b1169dbdeacb4825c6e751f07e76267e7bc170787e3"
+        "sha256": "a09a84be69d307667edee587ff4db54b7aa487ddde1d40c8e420334145bc28d8"
       }
     ]
   }

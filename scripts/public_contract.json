@@ -35,7 +35,7 @@
     "packages/character-system/applications/e-chatter/README.zh-CN.md",
     "packages/character-system/applications/e-chatter/candidate.json",
     "packages/character-system/applications/e-chatter/.gitattributes",
-    "packages/character-system/applications/e-chatter/versions/0.2.0-rc.1/SNAPSHOT.json"
+    "packages/character-system/applications/e-chatter/versions/0.2.0-rc.2/SNAPSHOT.json"
   ],
   "forbidden_paths": [
     "packages/character-system/runtime",
@@ -134,10 +134,10 @@
   ],
   "immutable_snapshots": [
     {
-      "root": "packages/character-system/applications/e-chatter/versions/0.2.0-rc.1",
-      "version": "0.2.0-rc.1",
+      "root": "packages/character-system/applications/e-chatter/versions/0.2.0-rc.2",
+      "version": "0.2.0-rc.2",
       "manifest": "SNAPSHOT.json",
-      "manifest_sha256": "76ec78041e09d299133ee112db6ab985bc87a06a9e8d084db7221856e9598171",
+      "manifest_sha256": "59d40f6e26e393bbdad7ded7a13dea705ed565b717c1cb1de22a7d62d830a3a5",
       "candidate": "packages/character-system/applications/e-chatter/candidate.json"
     }
   ],

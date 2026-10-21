@@ -62,7 +62,7 @@ jobs:
           python scripts/check_public_package.py --dir . --skip-tests
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           $app = Join-Path $env:RUNNER_TEMP 'e-chatter'
-          Copy-Item packages/character-system/applications/e-chatter/versions/0.2.0-rc.1 $app -Recurse
+          Copy-Item packages/character-system/applications/e-chatter/versions/0.2.0-rc.2 $app -Recurse
           "E_CHATTER_SOURCE=$app" >> $env:GITHUB_ENV
       - name: Install standalone application
         shell: pwsh
