@@ -82,10 +82,12 @@ tasks for impersonation, private fact inference, and verbatim reconstruction.
 Create one config file per character:
 
 ```text
-configs/sample-character.json
+configs/_private/my-character.json
 ```
 
-Use `configs/character_config.example.json` as the template. Users should add a new config instead of editing a global config or changing scripts.
+Use `configs/character_config.example.json` as the template and set your own character id, corpus and output paths. Users should add a new private config instead of editing a global config or changing scripts.
+
+The repository's `configs/sample-character.json` is disabled: its Writer A connectivity-test artifact has been removed. Writer A names in examples and synthetic tests remain illustrative; they do not establish an active maintained runtime character.
 
 For unfinished configs, use one of these draft locations:
 
@@ -99,7 +101,7 @@ Draft configs are skipped by `--all` and ignored by Git.
 ## Generate One Character
 
 ```bash
-python scripts/build_character.py --config configs/sample-character.json
+python scripts/build_character.py --config configs/_private/my-character.json
 ```
 
 This reads the config, ingests the corpus, anonymizes sensitive content, extracts style signals, generates the skill files, validates the package, and writes a manifest.
@@ -146,14 +148,14 @@ reusable configs, examples, templates, or reports intended for sharing.
 python scripts/build_character.py --all
 ```
 
-This scans `configs/*.json`, skips `character_config.example.json`, and builds each declared character.
+This scans configs recursively and skips the example config, drafts, and configs with `enabled: false`, including the retired Writer A test config.
 
 ## Platform Exposure
 
 Expose the generated folder to a compatible platform:
 
 ```text
-characters/sample-character/
+characters/<character_id>/
 ```
 
 The platform should use that folder as a character skill. The skill's `SKILL.md` indexes references and task prompts. OpenCode is one supported deployment example; it is not part of the generated skill's role or authority model.
