@@ -99,7 +99,7 @@ def check_required(root: Path) -> list[str]:
 
 
 def check_expression_resources(root: Path) -> list[str]:
-    """Check self-contained references against the build's canonical content hash."""
+    """Check self-contained references against the build's canonical LF content hash."""
     expression = CONTRACT["shared_expression"]
     try:
         expected = json.loads((root / "PROJECTION_SOURCE.json").read_text(encoding="utf-8"))["shared_expression_sha256"]
@@ -109,7 +109,7 @@ def check_expression_resources(root: Path) -> list[str]:
         for consumer in expression["consumers"]:
             directory = root / consumer
             target = directory / "references/shared-expression.md"
-            if hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+            if hashlib.sha256(target.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != expected:
                 issues.append(f"Shared expression resource differs: {consumer}")
             text = (directory / "SKILL.md").read_text(encoding="utf-8")
             if text.count("](references/shared-expression.md)") != 1 or expression["source"] in text:
