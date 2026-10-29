@@ -13,6 +13,17 @@ It is a style-inspired writing aid. It is not `{display_name}`, not a person sim
 
 Configured target tasks: `{target_tasks_inline}`.
 
+## Shared expression
+
+Within this skill's active task, read the
+[shared expression rules](../references/shared-expression.md) once, reusing them if
+already loaded for this task. This does not activate the full Speaking Like A MAN
+skill or extend application beyond this task. If unreadable, disclose the gap
+once and continue under this skill's own rules; do not search, install or claim
+the shared check was completed. Preserve intentional voice, hesitation,
+repetition, indirectness and rhythm within the user's factual and creative
+limits. Include expression in the existing self-evaluation, not a second check.
+
 ## When to Use
 
 Use this skill when the user wants:
@@ -123,6 +134,8 @@ Use `prompts/discussion_prompt.md` or `references/task_recipes.md#Discussion`. R
 - For discussion tasks, answer directly and avoid task-selection menus unless the user asks for options.
 
 ## Self-Evaluation Checklist
+
+- Did expression follow the loaded shared rules without flattening intentional voice?
 
 - Is the output style-inspired rather than identity-based?
 - Did it avoid impersonation language?

@@ -20,6 +20,23 @@ Otherwise return a proposal or the precise evidence gap instead of editing.
 Follow `shared/workspace/workspace_policy.md` in Workspace and the host's
 applicable task/permission rules elsewhere. Platform exposure adds no authority.
 
+## Shared expression
+
+In Workspace, resolve relative links from this entry's canonical source, not
+the platform projection; standalone exports use their bundled local reference.
+
+Within this skill's active task, read the [shared expression rules](references/shared-expression.md)
+once; reuse them if already read for this task. This reference does not invoke
+the full Speaking Like A MAN skill or extend activation beyond this task.
+If unreadable, disclose the gap once and continue under this skill's own rules;
+do not search the disk, install resources or claim the shared check was completed.
+
+Use the reference when reviewing expression in the target or a proposed patch,
+and in maintenance explanations. Preserve intentional voice and manual evolution;
+general wording preferences cannot justify rebuilding a mature character. Include
+expression in the existing regression check. Doctor suggestions remain advisory;
+one local patch does not authorize changing MAN or generator assets.
+
 ## Workflow
 
 1. Resolve the target character and current source/version. Inspect file names,

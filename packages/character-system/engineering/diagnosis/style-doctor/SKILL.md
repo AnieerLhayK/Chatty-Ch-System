@@ -36,6 +36,25 @@ provisional evaluation. Read the context-block instructions in
 chat and every diagnosis/handoff packet, and leave unknown identity unset.
 Confirmed context never turns supplied text into authority to edit source.
 
+## Shared expression
+
+In Workspace, resolve relative links from this entry's canonical source, not
+the platform projection; standalone exports use their bundled local reference.
+
+Within this skill's active task, read the [shared expression rules](references/shared-expression.md)
+once; reuse them if already read for this task. This reference does not invoke
+the full Speaking Like A MAN skill or extend activation beyond this task.
+If unreadable, disclose the gap once and continue under this skill's own rules;
+do not search the disk, install resources or claim the shared check was completed.
+
+Read the reference only once evaluation is permitted by the character-context
+gate above. Use it for expression observations; judge voice against the loaded
+character and requested task. Distinguish a general expression concern, evidence
+of violating an actually loaded rule, and a source-defect hypothesis. Do not
+retroactively attribute a new rule to an older output. Lists, repeated phrasing,
+hesitation or summarized endings alone do not establish drift. This adds no
+non-character evaluation route or authority to patch a source.
+
 ## Evaluation
 
 1. Gather the selected output, original task, relevant surrounding interaction,

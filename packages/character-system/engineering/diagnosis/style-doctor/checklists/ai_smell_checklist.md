@@ -14,6 +14,17 @@ Use when the output feels like ordinary AI instead of the target character.
 - Ends with a tidy insight, lesson, or soft inspirational turn.
 - Sounds helpful but placeless.
 
+An orderly report, purposeful reassurance or a clear opening can fit the task.
+Treat these signals as hypotheses, not a list of prohibited sentence forms.
+
+## Professional Wording
+
+Use the already-loaded shared expression rules to check an opaque professional
+label against definitions, glossary entries and later uses in the supplied text.
+Preserve established terms, symbols, units and experiment-to-metric assignments.
+Unresolved meaning is an evidence gap, not permission to invent a measurement.
+Separate this expression observation from character drift and a source defect.
+
 ## Diagnosis Questions
 
 - Which sentence could appear in any AI assistant's output?

@@ -35,7 +35,10 @@
     "packages/character-system/applications/e-chatter/README.zh-CN.md",
     "packages/character-system/applications/e-chatter/candidate.json",
     "packages/character-system/applications/e-chatter/.gitattributes",
-    "packages/character-system/applications/e-chatter/versions/0.2.0-rc.2/SNAPSHOT.json"
+    "packages/character-system/applications/e-chatter/versions/0.2.0-rc.2/SNAPSHOT.json",
+    "packages/character-system/engineering/generation/character-generator/references/shared-expression.md",
+    "packages/character-system/engineering/diagnosis/style-doctor/references/shared-expression.md",
+    "packages/character-system/engineering/maintenance/character-maintainer/references/shared-expression.md"
   ],
   "forbidden_paths": [
     "packages/character-system/runtime",
@@ -146,5 +149,13 @@
     "packages/character-system/applications/e-chatter/README.zh-CN.md",
     "packages/character-system/applications/e-chatter/candidate.json",
     "packages/character-system/applications/e-chatter/.gitattributes"
-  ]
+  ],
+  "shared_expression": {
+    "source": "skills/content/speaking-like-a-man/references/shared-expression.md",
+    "consumers": [
+      "packages/character-system/engineering/generation/character-generator",
+      "packages/character-system/engineering/diagnosis/style-doctor",
+      "packages/character-system/engineering/maintenance/character-maintainer"
+    ]
+  }
 }

@@ -98,6 +98,27 @@ def check_required(root: Path) -> list[str]:
             if not (root / relative).is_file()]
 
 
+def check_expression_resources(root: Path) -> list[str]:
+    """Check self-contained references against the build's canonical content hash."""
+    expression = CONTRACT["shared_expression"]
+    try:
+        expected = json.loads((root / "PROJECTION_SOURCE.json").read_text(encoding="utf-8"))["shared_expression_sha256"]
+        if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-f]{64}", expected):
+            return ["Invalid shared expression provenance hash"]
+        issues = []
+        for consumer in expression["consumers"]:
+            directory = root / consumer
+            target = directory / "references/shared-expression.md"
+            if hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+                issues.append(f"Shared expression resource differs: {consumer}")
+            text = (directory / "SKILL.md").read_text(encoding="utf-8")
+            if text.count("](references/shared-expression.md)") != 1 or expression["source"] in text:
+                issues.append(f"Shared expression pointer is not local: {consumer}")
+        return issues
+    except (OSError, ValueError, KeyError) as error:
+        return [f"Invalid shared expression bundle: {error}"]
+
+
 def check_forbidden_paths(root: Path) -> list[str]:
     if any(linked(entry) for entry in (*reversed(root.parents), root)):
         return [f"Forbidden linked root: {root}"]
@@ -184,6 +205,8 @@ def main(argv: list[str] | None = None) -> int:
     issues = check_forbidden_paths(root)
     if not issues:
         issues.extend(check_required(root))
+    if not issues:
+        issues.extend(check_expression_resources(root))
     # Do not traverse a tree after a boundary violation.
     if not issues:
         issues.extend(check_forbidden_text(root))

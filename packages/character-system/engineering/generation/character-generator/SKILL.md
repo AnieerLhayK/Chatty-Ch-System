@@ -23,6 +23,23 @@ explicit build or generator update after verifying source, relevant Git state,
 output ownership and a validation path. Otherwise return a text proposal and
 state which check is unavailable. Exposure adds no authority.
 
+## Shared expression
+
+In Workspace, resolve relative links from this entry's canonical source, not
+the platform projection; standalone exports use their bundled local reference.
+
+Within this skill's active task, read the [shared expression rules](references/shared-expression.md)
+once; reuse them if already read for this task. This reference does not invoke
+the full Speaking Like A MAN skill or extend activation beyond this task.
+If unreadable, disclose the gap once and continue under this skill's own rules;
+do not search the disk, install resources or claim the shared check was completed.
+
+Apply the reference to generated guidance and task explanations while keeping
+character-specific voice separate. Builds bundle an identical reference for the
+new character, whose existing delivery check includes it. Sharing this reference
+does not authorize regenerating mature characters; future runtime lessons still
+require the established generalization review.
+
 ## Workflow
 
 1. Establish the build. Read [generator_prompt.md](generator_prompt.md) for

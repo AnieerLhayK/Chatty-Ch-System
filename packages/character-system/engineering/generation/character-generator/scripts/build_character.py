@@ -19,6 +19,7 @@ from ingest_corpus import ingest_corpus
 from intake_plan import normalize_intake_to_config, write_private_plan
 from validate_pack import validate_pack, write_evaluation_report
 from write_manifest import write_manifest
+from expression_resource import generator_reference, bundle_reference
 
 README_START = "<!-- character-generator-source-plan:start -->"
 README_END = "<!-- character-generator-source-plan:end -->"
@@ -310,6 +311,7 @@ def write_corpus_reading_handoff(
 
 
 def write_generated_files(output_path: Path, config: Dict, values: Dict) -> None:
+    expression_rules = generator_reference(PROJECT_ROOT)
     for folder in ["references", "prompts", "reports", Path("tests") / "cases"]:
         (output_path / folder).mkdir(parents=True, exist_ok=True)
 
@@ -350,6 +352,7 @@ def write_generated_files(output_path: Path, config: Dict, values: Dict) -> None
 
     for filename, template_name in root_templates.items():
         (output_path / filename).write_text(render_template(template_name, values), encoding="utf-8")
+    bundle_reference(output_path, expression_rules)
     for filename, template_name in reference_templates.items():
         (output_path / "references" / filename).write_text(
             render_template(template_name, values), encoding="utf-8"

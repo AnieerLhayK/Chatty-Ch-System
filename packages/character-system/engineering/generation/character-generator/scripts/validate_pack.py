@@ -6,6 +6,7 @@ from typing import Dict, List, Tuple
 
 
 REQUIRED_FILES = [
+    "references/shared-expression.md",
     "SKILL.md",
     "README.md",
     "references/style_profile.md",
@@ -58,6 +59,15 @@ def validate_pack(output_path: Path, config: Dict) -> Tuple[bool, List[str]]:
         elif path.is_file() and path.stat().st_size == 0:
             issues.append(f"Required file is empty: {relative}")
 
+    expression = output_path / "references/shared-expression.md"
+    if expression.is_file():
+        from expression_resource import generator_reference
+        try:
+            if expression.read_bytes() != generator_reference(Path(__file__).resolve().parents[1]):
+                issues.append("Shared expression resource differs from the generator source.")
+        except (OSError, ValueError) as error:
+            issues.append(f"Shared expression source unavailable: {error}")
+
     skill_path = output_path / "SKILL.md"
     if skill_path.exists():
         skill_text = skill_path.read_text(encoding="utf-8")
@@ -67,6 +77,8 @@ def validate_pack(output_path: Path, config: Dict) -> Tuple[bool, List[str]]:
         for term in SAFETY_TERMS:
             if term not in lowered:
                 issues.append(f"SKILL.md missing safety boundary term: {term}")
+        if skill_text.count("](references/shared-expression.md)") != 1:
+            issues.append("SKILL.md needs one local shared expression reference.")
     else:
         skill_text = ""
 
