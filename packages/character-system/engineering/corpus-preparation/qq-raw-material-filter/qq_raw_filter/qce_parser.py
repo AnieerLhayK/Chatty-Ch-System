@@ -154,7 +154,7 @@ def _safe_timestamp(ts_val: Any) -> Tuple[int, Optional[datetime]]:
                         return ts_ms, dt
                     except ValueError:
                         continue
-                logger.warning("Could not parse timestamp string: %s", ts_val)
+                logger.warning("Could not parse timestamp string")
                 return 0, None
         else:
             return 0, None
@@ -164,25 +164,29 @@ def _safe_timestamp(ts_val: Any) -> Tuple[int, Optional[datetime]]:
             dt = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc)
         return ts_ms, dt
     except (ValueError, OSError, OverflowError) as e:
-        logger.warning("Timestamp conversion error for %r: %s", ts_val, e)
+        logger.warning("Timestamp conversion error (%s)", type(e).__name__)
         return 0, None
 
 
-def _extract_text_from_content(content: Any) -> str:
+def _extract_text_from_content(content: Any, *, strings_only: bool = False) -> str:
     """Extract text from content, which may be a dict or string."""
     if isinstance(content, str):
         return content
     if isinstance(content, dict):
         text = _resolve_field(content, TEXT_FIELDS)
         if text:
+            if strings_only and not isinstance(text, str):
+                return ""
             return str(text)
         elements = content.get("elements") or []
         parts = []
         for elem in elements:
             if isinstance(elem, dict):
                 elem_data = elem.get("data") or {}
+                if strings_only and not isinstance(elem_data, dict):
+                    continue
                 elem_text = elem_data.get("text", "")
-                if elem_text:
+                if elem_text and (not strings_only or isinstance(elem_text, str)):
                     parts.append(str(elem_text))
         if parts:
             return "\n".join(parts)

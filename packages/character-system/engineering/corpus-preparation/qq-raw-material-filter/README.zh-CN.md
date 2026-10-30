@@ -1,5 +1,13 @@
 # QQ Chat Raw Material Filter
 
+## 研究读取接口
+
+`from qq_raw_filter.corpus_api import read_qce` 只读取调用方明确指定的单个 QCE JSON，
+返回消息、来源 SHA-256、解析版本和编码诊断；不经过角色评分、长度门槛、分桶或去重删样。
+短回复、重复表达和非本人消息均保留，由研究方决定作者身份与样本范围。返回的正文和标识仍为
+私人资料。此接口不提供匿名化，也没有修复原流水线 context/fragments/turns、调试和复核输出的
+完整隐私覆盖；这些出口仍需另行补强。
+
 <div align="center">
 
 **结构化分桶引擎** — 将 QQ Chat Exporter 导出的原始聊天记录粗处理为分桶材料，用于后续 character skill 提炼。

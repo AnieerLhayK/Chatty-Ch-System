@@ -33,6 +33,14 @@ remain outside version control.
 
 ## Tests and maintenance
 
+`from qq_raw_filter.corpus_api import read_qce` reads one explicitly supplied
+QCE JSON file and returns messages, source SHA-256, parser version and coded
+diagnostics. It bypasses character scoring, length thresholds, bucketing and
+deduplication. Short, repeated and non-self messages remain available; callers
+decide authorship and research selection. Returned text and identifiers remain
+private. This reader is not an anonymizer and does not change the original
+pipeline's context, fragment, debug or review-output privacy limitations.
+
 ```bash
 python -m pytest tests -q
 ```
