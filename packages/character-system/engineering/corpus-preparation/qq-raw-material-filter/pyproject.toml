@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "qq-raw-material-filter"
-version = "0.3.2"
+version = "0.3.3"
 description = "QQ Chat Raw Material Filter — structured bucketing for character skill extraction"
 readme = "README.md"
 license = {text = "MIT"}

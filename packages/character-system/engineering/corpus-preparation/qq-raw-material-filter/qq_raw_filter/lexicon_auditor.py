@@ -156,6 +156,7 @@ def audit_legacy_lexicon(
     archive_terms: List[Dict[str, Any]],
     config: Dict[str, Any],
     run_dir: Optional[Path] = None,
+    sanitize=None,
 ) -> Dict[str, Any]:
     """Run frequency audit of archived lexicon terms against classified blocks.
 
@@ -284,19 +285,21 @@ def audit_legacy_lexicon(
     # Write outputs if run_dir provided
     output_paths: Dict[str, str] = {}
     if run_dir:
+        output_entries = sanitize(audit_entries) if sanitize else audit_entries
+        output_stats = sanitize(stats) if sanitize else stats
         audit_cfg = config.get("lexicon", {}).get("audit", {})
 
         if audit_cfg.get("output_audit_file", True):
             audit_file = run_dir / "legacy_lexicon_frequency_audit.jsonl"
             with audit_file.open("w", encoding="utf-8") as f:
-                for entry in audit_entries:
+                for entry in output_entries:
                     f.write(json.dumps(entry, ensure_ascii=False) + "\n")
             output_paths["audit_jsonl"] = str(audit_file)
             logger.info("Audit written: %s (%d entries)", audit_file, len(audit_entries))
 
         if audit_cfg.get("output_audit_report", True):
             report_path = run_dir / "legacy_lexicon_audit_report.md"
-            generate_audit_report(audit_entries, stats, report_path)
+            generate_audit_report(output_entries, output_stats, report_path)
             output_paths["audit_report"] = str(report_path)
             logger.info("Audit report: %s", report_path)
 

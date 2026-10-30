@@ -26,6 +26,7 @@ from qq_raw_filter.config_loader import ConfigValidationError, load_config, reso
 from qq_raw_filter.host_paths import resolve_ai_root
 from qq_raw_filter.lexicon_loader import inject_lexicon
 from qq_raw_filter.pipeline import run_pipeline, PipelineAbortError
+from qq_raw_filter.export_privacy import ExportPrivacy, PrivacyLogFilter
 
 logger = logging.getLogger(__name__)
 
@@ -99,14 +100,17 @@ def _make_run_dir(output_base: Path) -> Path:
 def main(argv: Optional[List[str]] = None) -> int:
     args = parse_args(argv)
     setup_logging(args.debug)
+    log_filter = PrivacyLogFilter()
+    for handler in logging.getLogger().handlers:
+        handler.addFilter(log_filter)
 
     config_path = _resolve_config_path(args.config)
-    logger.info("Config: %s", config_path if config_path.exists() else "(defaults)")
+    logger.info("Configuration: %s", "file" if config_path.exists() else "defaults")
 
     try:
         config = load_config(config_path if config_path.exists() else None)
     except Exception as e:
-        logger.error("Config error: %s", e)
+        logger.error("configuration_invalid")
         return 1
 
     # Apply CLI overrides
@@ -128,6 +132,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         config.setdefault("identity", {})["me_ids"] = list(args.me_id)
     if args.me_name:
         config.setdefault("identity", {})["me_names"] = list(args.me_name)
+    log_filter.privacy = ExportPrivacy(config)
     if args.input_dir is not None:
         config.setdefault("path", {})["input_dir"] = args.input_dir
     if args.output_dir is not None:
@@ -152,6 +157,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Inject lexicon into config for downstream consumption
     config = inject_lexicon(config, ai_root)
+    log_filter.privacy = ExportPrivacy(config)
 
     logger.info("Identity: ids=%s names=%s",
                  config.get("identity", {}).get("me_ids", []),

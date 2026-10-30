@@ -38,8 +38,18 @@ QCE JSON file and returns messages, source SHA-256, parser version and coded
 diagnostics. It bypasses character scoring, length thresholds, bucketing and
 deduplication. Short, repeated and non-self messages remain available; callers
 decide authorship and research selection. Returned text and identifiers remain
-private. This reader is not an anonymizer and does not change the original
-pipeline's context, fragment, debug or review-output privacy limitations.
+private. This reader is not an anonymizer. The character pipeline separately
+protects its new exports with the configured mask/private-name/private-place/drop
+rules and configured self identifiers, including context, fragments, turns,
+rejected buckets, configuration snapshots, debug/review, audit and diagnostic
+outputs. Mining exports use a protected copy so sensitive n-gram fragments do
+not escape; original in-memory mining still drives scoring and selection.
+New lexicon appends are protected, but existing private lexicon contents are not
+rewritten or approved for sharing. Export source names become neutral aliases,
+and configuration snapshots omit private paths and are not replayable originals.
+These are existing-rule masking guarantees, not three-level semantic review or
+anonymity. Review residual context before disclosure; research-reader outputs
+remain raw and private.
 
 ```bash
 python -m pytest tests -q

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "source_revision": "88c1be8a35a316be9b82e3716c6f51a583fb2bdf",
+  "source_revision": "af0d697e0761a4a6050a161dff38f7a19b4cde93",
   "publisher": "scripts/publishing/sync_chatty_ch_system_repo.py",
   "generator": "packages/character-system/distribution/public-projection/projection.py",
   "shared_expression_sha256": "172f1ee342f436dea40e6adcd58a27f79d76ec9b1aad38fd2e6af2571a47a0db"

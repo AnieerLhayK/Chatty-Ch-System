@@ -31,6 +31,7 @@ from qq_raw_filter.phrase_miner import mine_phrases, generate_phrase_report
 from qq_raw_filter.phrase_cluster import cluster_phrase_candidates
 from qq_raw_filter.lexicon_auditor import audit_legacy_lexicon
 from qq_raw_filter.review_feedback import attach_review_ids, apply_block_review_decisions
+from qq_raw_filter.export_privacy import privacy_for
 
 logger = logging.getLogger(__name__)
 
@@ -380,7 +381,7 @@ def stage_audit_legacy_lexicon(ctx: Dict[str, Any]) -> StageResult:
         pm_dir.mkdir(exist_ok=True)
         audit_run_dir = pm_dir
 
-    result = audit_legacy_lexicon(blocks, bucketed, archive_terms, cfg, audit_run_dir)
+    result = audit_legacy_lexicon(blocks, bucketed, archive_terms, cfg, audit_run_dir, sanitize=privacy_for(ctx).data)
     ctx["lexicon_audit"] = result
 
     stats = result.get("stats", {})
@@ -403,6 +404,7 @@ def stage_write_outputs(ctx: Dict[str, Any]) -> StageResult:
     args = ctx.get("args")
     bucketed = ctx.get("buckets", {})
     blocks = ctx.get("blocks", [])
+    privacy = privacy_for(ctx)
     run_dir = ctx.get("run_dir")
 
     if not run_dir:
@@ -419,11 +421,11 @@ def stage_write_outputs(ctx: Dict[str, Any]) -> StageResult:
         bucket_blocks = bucketed.get(bn, [])
         if bn == "rejected" and not cfg.get("output", {}).get("keep_rejected", True):
             continue
-        _write_jsonl(bucket_blocks, run_dir / f"{bn}.jsonl")
+        _write_jsonl(privacy.data(bucket_blocks), run_dir / f"{bn}.jsonl")
 
     # Config snapshot
     if cfg.get("output", {}).get("write_active_config_snapshot", True):
-        (run_dir / "active_config.toml").write_text(snap_config(cfg), encoding="utf-8")
+        (run_dir / "active_config.toml").write_text(snap_config(privacy.data(cfg)), encoding="utf-8")
 
     # Debug sessions
     if cfg.get("output", {}).get("write_debug_sessions", True):
@@ -440,13 +442,13 @@ def stage_write_outputs(ctx: Dict[str, Any]) -> StageResult:
                 "reasons": b.reasons,
                 "style_tags": getattr(b, "style_tags", []),
             })
-        _write_jsonl(debug_entries, run_dir / "debug_sessions.jsonl")
+        _write_jsonl(privacy.data(debug_entries), run_dir / "debug_sessions.jsonl")
 
     # Stats
     stats = _build_stats(bucketed, blocks, ctx)
     ctx["stats"] = stats
     with (run_dir / "stats.json").open("w", encoding="utf-8") as f:
-        json.dump(stats, f, ensure_ascii=False, indent=2)
+        json.dump(privacy.data(stats), f, ensure_ascii=False, indent=2)
 
     o = stats.get("outputs", {})
     logger.info("Results: candidates=%d micro_style=%d need_anonymize=%d chaos_style=%d debatable=%d rejected=%d",
@@ -477,7 +479,7 @@ def stage_write_review_samples(ctx: Dict[str, Any]) -> StageResult:
     review_dir = run_dir / "review_samples"
     review_dir.mkdir(exist_ok=True)
 
-    n_written = write_stratified_samples(bucketed, review_dir, sample_size, sample_seed)
+    n_written = write_stratified_samples(privacy_for(ctx).data(bucketed), review_dir, sample_size, sample_seed)
 
     return StageResult(
         name="write_review_samples",
@@ -507,6 +509,12 @@ def stage_mine_phrases(ctx: Dict[str, Any]) -> StageResult:
     mining_result = mine_phrases(blocks, bucketed, cfg, lexicon)
     ctx["phrase_mining"] = mining_result
     stats = mining_result.get("stats", {})
+    # Keep the original in-memory mining result for promotion/scoring. Only the
+    # protected copy feeds exports and lexicon append operations. [MASKED] is
+    # non-CJK, so ngrams cannot include or cross a removed sensitive span.
+    privacy = privacy_for(ctx)
+    export_result = mine_phrases(privacy.data(blocks), privacy.data(bucketed), cfg, privacy.data(lexicon))
+    export_result = privacy.data(export_result)
 
     # Write output files if we have a run_dir
     if run_dir:
@@ -517,20 +525,20 @@ def stage_mine_phrases(ctx: Dict[str, Any]) -> StageResult:
         out_cfg = pm_cfg.get("output", {})
         if out_cfg.get("write_phrase_freq_by_length", True):
             for n, key in [(2, "phrase_freq_2gram"), (3, "phrase_freq_3gram"), (4, "phrase_freq_4gram")]:
-                entries = mining_result.get(key, [])
+                entries = export_result.get(key, [])
                 if entries:
                     _write_jsonl(entries, pm_dir / f"phrase_freq_{n}gram.jsonl")
 
         # Write phrase candidates
         if out_cfg.get("write_phrase_candidates", True):
-            candidates = mining_result.get("phrase_candidates", [])
+            candidates = export_result.get("phrase_candidates", [])
             if candidates:
                 _write_jsonl(candidates, pm_dir / "phrase_candidates.jsonl")
 
         clustering_cfg = pm_cfg.get("clustering", {})
         if clustering_cfg.get("enabled", True):
             clusters = cluster_phrase_candidates(
-                mining_result.get("phrase_candidates", []),
+                export_result.get("phrase_candidates", []),
                 clustering_cfg.get("min_surface_overlap", 0.5),
             )
             ctx["phrase_clusters"] = clusters
@@ -539,21 +547,21 @@ def stage_mine_phrases(ctx: Dict[str, Any]) -> StageResult:
 
         # Write review files
         for name in ("review_phrases_top", "review_privacy_terms", "review_chaos_terms", "review_stopword_candidates"):
-            entries = mining_result.get(name, [])
+            entries = export_result.get(name, [])
             if entries:
                 _write_jsonl(entries, pm_dir / f"{name}.jsonl")
 
         # Write stats
         with (pm_dir / "phrase_mining_stats.json").open("w", encoding="utf-8") as f:
-            json.dump(stats, f, ensure_ascii=False, indent=2)
+            json.dump(privacy.data(export_result.get("stats", {})), f, ensure_ascii=False, indent=2)
 
         # Write report
         if out_cfg.get("write_phrase_report", True):
-            generate_phrase_report(mining_result, cfg, pm_dir)
+            generate_phrase_report(export_result, privacy.data(cfg), pm_dir)
 
         # Update auto_phrase_candidates in lexicon directory
         if out_cfg.get("update_auto_phrase_candidates", True):
-            candidates = mining_result.get("phrase_candidates", [])
+            candidates = export_result.get("phrase_candidates", [])
             if candidates:
                 lex_cfg = cfg.get("lexicon", {})
                 auto_path = lex_cfg.get("phrase_candidates_path", "")
@@ -654,9 +662,8 @@ def stage_auto_promote_phrases(ctx: Dict[str, Any]) -> StageResult:
         lex["analysis_markers"] = list(lex.get("analysis_markers", []))
         lex["analysis_markers"].extend(c["phrase"] for c in promoted)
         logger.info(
-            "Auto-promoted %d phrases to active lexicon: %s",
+            "Auto-promoted %d phrases to active lexicon",
             len(promoted),
-            ", ".join(c["phrase"] for c in promoted[:10]),
         )
 
     ctx["auto_promoted_phrases"] = promoted
@@ -706,19 +713,22 @@ def run_pipeline(ctx: Dict[str, Any]) -> Dict[str, Any]:
 
     ctx.setdefault("stage_results", {})
 
+    failed = False
     for name, stage_fn in PIPELINE:
         logger.info("Pipeline stage: %s", name)
         try:
             result = stage_fn(ctx)
         except PipelineAbortError as e:
-            logger.error("Pipeline aborted at stage '%s': %s", name, e)
+            failed = True
+            logger.error("Pipeline aborted at stage '%s'", name)
             ctx["stage_results"][name] = StageResult(
-                name=name, counts={}, warnings=[str(e)])
+                name=name, counts={}, warnings=["stage_aborted"])
             break
         except Exception as e:
-            logger.exception("Pipeline stage '%s' failed: %s", name, e)
+            failed = True
+            logger.error("Pipeline stage '%s' failed", name)
             ctx["stage_results"][name] = StageResult(
-                name=name, counts={}, warnings=[f"EXCEPTION: {e}"])
+                name=name, counts={}, warnings=["stage_exception"])
             break
 
         ctx["stage_results"][name] = result
@@ -728,6 +738,9 @@ def run_pipeline(ctx: Dict[str, Any]) -> Dict[str, Any]:
 
     # Write pipeline_trace.json
     _write_trace(ctx, started_at, elapsed)
+
+    if failed:
+        raise PipelineAbortError("pipeline_failed")
 
     return ctx.get("stats", {})
 
@@ -766,12 +779,12 @@ def _write_trace(ctx: Dict[str, Any], started_at: datetime, elapsed: float) -> N
     }
 
     (run_dir / "pipeline_trace.json").write_text(
-        json.dumps(trace, ensure_ascii=False, indent=2), encoding="utf-8")
+        json.dumps(privacy_for(ctx).data(trace), ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Also write tuning advice
     if ctx["config"].get("tuning_advice", {}).get("enable", True):
         try:
-            generate_tuning_advice(ctx)
+            generate_tuning_advice(privacy_for(ctx).data(ctx))
         except Exception as e:
             logger.warning("Tuning advice generation failed: %s", e)
 

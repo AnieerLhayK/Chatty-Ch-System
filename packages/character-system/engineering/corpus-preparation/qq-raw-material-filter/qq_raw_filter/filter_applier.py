@@ -53,8 +53,9 @@ def apply_drop_sentence_words(blocks: List[MyBlock], drop_words: List[str]) -> i
 def apply_masklist(blocks: List[MyBlock], mask_words: List[str]) -> int:
     """Replace occurrences of mask_words in block.my_text with [MASKED].
 
-    Operates on blocks that are NOT already rejected (masking rejected blocks
-    is unnecessary since they won't be output).
+    Operates on non-rejected blocks as part of the existing selection pipeline.
+    This is not the export boundary: export_privacy independently protects every
+    emitted field and every bucket, including rejected material.
 
     Returns:
         Number of masking operations performed.
