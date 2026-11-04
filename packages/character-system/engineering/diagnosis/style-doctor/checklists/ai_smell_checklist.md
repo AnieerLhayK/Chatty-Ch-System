@@ -27,6 +27,14 @@ Separate this expression observation from character drift and a source defect.
 
 ## Diagnosis Questions
 
+For abstract feelings, use the shared expression rules to check whether an
+attribute or an image forms a natural collocation and contributes meaning or
+voice, rather than merely sounding tender or profound. Preserve idioms and
+purposeful imagery. Treat awkward wording as an expression observation first;
+only actual loading evidence and further testing can support a rule violation
+or source-defect diagnosis. Do not attach an unrelated output as this character's
+failure case.
+
 - Which sentence could appear in any AI assistant's output?
 - Where does the language become smooth at the cost of character?
 - Did the output protect itself from ambiguity?
