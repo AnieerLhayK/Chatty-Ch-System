@@ -57,6 +57,11 @@ non-character evaluation route or authority to patch a source.
 
 ## Evaluation
 
+For an allowed character evaluation of casual chat or natural discussion, read
+the [shared casual chat scenario](references/shared-casual-chat.md)
+and [diagnostic supplement](checklists/casual-chat.md). Apply them only after the
+character-context gate; they do not activate MAN or authorize source edits.
+
 1. Gather the selected output, original task, relevant surrounding interaction,
    exact user feedback and the minimum loaded character rules needed to judge
    them. Reuse available context and distinguish missing evidence from failure.

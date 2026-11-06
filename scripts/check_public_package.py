@@ -114,6 +114,13 @@ def check_expression_resources(root: Path) -> list[str]:
             text = (directory / "SKILL.md").read_text(encoding="utf-8")
             if text.count("](references/shared-expression.md)") != 1 or expression["source"] in text:
                 issues.append(f"Shared expression pointer is not local: {consumer}")
+        doctor = root / "packages/character-system/engineering/diagnosis/style-doctor"
+        casual = doctor / "references/shared-casual-chat.md"
+        expected_casual = json.loads((root / "PROJECTION_SOURCE.json").read_text(encoding="utf-8"))["casual_chat_sha256"]
+        if hashlib.sha256(casual.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != expected_casual:
+            issues.append("Casual chat resource differs: style-doctor")
+        if "](references/shared-casual-chat.md)" not in (doctor / "SKILL.md").read_text(encoding="utf-8"):
+            issues.append("Casual chat pointer is not local: style-doctor")
         return issues
     except (OSError, ValueError, KeyError) as error:
         return [f"Invalid shared expression bundle: {error}"]

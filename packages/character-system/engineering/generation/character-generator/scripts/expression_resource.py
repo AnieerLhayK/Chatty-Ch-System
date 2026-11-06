@@ -8,6 +8,9 @@ import stat
 WORKSPACE_REFERENCE = "skills/content/speaking-like-a-man/references/shared-expression.md"
 LOCAL_REFERENCE = "references/shared-expression.md"
 SOURCE_LINK = re.compile(r"(?<=\]\()(?:\.\./)+" + re.escape(WORKSPACE_REFERENCE) + r"(?=\))")
+CASUAL_REFERENCE = "skills/content/speaking-like-a-man/references/scenarios/casual-chat.md"
+LOCAL_CASUAL_REFERENCE = "references/shared-casual-chat.md"
+CASUAL_LINK = re.compile(r"(?<=\]\()(?:\.\./)+" + re.escape(CASUAL_REFERENCE) + r"(?=\))")
 
 
 def read_reference(root: Path, relative: str) -> bytes:
@@ -55,3 +58,16 @@ def bundle_reference(skill_root: Path, content: bytes) -> None:
         if count != 1 and not (count == 0 and text.count(template_link) == 1):
             raise ValueError(f"Expected one shared expression template pointer: {template}")
         template.write_text(text, encoding="utf-8", newline="\n")
+
+
+def bundle_casual_chat(skill_root: Path, content: bytes) -> None:
+    """Localize an explicitly adopted casual-chat reference in a portable skill."""
+    skill_file = skill_root / "SKILL.md"
+    text = skill_file.read_text(encoding="utf-8")
+    text, count = CASUAL_LINK.subn(LOCAL_CASUAL_REFERENCE, text)
+    if count != 1 and not (count == 0 and text.count(f"]({LOCAL_CASUAL_REFERENCE})") == 1):
+        raise ValueError(f"Expected one casual chat pointer: {skill_file}")
+    skill_file.write_text(text, encoding="utf-8", newline="\n")
+    target = skill_root / LOCAL_CASUAL_REFERENCE
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(content)
